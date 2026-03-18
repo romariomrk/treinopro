@@ -120,7 +120,7 @@ body{display:flex;flex-direction:column;height:100dvh}
 .modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:env(safe-area-inset-top,16px) 16px 14px;flex-shrink:0;border-bottom:1px solid var(--border)}
 .modal-ttl{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--text);flex:1;padding-right:12px;line-height:1.2}
 .modal-close{width:36px;height:36px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:18px;font-weight:700;flex-shrink:0}
-.vid-wrap{width:100%;aspect-ratio:16/9;background:#000;flex-shrink:0}
+.vid-wrap{width:100%;background:#000;flex-shrink:0}
 .vid-wrap iframe{width:100%;height:100%;border:none;display:block}
 .modal-body{padding:14px 16px;flex:1;overflow-y:auto}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
@@ -778,15 +778,118 @@ function renderList(){
     }).join('');
 }
 
+
+// ExerciseDB GIF search - maps exercise names to search terms
+const GIF_SEARCH = {
+  'SupinoReto': 'barbell bench press',
+  'SupinoInclinado': 'incline dumbbell press',
+  'CrucifixoComHalteres': 'dumbbell fly',
+  'CrucifixoInclinado': 'incline dumbbell fly',
+  'CrucifixoMaquinaReto': 'pec deck fly',
+  'CrucifixoMaquinaInclinado': 'cable chest fly',
+  'CrossOver': 'cable crossover',
+  'BarraParalela': 'chest dip',
+  'DesenvolvimentoMaquina1': 'dumbbell shoulder press',
+  'DesenvolvimentoMaquina2': 'machine shoulder press',
+  'ElevacaoLateral': 'dumbbell lateral raise',
+  'ElevacaoFrontal1': 'dumbbell front raise',
+  'ElevacaoFrontal2': 'cable front raise',
+  'ElevacaoFrontal3': 'barbell front raise',
+  'CrucifixoInverso': 'reverse fly',
+  'RemadaAlta': 'upright row',
+  'Encolhimento': 'dumbbell shrug',
+  'PullDown': 'lat pulldown',
+  'PuxadaAlta': 'wide grip pulldown',
+  'RemadaCavaleiro': 'bent over row',
+  'RemadaCurvada1': 'barbell row',
+  'RemadaCurvada2': 'bent over barbell row',
+  'PuxadaPulley': 'cable row',
+  'BarraFixa': 'pull up',
+  'RemadaUnilateral': 'one arm dumbbell row',
+  'PulleyFrente': 'cable pulldown',
+  'RemadaBaixa': 'seated cable row',
+  'TricepsCorda': 'cable tricep pushdown',
+  'TricepsFrances1': 'tricep extension',
+  'TricepsFrances2': 'dumbbell tricep extension',
+  'TricepsFrances3': 'skull crusher',
+  'TricepsTesta1': 'tricep skull crusher',
+  'TricepsTesta2': 'barbell skull crusher',
+  'FlexaoBraco': 'diamond push up',
+  'RoscaDireta': 'barbell curl',
+  'RoscaScottBarra': 'preacher curl',
+  'RoscaConcentrada': 'concentration curl',
+  'RoscaScottMaquina': 'machine preacher curl',
+  'RoscaMartelo1': 'hammer curl',
+  'RoscaMartelo2': 'dumbbell hammer curl',
+  'RoscaMartelo3': 'cross body hammer curl',
+  'RoscaNoBanco': 'incline dumbbell curl',
+  'RoscaAlternada': 'alternating dumbbell curl',
+  'RoscaMartelo': 'hammer curl',
+  'Agachamento1': 'barbell squat',
+  'Agachamento2': 'squat',
+  'AfundoComHalteres': 'dumbbell lunge',
+  'CadeiraExtensora': 'leg extension',
+  'CadeiraFlexora': 'seated leg curl',
+  'ElevacaoDeGluteo1': 'glute bridge',
+  'ElevacaoDeGluteo2': 'hip abduction',
+  'ElevacaoPelvica': 'barbell hip thrust',
+  'Gemeos1': 'standing calf raise',
+  'Gemeos2': 'seated calf raise',
+  'LegPress45': 'leg press',
+  'LegCurlEmPe': 'standing leg curl',
+  'Hack': 'hack squat',
+  'MesaFlexora': 'lying leg curl',
+  'StiffComBarra': 'romanian deadlift',
+  'StiffComHalteres': 'dumbbell romanian deadlift',
+  'PassadasComHalteres': 'dumbbell walking lunge',
+  'Hiperextensao': 'back extension',
+  'GemeosNoHack': 'hack calf raise',
+  'AbdominalSupra1': 'crunch',
+  'AbdominalSupra2': 'weighted crunch',
+  'AbdominalInfra': 'leg raise',
+  'ElevacaoDePernas': 'hanging leg raise',
+  'PranchaAbdominal': 'plank',
+  'PranchaComEscalador': 'mountain climber',
+};
+
+async function fetchGif(vidKey) {
+  const query = GIF_SEARCH[vidKey] || '';
+  if (!query) return null;
+  try {
+    const res = await fetch(`https://exercisedb-api.vercel.app/api/v1/exercises/search?q=${encodeURIComponent(query)}&limit=1`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const ex = data?.exercises?.[0] || data?.results?.[0] || data?.[0];
+    return ex?.gifUrl || ex?.imageUrl || null;
+  } catch(e) {
+    return null;
+  }
+}
+
 function openModal(idx){
   curIdx=idx;
   const plans=gender==='m'?PLANS_H:PLANS_F;
   const ex=plans[curPlan].treinos[curTab].exercises[idx];
   const ytId=YT[ex.vid]||'';
   document.getElementById('mtitle').textContent=ex.name;
-  document.getElementById('vwrap').innerHTML=ytId
-    ?`<iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&playsinline=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>`
-    :`<div class="no-vid">🎬 Vídeo em breve</div>`;
+  // Show GIF placeholder while loading
+  document.getElementById('vwrap').innerHTML=`
+    <div id="gifBox" style="width:100%;aspect-ratio:1/1;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;max-height:260px">
+      <div style="color:#333;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Carregando GIF...</div>
+    </div>
+    ${ytId?`<div style="position:relative;width:100%;aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:none;display:block" src="https://www.youtube.com/embed/${ytId}?rel=0&playsinline=1" allow="encrypted-media" allowfullscreen></iframe></div>`:''}
+  `;
+  // Fetch GIF async
+  fetchGif(ex.vid).then(gifUrl => {
+    const box = document.getElementById('gifBox');
+    if (box) {
+      if (gifUrl) {
+        box.innerHTML = `<img src="${gifUrl}" style="width:100%;max-height:260px;object-fit:contain" alt="${ex.name}" loading="lazy">`;
+      } else {
+        box.style.display = 'none';
+      }
+    }
+  });
   document.getElementById('mstats').innerHTML=
     `<div class="stat"><div class="stat-val">${ex.sets}</div><div class="stat-lbl">Séries</div></div>
      <div class="stat"><div class="stat-val">${ex.reps}</div><div class="stat-lbl">Reps</div></div>
