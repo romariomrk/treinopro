@@ -844,6 +844,7 @@ const EX_SEARCH = {
 
 // Cache: vidKey → { gifUrl, muscles }
 const GIF_CACHE = {};
+const GIF_BASE = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
 
 async function fetchExercise(vidKey) {
   if (GIF_CACHE[vidKey] !== undefined) return GIF_CACHE[vidKey];
@@ -862,10 +863,12 @@ async function fetchExercise(vidKey) {
     const data = await res.json();
     const list = Array.isArray(data) ? data : [];
     if (!list.length) { GIF_CACHE[vidKey] = null; return null; }
-    // Prefer exact or closest match
     const ex = list[0];
+    // Build GIF URL from exercise id
+    const id = String(ex.id || '').padStart(4, '0');
+    const gifUrl = id ? `${GIF_BASE}${id}/0.gif` : null;
     const result = {
-      gifUrl: ex.gifUrl || null,
+      gifUrl,
       muscles: [
         ...(ex.target ? [ex.target] : []),
         ...(ex.secondaryMuscles || []).slice(0, 2)
