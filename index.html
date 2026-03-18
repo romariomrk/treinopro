@@ -120,8 +120,18 @@ body{display:flex;flex-direction:column;height:100dvh}
 .modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:env(safe-area-inset-top,16px) 16px 14px;flex-shrink:0;border-bottom:1px solid var(--border)}
 .modal-ttl{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--text);flex:1;padding-right:12px;line-height:1.2}
 .modal-close{width:36px;height:36px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:18px;font-weight:700;flex-shrink:0}
-.vid-wrap{width:100%;background:#000;flex-shrink:0}
-.vid-wrap iframe{width:100%;height:100%;border:none;display:block}
+.vid-wrap{width:100%;background:#fff;flex-shrink:0;position:relative}
+.gif-box{width:100%;height:280px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#fff;position:relative}
+.gif-box img{width:100%;height:100%;object-fit:contain;display:block}
+.gif-spinner-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;height:100%;background:#fff}
+.gif-spinner{width:36px;height:36px;border:3px solid #eee;border-top-color:#e11d48;border-radius:50%;animation:gifSpin .7s linear infinite}
+.gif-spinner-txt{font-size:10px;font-weight:700;color:#aaa;letter-spacing:.15em;text-transform:uppercase}
+.gif-err{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;height:100%;background:#fff}
+.gif-err-icon{font-size:36px}
+.gif-err-txt{font-size:10px;font-weight:700;color:#aaa;letter-spacing:.1em;text-transform:uppercase}
+.gif-muscles{position:absolute;bottom:6px;left:8px;display:flex;flex-wrap:wrap;gap:4px;max-width:80%}
+.gif-muscle-tag{background:rgba(225,29,72,.12);border:1px solid rgba(225,29,72,.3);border-radius:3px;padding:1px 6px;font-size:9px;font-weight:700;color:#fb7185;letter-spacing:.06em;text-transform:uppercase}
+@keyframes gifSpin{to{transform:rotate(360deg)}}
 .modal-body{padding:14px 16px;flex:1;overflow-y:auto}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .stat{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:10px;text-align:center}
@@ -220,31 +230,6 @@ body{display:flex;flex-direction:column;height:100dvh}
 </div>
 
 <script>
-const YT={
-  'SupinoReto':'1DfiZvuPTM8','SupinoInclinado':'TXdbwO9S7qI','CrucifixoComHalteres':'scS3cToyzao',
-  'CrucifixoInclinado':'HG8NeduHpCQ','CrucifixoMaquinaReto':'3siWXpsisc4','CrucifixoMaquinaInclinado':'3kOFrMCcLYE',
-  'CrossOver':'1ExyKdCjy0c','BarraParalela':'dQGK-f6Sy_8','DesenvolvimentoMaquina1':'bTw4XYXz38I',
-  'DesenvolvimentoMaquina2':'Kwivk2NE3rg','ElevacaoLateral':'xXJj604JShY','ElevacaoFrontal1':'mlE-hGJes4Q',
-  'ElevacaoFrontal2':'XryTQZ11DbM','ElevacaoFrontal3':'bENrTw2HyE8','CrucifixoInverso':'JB3u1iEXpnY',
-  'RemadaAlta':'hCmHh7Hvua0','Encolhimento':'ic-9j6ZA6KM','PullDown':'TCYq0roEOkU','PuxadaAlta':'AwPEGSJ0UgA',
-  'RemadaCavaleiro':'DFVR1p2UMlg','RemadaCurvada1':'wQp-bhmJiRA','RemadaCurvada2':'vTqz6QLsGHY',
-  'PuxadaPulley':'ICgRcCCYQxU','BarraFixa':'u_X-ETNSD_0','RemadaUnilateral':'10Wz8-aZPCg',
-  'PulleyFrente':'jIr4Ka_cLj8','RemadaBaixa':'E_MCMmrX7_s','TricepsCorda':'Y9K4tV1nMHs',
-  'TricepsFrances1':'zmWpS8GKjnw','TricepsFrances2':'5Trl-9DQIBw','TricepsFrances3':'Ul6AsJpyLu4',
-  'TricepsTesta1':'mroHiuDLkpo','TricepsTesta2':'64pDwiPnkQo','FlexaoBraco':'AqI4XWj_9b4',
-  'RoscaDireta':'6HwoWwQEPQc','RoscaScottBarra':'7lpFwUKohvM','RoscaConcentrada':'GDB-OWzr73k',
-  'RoscaScottMaquina':'8-BmTS_OrFA','RoscaMartelo1':'jbTsjAtzvrM','RoscaMartelo2':'Av5bip-VKh8',
-  'RoscaMartelo3':'eEU_SB5Fn9k','RoscaNoBanco':'oJF3X3KU-yo','RoscaAlternada':'v9__lx6M-vo',
-  'RoscaMartelo':'z4Qdi__bfKo','Agachamento1':'XfEmpAXDLfA','Agachamento2':'2ZZAVYqhNQs',
-  'AfundoComHalteres':'aUhdwR6wW2E','CadeiraExtensora':'ij_brtvz1WU','CadeiraFlexora':'Fvrz_PITiLU',
-  'ElevacaoDeGluteo1':'rz0Qy9Y97OI','ElevacaoDeGluteo2':'N8g7IfYvFLs','ElevacaoPelvica':'lRrXggfTghs',
-  'Gemeos1':'FIleUDagjdE','Gemeos2':'U-oPYpIua34','LegPress45':'GxJjMgn9awI','LegCurlEmPe':'3qiyY1zAtxk',
-  'Hack':'NjDF5kVHV9k','MesaFlexora':'CYmXQBD1zFs','StiffComBarra':'fVl48Xbpmz0',
-  'StiffComHalteres':'nHz2LDT9odw','PassadasComHalteres':'fD7fbhJqmdk','Hiperextensao':'08tST3yfbCs',
-  'GemeosNoHack':'DsuwTFoLELM','AbdominalSupra1':'clRm5q57Ias','AbdominalSupra2':'clRm5q57Ias',
-  'AbdominalInfra':'LLttdhRlhVk','ElevacaoDePernas':'excPfE1z4MQ','PranchaAbdominal':'MVq_NYYTPfQ',
-  'PranchaComEscalador':'CvPUyGkcyrA',
-};
 
 const PLANS_H={
   ini_ab:{name:'Plano AB',meta:'4x/semana · 4-8 semanas · Iniciante',level:'i',treinos:[
@@ -740,6 +725,7 @@ function openPlan(id){
   document.getElementById('screenHome').classList.remove('active');
   document.getElementById('screenPlan').classList.add('active');
   document.getElementById('elist').scrollTop=0;
+  preCacheTab();
 }
 
 function goHome(){
@@ -753,7 +739,7 @@ function renderTabs(){
     `<div class="tab${i===curTab?' active':''}" onclick="setTab(${i})">${t.label}</div>`).join('');
 }
 
-function setTab(i){curTab=i;renderTabs();renderList();document.getElementById('elist').scrollTop=0;}
+function setTab(i){curTab=i;renderTabs();renderList();document.getElementById('elist').scrollTop=0;preCacheTab();}
 
 function renderList(){
   const plans=gender==='m'?PLANS_H:PLANS_F;
@@ -779,152 +765,208 @@ function renderList(){
 }
 
 
-// ExerciseDB GIF search - maps exercise names to search terms
-const GIF_SEARCH = {
-  'SupinoReto': 'barbell bench press',
-  'SupinoInclinado': 'incline dumbbell press',
-  'CrucifixoComHalteres': 'dumbbell fly',
-  'CrucifixoInclinado': 'incline dumbbell fly',
-  'CrucifixoMaquinaReto': 'pec deck fly',
-  'CrucifixoMaquinaInclinado': 'cable chest fly',
-  'CrossOver': 'cable crossover',
-  'BarraParalela': 'chest dip',
-  'DesenvolvimentoMaquina1': 'dumbbell shoulder press',
-  'DesenvolvimentoMaquina2': 'machine shoulder press',
-  'ElevacaoLateral': 'dumbbell lateral raise',
-  'ElevacaoFrontal1': 'dumbbell front raise',
-  'ElevacaoFrontal2': 'cable front raise',
-  'ElevacaoFrontal3': 'barbell front raise',
-  'CrucifixoInverso': 'reverse fly',
-  'RemadaAlta': 'upright row',
-  'Encolhimento': 'dumbbell shrug',
-  'PullDown': 'lat pulldown',
-  'PuxadaAlta': 'wide grip pulldown',
-  'RemadaCavaleiro': 'bent over row',
-  'RemadaCurvada1': 'barbell row',
-  'RemadaCurvada2': 'bent over barbell row',
-  'PuxadaPulley': 'cable row',
-  'BarraFixa': 'pull up',
-  'RemadaUnilateral': 'one arm dumbbell row',
-  'PulleyFrente': 'cable pulldown',
-  'RemadaBaixa': 'seated cable row',
-  'TricepsCorda': 'cable tricep pushdown',
-  'TricepsFrances1': 'tricep extension',
-  'TricepsFrances2': 'dumbbell tricep extension',
-  'TricepsFrances3': 'skull crusher',
-  'TricepsTesta1': 'tricep skull crusher',
-  'TricepsTesta2': 'barbell skull crusher',
-  'FlexaoBraco': 'diamond push up',
-  'RoscaDireta': 'barbell curl',
-  'RoscaScottBarra': 'preacher curl',
-  'RoscaConcentrada': 'concentration curl',
-  'RoscaScottMaquina': 'machine preacher curl',
-  'RoscaMartelo1': 'hammer curl',
-  'RoscaMartelo2': 'dumbbell hammer curl',
-  'RoscaMartelo3': 'cross body hammer curl',
-  'RoscaNoBanco': 'incline dumbbell curl',
-  'RoscaAlternada': 'alternating dumbbell curl',
-  'RoscaMartelo': 'hammer curl',
-  'Agachamento1': 'barbell squat',
-  'Agachamento2': 'squat',
-  'AfundoComHalteres': 'dumbbell lunge',
-  'CadeiraExtensora': 'leg extension',
-  'CadeiraFlexora': 'seated leg curl',
-  'ElevacaoDeGluteo1': 'glute bridge',
-  'ElevacaoDeGluteo2': 'hip abduction',
-  'ElevacaoPelvica': 'barbell hip thrust',
-  'Gemeos1': 'standing calf raise',
-  'Gemeos2': 'seated calf raise',
-  'LegPress45': 'leg press',
-  'LegCurlEmPe': 'standing leg curl',
-  'Hack': 'hack squat',
-  'MesaFlexora': 'lying leg curl',
-  'StiffComBarra': 'romanian deadlift',
-  'StiffComHalteres': 'dumbbell romanian deadlift',
-  'PassadasComHalteres': 'dumbbell walking lunge',
-  'Hiperextensao': 'back extension',
-  'GemeosNoHack': 'hack calf raise',
-  'AbdominalSupra1': 'crunch',
-  'AbdominalSupra2': 'weighted crunch',
-  'AbdominalInfra': 'leg raise',
-  'ElevacaoDePernas': 'hanging leg raise',
-  'PranchaAbdominal': 'plank',
-  'PranchaComEscalador': 'mountain climber',
+// ─── ExerciseDB RapidAPI ───
+const RAPID_KEY = '093e2994e2mshbd4c02a0f9688d8p11a9a9jsndb40763320e6';
+const RAPID_HOST = 'exercisedb.p.rapidapi.com';
+
+// Maps vid key → ExerciseDB exercise name (used for search)
+const EX_SEARCH = {
+  'SupinoReto':               'barbell bench press',
+  'SupinoInclinado':          'incline dumbbell press',
+  'CrucifixoComHalteres':     'dumbbell fly',
+  'CrucifixoInclinado':       'incline dumbbell fly',
+  'CrucifixoMaquinaReto':     'pec deck fly',
+  'CrucifixoMaquinaInclinado':'cable chest fly',
+  'CrossOver':                'cable crossover',
+  'BarraParalela':            'chest dip',
+  'DesenvolvimentoMaquina1':  'dumbbell shoulder press',
+  'DesenvolvimentoMaquina2':  'machine shoulder press',
+  'ElevacaoLateral':          'dumbbell lateral raise',
+  'ElevacaoFrontal1':         'dumbbell front raise',
+  'ElevacaoFrontal2':         'cable front raise',
+  'ElevacaoFrontal3':         'barbell front raise',
+  'CrucifixoInverso':         'reverse fly',
+  'RemadaAlta':               'barbell upright row',
+  'Encolhimento':             'dumbbell shrug',
+  'PullDown':                 'lat pulldown',
+  'PuxadaAlta':               'wide grip lat pulldown',
+  'RemadaCavaleiro':          't bar row',
+  'RemadaCurvada1':           'barbell bent over row',
+  'RemadaCurvada2':           'barbell bent over row',
+  'PuxadaPulley':             'cable row',
+  'BarraFixa':                'pull up',
+  'RemadaUnilateral':         'dumbbell one arm row',
+  'PulleyFrente':             'cable pulldown',
+  'RemadaBaixa':              'seated cable row',
+  'TricepsCorda':             'cable pushdown',
+  'TricepsFrances1':          'dumbbell tricep extension',
+  'TricepsFrances2':          'dumbbell tricep extension',
+  'TricepsFrances3':          'ez bar skull crusher',
+  'TricepsTesta1':            'barbell skull crusher',
+  'TricepsTesta2':            'barbell skull crusher',
+  'FlexaoBraco':              'diamond push up',
+  'RoscaDireta':              'barbell curl',
+  'RoscaScottBarra':          'ez bar preacher curl',
+  'RoscaConcentrada':         'concentration curl',
+  'RoscaScottMaquina':        'machine preacher curl',
+  'RoscaMartelo1':            'hammer curl',
+  'RoscaMartelo2':            'dumbbell hammer curl',
+  'RoscaMartelo3':            'cross body hammer curl',
+  'RoscaNoBanco':             'incline dumbbell curl',
+  'RoscaAlternada':           'alternating dumbbell curl',
+  'RoscaMartelo':             'hammer curl',
+  'Agachamento1':             'barbell squat',
+  'Agachamento2':             'squat',
+  'AfundoComHalteres':        'dumbbell lunge',
+  'CadeiraExtensora':         'leg extension',
+  'CadeiraFlexora':           'seated leg curl',
+  'ElevacaoDeGluteo1':        'glute bridge',
+  'ElevacaoDeGluteo2':        'hip abduction',
+  'ElevacaoPelvica':          'barbell hip thrust',
+  'Gemeos1':                  'standing calf raise',
+  'Gemeos2':                  'seated calf raise',
+  'LegPress45':               'leg press',
+  'LegCurlEmPe':              'standing leg curl',
+  'Hack':                     'hack squat',
+  'MesaFlexora':              'lying leg curl',
+  'StiffComBarra':            'romanian deadlift',
+  'StiffComHalteres':         'dumbbell romanian deadlift',
+  'PassadasComHalteres':      'dumbbell walking lunge',
+  'Hiperextensao':            'back extension',
+  'GemeosNoHack':             'calf raise',
+  'AbdominalSupra1':          'crunch',
+  'AbdominalSupra2':          'weighted crunch',
+  'AbdominalInfra':           'leg raise',
+  'ElevacaoDePernas':         'hanging leg raise',
+  'PranchaAbdominal':         'plank',
+  'PranchaComEscalador':      'mountain climber',
 };
 
-async function fetchGif(vidKey) {
-  const query = GIF_SEARCH[vidKey] || '';
-  if (!query) return null;
+// Cache: vidKey → { gifUrl, muscles }
+const GIF_CACHE = {};
+
+async function fetchExercise(vidKey) {
+  if (GIF_CACHE[vidKey] !== undefined) return GIF_CACHE[vidKey];
+  const query = EX_SEARCH[vidKey];
+  if (!query) { GIF_CACHE[vidKey] = null; return null; }
   try {
-    const res = await fetch(`https://exercisedb-api.vercel.app/api/v1/exercises/search?q=${encodeURIComponent(query)}&limit=1`);
-    if (!res.ok) return null;
+    const url = `https://exercisedb.p.rapidapi.com/exercises/name/${encodeURIComponent(query)}?limit=5&offset=0`;
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': RAPID_KEY,
+        'x-rapidapi-host': RAPID_HOST
+      }
+    });
+    if (!res.ok) { GIF_CACHE[vidKey] = null; return null; }
     const data = await res.json();
-    const ex = data?.exercises?.[0] || data?.results?.[0] || data?.[0];
-    return ex?.gifUrl || ex?.imageUrl || null;
+    const list = Array.isArray(data) ? data : [];
+    if (!list.length) { GIF_CACHE[vidKey] = null; return null; }
+    // Prefer exact or closest match
+    const ex = list[0];
+    const result = {
+      gifUrl: ex.gifUrl || null,
+      muscles: [
+        ...(ex.target ? [ex.target] : []),
+        ...(ex.secondaryMuscles || []).slice(0, 2)
+      ]
+    };
+    GIF_CACHE[vidKey] = result;
+    return result;
   } catch(e) {
+    GIF_CACHE[vidKey] = null;
     return null;
   }
 }
 
-function openModal(idx){
-  curIdx=idx;
-  const plans=gender==='m'?PLANS_H:PLANS_F;
-  const ex=plans[curPlan].treinos[curTab].exercises[idx];
-  const ytId=YT[ex.vid]||'';
-  document.getElementById('mtitle').textContent=ex.name;
-  // Show GIF placeholder while loading
-  document.getElementById('vwrap').innerHTML=`
-    <div id="gifBox" style="width:100%;aspect-ratio:1/1;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;max-height:260px">
-      <div style="color:#333;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Carregando GIF...</div>
-    </div>
-    ${ytId?`<div style="position:relative;width:100%;aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:none;display:block" src="https://www.youtube.com/embed/${ytId}?rel=0&playsinline=1" allow="encrypted-media" allowfullscreen></iframe></div>`:''}
-  `;
-  // Fetch GIF async
-  fetchGif(ex.vid).then(gifUrl => {
-    const box = document.getElementById('gifBox');
-    if (box) {
-      if (gifUrl) {
-        box.innerHTML = `<img src="${gifUrl}" style="width:100%;max-height:260px;object-fit:contain" alt="${ex.name}" loading="lazy">`;
-      } else {
-        box.style.display = 'none';
-      }
+function preCacheTab() {
+  const plans = gender === 'm' ? PLANS_H : PLANS_F;
+  const exercises = plans[curPlan].treinos[curTab].exercises;
+  exercises.forEach((ex, i) => {
+    if (GIF_CACHE[ex.vid] === undefined) {
+      setTimeout(() => fetchExercise(ex.vid), i * 200);
     }
   });
-  document.getElementById('mstats').innerHTML=
+}
+
+function renderGifLoading() {
+  document.getElementById('vwrap').innerHTML =
+    `<div class="gif-box"><div class="gif-spinner-wrap">
+      <div class="gif-spinner"></div>
+      <div class="gif-spinner-txt">Carregando GIF...</div>
+    </div></div>`;
+}
+
+function renderGifResult(exName, result) {
+  if (!result || !result.gifUrl) {
+    document.getElementById('vwrap').innerHTML =
+      `<div class="gif-box"><div class="gif-err">
+        <div class="gif-err-icon">🏋️</div>
+        <div class="gif-err-txt">${exName}</div>
+      </div></div>`;
+    return;
+  }
+  const tags = result.muscles.map(m =>
+    `<span class="gif-muscle-tag">${m}</span>`).join('');
+  document.getElementById('vwrap').innerHTML =
+    `<div class="gif-box">
+      <img src="${result.gifUrl}" alt="${exName}" loading="eager"
+           onerror="this.parentElement.innerHTML='<div class=\\'gif-err\\'><div class=\\'gif-err-icon\\'>🏋️</div><div class=\\'gif-err-txt\\'>${exName}</div></div>'">
+      <div class="gif-muscles">${tags}</div>
+    </div>`;
+}
+
+function openModal(idx) {
+  curIdx = idx;
+  const plans = gender === 'm' ? PLANS_H : PLANS_F;
+  const ex = plans[curPlan].treinos[curTab].exercises[idx];
+  document.getElementById('mtitle').textContent = ex.name;
+
+  const cached = GIF_CACHE[ex.vid];
+  if (cached !== undefined) {
+    renderGifResult(ex.name, cached);
+  } else {
+    renderGifLoading();
+    fetchExercise(ex.vid).then(result => {
+      if (curIdx === idx) renderGifResult(ex.name, result);
+    });
+  }
+
+  document.getElementById('mstats').innerHTML =
     `<div class="stat"><div class="stat-val">${ex.sets}</div><div class="stat-lbl">Séries</div></div>
      <div class="stat"><div class="stat-val">${ex.reps}</div><div class="stat-lbl">Reps</div></div>
      <div class="stat"><div class="stat-val">${ex.rest}</div><div class="stat-lbl">Descanso</div></div>`;
-  const isDone=!!done[dk(curPlan,curTab,idx)];
-  const b=document.getElementById('bdone');
-  b.textContent=isDone?'DESMARCAR':'MARCAR FEITO';
-  b.className='btn-done'+(isDone?' un':'');
+  const isDone = !!done[dk(curPlan, curTab, idx)];
+  const b = document.getElementById('bdone');
+  b.textContent = isDone ? 'DESMARCAR' : 'MARCAR FEITO';
+  b.className = 'btn-done' + (isDone ? ' un' : '');
   document.getElementById('modal').classList.add('open');
 }
 
-function closeModal(){
+function closeModal() {
   document.getElementById('modal').classList.remove('open');
-  document.getElementById('vwrap').innerHTML='';
+  document.getElementById('vwrap').innerHTML = '';
 }
 
-function toggleDone(){
-  const k=dk(curPlan,curTab,curIdx);
-  done[k]=!done[k];
-  if(!done[k])delete done[k];
-  const isDone=!!done[k];
-  const b=document.getElementById('bdone');
-  b.textContent=isDone?'DESMARCAR':'MARCAR FEITO';
-  b.className='btn-done'+(isDone?' un':'');
+function toggleDone() {
+  const k = dk(curPlan, curTab, curIdx);
+  done[k] = !done[k];
+  if (!done[k]) delete done[k];
+  const isDone = !!done[k];
+  const b = document.getElementById('bdone');
+  b.textContent = isDone ? 'DESMARCAR' : 'MARCAR FEITO';
+  b.className = 'btn-done' + (isDone ? ' un' : '');
   renderList();
 }
 
-function nextEx(){
-  const plans=gender==='m'?PLANS_H:PLANS_F;
-  const t=plans[curPlan].treinos[curTab];
+function nextEx() {
+  const plans = gender === 'm' ? PLANS_H : PLANS_F;
+  const t = plans[curPlan].treinos[curTab];
   closeModal();
-  setTimeout(()=>openModal((curIdx+1)%t.exercises.length),150);
+  setTimeout(() => openModal((curIdx + 1) % t.exercises.length), 150);
 }
 
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(() => {}); }
 </script>
 </body>
 </html>
