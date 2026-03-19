@@ -228,6 +228,12 @@ body{display:flex;flex-direction:column;height:100dvh}
   box-shadow:0 8px 30px rgba(0,0,0,.6)}
 .vid-wrap iframe{width:100%;height:100%;border:none;display:block}
 .modal-body{padding:16px 18px;flex:1;overflow-y:auto}
+.gif-preview{width:100%;max-width:400px;margin:0 auto 16px;border-radius:12px;overflow:hidden;
+  background:linear-gradient(135deg,rgba(255,23,68,.12),rgba(255,23,68,.06));
+  border:2px solid rgba(255,23,68,.3);box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.gif-preview img{width:100%;height:auto;display:block}
+.gif-label{text-align:center;padding:8px;font-size:11px;color:var(--muted);font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;background:rgba(0,0,0,.3)}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .stat{background:linear-gradient(135deg,rgba(255,23,68,.12),rgba(255,23,68,.06));
   border:1px solid rgba(255,23,68,.3);border-radius:10px;padding:14px;text-align:center;
@@ -331,6 +337,7 @@ body{display:flex;flex-direction:column;height:100dvh}
   </div>
   <div class="vid-wrap" id="vwrap"></div>
   <div class="modal-body">
+    <div class="gif-preview" id="gifpreview"></div>
     <div class="stats-row" id="mstats"></div>
     <div class="modal-acts">
       <button class="btn-done" id="bdone" onclick="toggleDone()"></button>
@@ -364,6 +371,78 @@ const YT={
   'GemeosNoHack':'DsuwTFoLELM','AbdominalSupra1':'clRm5q57Ias','AbdominalSupra2':'clRm5q57Ias',
   'AbdominalInfra':'LLttdhRlhVk','ElevacaoDePernas':'excPfE1z4MQ','PranchaAbdominal':'MVq_NYYTPfQ',
   'PranchaComEscalador':'CvPUyGkcyrA',
+};
+
+const GIFS={
+  'SupinoReto':'https://i.pinimg.com/originals/9c/6c/f4/9c6cf4c0b5fc21c19d8e3c321b4c2413.gif',
+  'SupinoInclinado':'https://thumbs.gfycat.com/ImprobableIncompatibleBantamrooster-size_restricted.gif',
+  'CrucifixoComHalteres':'https://media.tenor.com/5YCrrVJ8AgUAAAAM/dumbbell-fly-chest-fly.gif',
+  'CrucifixoInclinado':'https://thumbs.gfycat.com/VelvetyThatAustraliankelpie-max-1mb.gif',
+  'CrucifixoMaquinaReto':'https://thumbs.gfycat.com/OrnateCircularGoshawk-size_restricted.gif',
+  'CrucifixoMaquinaInclinado':'https://thumbs.gfycat.com/VelvetyThatAustraliankelpie-max-1mb.gif',
+  'CrossOver':'https://thumbs.gfycat.com/BouncyPersonalBluebottlejellyfish-size_restricted.gif',
+  'BarraParalela':'https://thumbs.gfycat.com/FaintDarlingDungbeetle-size_restricted.gif',
+  'DesenvolvimentoMaquina1':'https://thumbs.gfycat.com/ShockedGloriousBobcat-size_restricted.gif',
+  'DesenvolvimentoMaquina2':'https://thumbs.gfycat.com/ShockedGloriousBobcat-size_restricted.gif',
+  'ElevacaoLateral':'https://thumbs.gfycat.com/DarkHideousAmericanmarten-size_restricted.gif',
+  'ElevacaoFrontal1':'https://thumbs.gfycat.com/QuaintDamagedCentipede-size_restricted.gif',
+  'ElevacaoFrontal2':'https://thumbs.gfycat.com/QuaintDamagedCentipede-size_restricted.gif',
+  'ElevacaoFrontal3':'https://thumbs.gfycat.com/QuaintDamagedCentipede-size_restricted.gif',
+  'CrucifixoInverso':'https://thumbs.gfycat.com/LinearHeavenlyAoudad-size_restricted.gif',
+  'RemadaAlta':'https://thumbs.gfycat.com/GreedyTidyHadrosaurus-size_restricted.gif',
+  'Encolhimento':'https://thumbs.gfycat.com/GlitteringWelltodoIchneumonfly-size_restricted.gif',
+  'PullDown':'https://thumbs.gfycat.com/PleasedSizzlingCurassow-size_restricted.gif',
+  'PuxadaAlta':'https://thumbs.gfycat.com/WelllitHonorableBlackpanther-size_restricted.gif',
+  'RemadaCavaleiro':'https://thumbs.gfycat.com/BewitchedFluidBlackfly-size_restricted.gif',
+  'RemadaCurvada1':'https://thumbs.gfycat.com/SnappyScrawnyBlackbird-size_restricted.gif',
+  'RemadaCurvada2':'https://thumbs.gfycat.com/SnappyScrawnyBlackbird-size_restricted.gif',
+  'PuxadaPulley':'https://thumbs.gfycat.com/MiserlyWelldocumentedHarvestmen-size_restricted.gif',
+  'BarraFixa':'https://thumbs.gfycat.com/GloriousScalyBrant-size_restricted.gif',
+  'RemadaUnilateral':'https://thumbs.gfycat.com/SparklingLikableAmericanindianhorse-size_restricted.gif',
+  'PulleyFrente':'https://thumbs.gfycat.com/WelllitHonorableBlackpanther-size_restricted.gif',
+  'RemadaBaixa':'https://thumbs.gfycat.com/FoolishSelfreliantHornbill-size_restricted.gif',
+  'TricepsCorda':'https://thumbs.gfycat.com/ImperfectMadeupAmurratsnake-size_restricted.gif',
+  'TricepsFrances1':'https://thumbs.gfycat.com/ThirdMintyBuzzard-size_restricted.gif',
+  'TricepsFrances2':'https://thumbs.gfycat.com/ThirdMintyBuzzard-size_restricted.gif',
+  'TricepsFrances3':'https://thumbs.gfycat.com/ThirdMintyBuzzard-size_restricted.gif',
+  'TricepsTesta1':'https://thumbs.gfycat.com/NauticalPowerfulEastrussiancoursinghounds-size_restricted.gif',
+  'TricepsTesta2':'https://thumbs.gfycat.com/NauticalPowerfulEastrussiancoursinghounds-size_restricted.gif',
+  'FlexaoBraco':'https://thumbs.gfycat.com/HarshCommonDonkey-size_restricted.gif',
+  'RoscaDireta':'https://thumbs.gfycat.com/GleefulRawErmine-size_restricted.gif',
+  'RoscaScottBarra':'https://thumbs.gfycat.com/DecisiveThriftyAyeaye-size_restricted.gif',
+  'RoscaConcentrada':'https://thumbs.gfycat.com/VioletNiceDarklingbeetle-size_restricted.gif',
+  'RoscaScottMaquina':'https://thumbs.gfycat.com/DecisiveThriftyAyeaye-size_restricted.gif',
+  'RoscaMartelo1':'https://thumbs.gfycat.com/FatDistortedArgentineruddyduck-size_restricted.gif',
+  'RoscaMartelo2':'https://thumbs.gfycat.com/FatDistortedArgentineruddyduck-size_restricted.gif',
+  'RoscaMartelo3':'https://thumbs.gfycat.com/FatDistortedArgentineruddyduck-size_restricted.gif',
+  'RoscaMartelo':'https://thumbs.gfycat.com/FatDistortedArgentineruddyduck-size_restricted.gif',
+  'RoscaNoBanco':'https://thumbs.gfycat.com/VioletNiceDarklingbeetle-size_restricted.gif',
+  'RoscaAlternada':'https://thumbs.gfycat.com/ShadowyPlaintiveCougar-size_restricted.gif',
+  'Agachamento1':'https://thumbs.gfycat.com/VainPastGopher-size_restricted.gif',
+  'Agachamento2':'https://thumbs.gfycat.com/ElatedFabulousDromaeosaur-size_restricted.gif',
+  'AfundoComHalteres':'https://thumbs.gfycat.com/AptAnotherBrahmanbull-size_restricted.gif',
+  'CadeiraExtensora':'https://thumbs.gfycat.com/ForcefulDeficientDormouse-size_restricted.gif',
+  'CadeiraFlexora':'https://thumbs.gfycat.com/NegligibleGrizzledCockroach-size_restricted.gif',
+  'ElevacaoDeGluteo1':'https://thumbs.gfycat.com/DefensiveInfantileKoodoo-size_restricted.gif',
+  'ElevacaoDeGluteo2':'https://thumbs.gfycat.com/AdmirableGrizzledBarbet-size_restricted.gif',
+  'ElevacaoPelvica':'https://thumbs.gfycat.com/LankyGloomyDoctorfish-size_restricted.gif',
+  'Gemeos1':'https://thumbs.gfycat.com/WeeklyCloudyHarrier-size_restricted.gif',
+  'Gemeos2':'https://thumbs.gfycat.com/WeeklyCloudyHarrier-size_restricted.gif',
+  'LegPress45':'https://thumbs.gfycat.com/EvergreenGlassIrishsetter-size_restricted.gif',
+  'LegCurlEmPe':'https://thumbs.gfycat.com/FriendlyForthrightCock-size_restricted.gif',
+  'Hack':'https://thumbs.gfycat.com/CalculatingSmoggyAmericanpainthorse-size_restricted.gif',
+  'MesaFlexora':'https://thumbs.gfycat.com/QuaintWaryBumblebee-size_restricted.gif',
+  'StiffComBarra':'https://thumbs.gfycat.com/InfantileEntireBonobo-size_restricted.gif',
+  'StiffComHalteres':'https://thumbs.gfycat.com/FancyLegalCur-size_restricted.gif',
+  'PassadasComHalteres':'https://thumbs.gfycat.com/AptAnotherBrahmanbull-size_restricted.gif',
+  'Hiperextensao':'https://thumbs.gfycat.com/HandyWelcomeFirecrest-size_restricted.gif',
+  'GemeosNoHack':'https://thumbs.gfycat.com/WeeklyCloudyHarrier-size_restricted.gif',
+  'AbdominalSupra1':'https://thumbs.gfycat.com/ShrillDemandingDodobird-size_restricted.gif',
+  'AbdominalSupra2':'https://thumbs.gfycat.com/ShrillDemandingDodobird-size_restricted.gif',
+  'AbdominalInfra':'https://thumbs.gfycat.com/UnevenShadyGangesdolphin-size_restricted.gif',
+  'ElevacaoDePernas':'https://thumbs.gfycat.com/SardonicJointApatosaur-size_restricted.gif',
+  'PranchaAbdominal':'https://thumbs.gfycat.com/UnlinedFrightenedCowrie-size_restricted.gif',
+  'PranchaComEscalador':'https://thumbs.gfycat.com/FelineExcellentBeauceron-size_restricted.gif',
 };
 
 const PLANS_H={
@@ -899,10 +978,18 @@ function openModal(idx){
   const plans=gender==='m'?PLANS_H:PLANS_F;
   const ex=plans[curPlan].treinos[curTab].exercises[idx];
   const ytId=YT[ex.vid]||'';
+  const gifUrl=GIFS[ex.vid]||'';
+  
   document.getElementById('mtitle').textContent=ex.name;
+  
   document.getElementById('vwrap').innerHTML=ytId
     ?`<iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&playsinline=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>`
     :`<div class="no-vid">🎬 Vídeo em breve</div>`;
+  
+  document.getElementById('gifpreview').innerHTML=gifUrl
+    ?`<img src="${gifUrl}" alt="${ex.name}"><div class="gif-label">🎯 Preview do Movimento</div>`
+    :'';
+  
   document.getElementById('mstats').innerHTML=
     `<div class="stat"><div class="stat-val">${ex.sets}</div><div class="stat-lbl">Séries</div></div>
      <div class="stat"><div class="stat-val">${ex.reps}</div><div class="stat-lbl">Reps</div></div>
