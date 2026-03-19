@@ -14,129 +14,61 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --red:#e11d48;--red2:#ff4d6d;--red-dark:#9f0f2e;--red-glow:rgba(225,29,72,.35);
-  --bg:#0d0d0d;--bg2:#141414;--bg3:#1c1c1c;--bg4:#242424;
-  --border:#2a2a2a;--border2:#383838;
-  --text:#f0f0f0;--muted:#666;--faint:#2a2a2a;
-  --gold:#f59e0b;--steel:#94a3b8;
-  --gym-bg: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(255,255,255,.012) 2px,
-    rgba(255,255,255,.012) 4px
-  ),
-  repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 40px,
-    rgba(255,255,255,.006) 40px,
-    rgba(255,255,255,.006) 41px
-  );
+  --red:#e11d48;--red2:#fb7185;--red-dark:#9f0f2e;
+  --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bg4:#222;
+  --border:#2a2a2a;--border2:#333;
+  --text:#f5f5f5;--muted:#777;--faint:#333;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;font-family:'Barlow',sans-serif;color:var(--text);overflow:hidden}
-body{display:flex;flex-direction:column;height:100dvh;background:#0d0d0d}
-.screen{display:none;flex-direction:column;height:100%;overflow:hidden;position:relative}
+html,body{height:100%;background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);overflow:hidden}
+body{display:flex;flex-direction:column;height:100dvh}
+.screen{display:none;flex-direction:column;height:100%;overflow:hidden}
 .screen.active{display:flex}
 
-/* ── GYM BACKGROUND ── */
-.gym-bg{
-  position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(225,29,72,.18) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(180,20,50,.1) 0%, transparent 50%),
-    var(--gym-bg),
-    #0d0d0d;
-}
-.gym-bg::after{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(
-    -45deg,
-    transparent 0px,
-    transparent 18px,
-    rgba(255,255,255,.008) 18px,
-    rgba(255,255,255,.008) 19px
-  );
-}
-.screen > *:not(.gym-bg){position:relative;z-index:1}
-
 /* ── DIAGONAL ACCENT ── */
-.diag{position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--red),rgba(225,29,72,.3),transparent);
-  box-shadow:0 0 12px rgba(225,29,72,.5);z-index:10}
+.diag{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),transparent)}
 
 /* ── GENDER SCREEN ── */
-#screenGender{background:var(--bg)}
+#screenGender{background:var(--bg);position:relative}
 .g-hero{flex:1;display:flex;flex-direction:column;padding:env(safe-area-inset-top,20px) 20px 0;position:relative;overflow:hidden}
-.g-hero::before{content:'POWER';position:absolute;right:-20px;top:40%;transform:translateY(-50%) rotate(90deg);
-  font-family:'Bebas Neue',sans-serif;font-size:200px;
-  color:transparent;-webkit-text-stroke:1px rgba(225,29,72,.07);
-  pointer-events:none;letter-spacing:8px;white-space:nowrap}
-.g-logo{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:4px;line-height:1;color:var(--text);margin-bottom:4px;
-  text-shadow:0 0 40px rgba(225,29,72,.3)}
-.g-logo em{color:var(--red);font-style:normal;text-shadow:0 0 20px rgba(225,29,72,.6)}
-.g-tagline{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.25em;text-transform:uppercase;margin-bottom:32px}
-.g-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;
-  display:flex;align-items:center;gap:10px}
-.g-label::before,.g-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border2))}
-.g-label::after{background:linear-gradient(90deg,var(--border2),transparent)}
-.g-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;max-height:280px;margin-bottom:20px}
-.g-card{border-radius:14px;border:1px solid var(--border2);
-  background:linear-gradient(145deg,var(--bg3),var(--bg2));
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-  cursor:pointer;transition:all .25s;padding:24px 16px;position:relative;overflow:hidden}
-.g-card::before{content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(225,29,72,.12),transparent 60%);opacity:0;transition:opacity .25s}
-.g-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--red),var(--red2));
-  transform:scaleX(0);transition:transform .25s;transform-origin:left;
-  box-shadow:0 0 8px var(--red-glow)}
-.g-card:active{transform:scale(0.95);border-color:var(--red-dark)}
-.g-card:active::before{opacity:1}
-.g-card:active::after{transform:scaleX(1)}
-.g-card-icon{font-size:48px;filter:drop-shadow(0 0 16px rgba(225,29,72,.5));line-height:1}
-.g-card-name{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--text)}
-.g-card-desc{font-size:10px;color:var(--muted);text-align:center;line-height:1.5;font-weight:700;letter-spacing:.05em}
-.g-footer{text-align:center;padding:10px 0 env(safe-area-inset-bottom,14px);font-size:11px;color:var(--faint)}
-.g-footer a{color:#2a2a2a;text-decoration:none;letter-spacing:.05em}
-
-/* ── HEADER SHARED ── */
-.h-header,.p-header{background:rgba(13,13,13,.95);flex-shrink:0;border-bottom:1px solid var(--border);position:relative;
-  backdrop-filter:blur(10px)}
-.h-topbar{display:flex;align-items:center;gap:10px;padding:env(safe-area-inset-top,12px) 16px 12px}
-.h-back,.p-back{width:36px;height:36px;border-radius:9px;
-  background:linear-gradient(145deg,var(--bg3),var(--bg2));
-  border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:16px;color:var(--muted);flex-shrink:0;font-weight:700;transition:all .15s}
-.h-back:active,.p-back:active{background:var(--bg4);color:var(--text);border-color:var(--red-dark)}
-.h-logo,.p-name-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;flex:1;color:var(--text)}
-.h-logo em{color:var(--red);font-style:normal}
-.h-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:5px;letter-spacing:.12em;text-transform:uppercase;flex-shrink:0}
-.h-badge.m{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.3)}
-.h-badge.f{background:rgba(236,72,153,.15);color:#f472b6;border:1px solid rgba(236,72,153,.3)}
+.g-hero::before{content:'TREINO';position:absolute;right:-10px;top:50%;transform:translateY(-60%) rotate(90deg);font-family:'Bebas Neue',sans-serif;font-size:180px;color:rgba(255,255,255,.02);pointer-events:none;letter-spacing:8px;white-space:nowrap}
+.g-logo{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:3px;line-height:1;color:var(--text);margin-bottom:2px}
+.g-logo em{color:var(--red);font-style:normal}
+.g-tagline{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-bottom:28px}
+.g-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px}
+.g-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;max-height:260px;margin-bottom:16px}
+.g-card{border-radius:12px;border:1px solid var(--border2);background:var(--bg3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .2s;padding:20px 16px;position:relative;overflow:hidden}
+.g-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(225,29,72,.08),transparent);opacity:0;transition:opacity .2s}
+.g-card:active{transform:scale(0.96)}
+.g-card:active::after{opacity:1}
+.g-card-icon{font-size:36px;filter:drop-shadow(0 0 12px rgba(225,29,72,.4))}
+.g-card-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--text)}
+.g-card-desc{font-size:11px;color:var(--muted);text-align:center;line-height:1.4;font-weight:600}
+.g-card-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .2s;transform-origin:left}
+.g-card:active .g-card-line{transform:scaleX(1)}
+.g-footer{text-align:center;padding:10px 0 env(safe-area-inset-bottom,12px);font-size:11px;color:var(--faint)}
+.g-footer a{color:#333;text-decoration:none;letter-spacing:.05em}
 
 /* ── HOME SCREEN ── */
 #screenHome{background:var(--bg)}
-.h-section{padding:0 14px;flex:1;overflow-y:auto;padding-bottom:20px;-webkit-overflow-scrolling:touch}
+.h-header{flex-shrink:0;background:var(--bg);border-bottom:1px solid var(--border);position:relative}
+.h-header .diag{top:0}
+.h-topbar{display:flex;align-items:center;gap:10px;padding:env(safe-area-inset-top,12px) 16px 12px}
+.h-back{width:34px;height:34px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--muted);flex-shrink:0;font-weight:700}
+.h-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;flex:1;color:var(--text)}
+.h-logo em{color:var(--red);font-style:normal}
+.h-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0}
+.h-badge.m{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.3)}
+.h-badge.f{background:rgba(236,72,153,.15);color:#f472b6;border:1px solid rgba(236,72,153,.3)}
+.h-section{padding:0 16px;flex:1;overflow-y:auto;padding-bottom:20px;-webkit-overflow-scrolling:touch}
 .h-section::-webkit-scrollbar{display:none}
-.h-group-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:4px;
-  color:var(--muted);margin:22px 0 10px;display:flex;align-items:center;gap:10px}
-.h-group-title::after{content:'';flex:1;height:1px;
-  background:linear-gradient(90deg,var(--border2),transparent)}
-.h-card{background:linear-gradient(135deg,rgba(28,28,28,.9),rgba(20,20,20,.95));
-  border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;
-  cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .2s;
-  position:relative;overflow:hidden}
-.h-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--red),var(--red2));
-  transform:scaleY(0);transition:transform .2s;transform-origin:bottom;
-  box-shadow:2px 0 8px var(--red-glow)}
-.h-card:active{background:linear-gradient(135deg,rgba(36,36,36,.9),rgba(28,28,28,.95));transform:scale(0.99)}
+.h-group-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--muted);margin:20px 0 10px;display:flex;align-items:center;gap:10px}
+.h-group-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.h-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .2s;position:relative;overflow:hidden}
+.h-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);transform:scaleY(0);transition:transform .2s;transform-origin:bottom}
+.h-card:active{background:var(--bg3);transform:scale(0.99)}
 .h-card:active::before{transform:scaleY(1)}
-.h-card-icon{font-size:24px;flex-shrink:0;width:42px;height:42px;
-  background:linear-gradient(145deg,var(--bg4),var(--bg3));
-  border-radius:10px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border2)}
+.h-card-icon{font-size:24px;flex-shrink:0;width:40px;height:40px;background:var(--bg3);border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border2)}
 .h-card-info{flex:1;min-width:0}
 .h-card-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--text);line-height:1.1}
 .h-card-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4;font-weight:600}
@@ -148,8 +80,10 @@ body{display:flex;flex-direction:column;height:100dvh;background:#0d0d0d}
 
 /* ── PLAN SCREEN ── */
 #screenPlan{background:var(--bg)}
-.p-header{background:rgba(13,13,13,.95);flex-shrink:0;border-bottom:1px solid var(--border);position:relative}
+.p-header{background:var(--bg);flex-shrink:0;border-bottom:1px solid var(--border);position:relative}
+.p-header .diag{top:0}
 .p-topbar{display:flex;align-items:center;gap:10px;padding:env(safe-area-inset-top,12px) 16px 10px}
+.p-back{width:34px;height:34px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--muted);flex-shrink:0;font-weight:700}
 .p-title{flex:1;min-width:0}
 .p-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .p-meta{font-size:10px;color:var(--muted);margin-top:1px;font-weight:600;letter-spacing:.05em}
@@ -157,125 +91,61 @@ body{display:flex;flex-direction:column;height:100dvh;background:#0d0d0d}
 .p-pill span{color:var(--red)}
 .tabs{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--border)}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex-shrink:0;padding:10px 16px;font-family:'Bebas Neue',sans-serif;font-size:15px;
-  letter-spacing:1px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
-.tab.active{color:var(--text);border-bottom-color:var(--red);text-shadow:0 0 12px rgba(225,29,72,.4)}
+.tab{flex-shrink:0;padding:10px 16px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.tab.active{color:var(--text);border-bottom-color:var(--red)}
 .pbar-wrap{padding:0 16px 8px;display:flex;align-items:center;gap:10px}
-.pbar{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
-.pbar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--red2));border-radius:2px;transition:width .4s ease;
-  box-shadow:0 0 8px rgba(225,29,72,.5)}
+.pbar{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.pbar-fill{height:100%;background:var(--red);border-radius:2px;transition:width .4s ease}
 .pbar-pct{font-size:11px;color:var(--muted);font-weight:700;min-width:28px;text-align:right}
-.elist{flex:1;overflow-y:auto;padding:10px 14px 16px;-webkit-overflow-scrolling:touch}
+.elist{flex:1;overflow-y:auto;padding:10px 16px 16px;-webkit-overflow-scrolling:touch}
 .elist::-webkit-scrollbar{display:none}
-.e-label{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:4px;color:var(--muted);margin-bottom:12px;padding-top:4px}
-
-/* ── EXERCISE CARD ── */
-.ecard{
-  background:linear-gradient(135deg,rgba(24,24,24,.95),rgba(18,18,18,.98));
-  border:1px solid var(--border);border-radius:12px;
-  padding:12px 14px;display:flex;align-items:center;gap:12px;
-  cursor:pointer;margin-bottom:8px;transition:all .18s;position:relative;overflow:hidden}
-.ecard::before{content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(225,29,72,.06),transparent);opacity:0;transition:opacity .18s}
-.ecard:active{transform:scale(0.985);border-color:var(--border2)}
-.ecard:active::before{opacity:1}
-.ecard.done{border-color:rgba(225,29,72,.4);background:linear-gradient(135deg,rgba(159,15,46,.12),rgba(18,18,18,.98))}
-.ecard.done::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--red),var(--red2));box-shadow:2px 0 8px var(--red-glow)}
-
-/* ── EXERCISE EMOJI AVATAR ── */
-.e-avatar{width:44px;height:44px;border-radius:10px;
-  background:linear-gradient(145deg,rgba(225,29,72,.15),rgba(225,29,72,.05));
-  border:1px solid rgba(225,29,72,.2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:24px;flex-shrink:0;line-height:1;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
-.ecard.done .e-avatar{background:linear-gradient(145deg,rgba(225,29,72,.25),rgba(225,29,72,.1));
-  border-color:rgba(225,29,72,.4)}
-
-.e-num{width:44px;height:44px;border-radius:10px;
-  background:linear-gradient(145deg,var(--bg4),var(--bg3));
-  border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--muted);flex-shrink:0;letter-spacing:1px}
-.e-num.dn{background:linear-gradient(145deg,rgba(225,29,72,.2),rgba(225,29,72,.08));
-  border-color:rgba(225,29,72,.4);color:var(--red2)}
+.e-label{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:var(--muted);margin-bottom:12px;padding-top:4px}
+.ecard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:8px;transition:all .15s;position:relative;overflow:hidden}
+.ecard:active{background:var(--bg3);transform:scale(0.99)}
+.ecard.done{border-color:var(--red-dark);background:rgba(159,15,46,.08)}
+.ecard.done::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red)}
+.e-num{width:32px;height:32px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);flex-shrink:0;letter-spacing:1px}
+.e-num.dn{background:rgba(225,29,72,.15);border-color:var(--red-dark);color:var(--red2)}
 .e-info{flex:1;min-width:0}
-.e-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.3}
-.e-sub{font-size:10px;color:var(--muted);margin-top:3px;font-weight:600;letter-spacing:.03em}
-.e-play{width:36px;height:36px;border-radius:8px;
-  background:linear-gradient(145deg,var(--red),var(--red-dark));
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;
-  box-shadow:0 2px 10px rgba(225,29,72,.35)}
+.e-name{font-size:14px;font-weight:700;color:var(--text);line-height:1.3}
+.e-sub{font-size:11px;color:var(--muted);margin-top:3px;font-weight:600;letter-spacing:.02em}
+.e-play{width:34px;height:34px;border-radius:8px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
 .e-play svg{width:12px;height:12px;fill:#fff;margin-left:2px}
-.e-done{width:36px;height:36px;border-radius:8px;
-  background:rgba(225,29,72,.12);border:1px solid rgba(225,29,72,.3);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.e-done{width:34px;height:34px;border-radius:8px;background:rgba(225,29,72,.15);border:1px solid var(--red-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .e-done svg{width:14px;height:14px;stroke:var(--red2);fill:none;stroke-width:2.5}
 
 /* ── MODAL ── */
-.modal-bg{display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,.96);z-index:100;flex-direction:column}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;flex-direction:column}
 .modal-bg.open{display:flex}
-.modal-hdr{display:flex;align-items:center;justify-content:space-between;
-  padding:env(safe-area-inset-top,16px) 16px 14px;flex-shrink:0;
-  border-bottom:1px solid var(--border);
-  background:rgba(13,13,13,.98)}
-.modal-ttl{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;
-  color:var(--text);flex:1;padding-right:12px;line-height:1.2}
-.modal-close{width:36px;height:36px;border-radius:8px;
-  background:var(--bg3);border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--muted);font-size:18px;font-weight:700;flex-shrink:0}
-.vid-wrap{width:100%;background:#fff;flex-shrink:0;position:relative}
-.gif-box{width:100%;height:260px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f8f8f8;position:relative}
-.gif-box img{width:100%;height:100%;object-fit:contain;display:block}
-.gif-spinner-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;height:100%;background:#f8f8f8}
-.gif-spinner{width:36px;height:36px;border:3px solid #e0e0e0;border-top-color:#e11d48;border-radius:50%;animation:gifSpin .7s linear infinite}
-.gif-spinner-txt{font-size:10px;font-weight:700;color:#aaa;letter-spacing:.15em;text-transform:uppercase}
-.gif-err{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;height:100%;background:#f8f8f8}
-.gif-err-icon{font-size:48px}
-.gif-err-txt{font-size:10px;font-weight:700;color:#aaa;letter-spacing:.1em;text-transform:uppercase}
-.gif-muscles{position:absolute;bottom:6px;left:8px;display:flex;flex-wrap:wrap;gap:4px;max-width:80%}
-.gif-muscle-tag{background:rgba(225,29,72,.85);border-radius:3px;padding:2px 7px;font-size:9px;font-weight:700;color:#fff;letter-spacing:.06em;text-transform:uppercase}
-@keyframes gifSpin{to{transform:rotate(360deg)}}
-.modal-body{padding:14px 16px;flex:1;overflow-y:auto;background:var(--bg)}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:env(safe-area-inset-top,16px) 16px 14px;flex-shrink:0;border-bottom:1px solid var(--border)}
+.modal-ttl{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--text);flex:1;padding-right:12px;line-height:1.2}
+.modal-close{width:36px;height:36px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:18px;font-weight:700;flex-shrink:0}
+.vid-wrap{width:100%;background:#000;flex-shrink:0}
+.vid-wrap iframe{width:100%;height:100%;border:none;display:block}
+.modal-body{padding:14px 16px;flex:1;overflow-y:auto}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.stat{background:linear-gradient(145deg,var(--bg3),var(--bg2));
-  border:1px solid var(--border2);border-radius:10px;padding:12px;text-align:center;
-  position:relative;overflow:hidden}
-.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(225,29,72,.3),transparent)}
-.stat-val{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:var(--red2)}
-.stat-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:2px;font-weight:700}
+.stat{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:10px;text-align:center}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--red2)}
+.stat-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;font-weight:700}
 .modal-acts{display:flex;gap:8px;padding-bottom:env(safe-area-inset-bottom,8px)}
-.btn-done{flex:1;padding:15px;
-  background:linear-gradient(135deg,var(--red),var(--red-dark));
-  color:#fff;border:none;border-radius:10px;font-family:'Bebas Neue',sans-serif;
-  font-size:18px;letter-spacing:1px;cursor:pointer;transition:all .15s;
-  box-shadow:0 4px 16px rgba(225,29,72,.35)}
-.btn-done:active{transform:scale(0.97);box-shadow:0 2px 8px rgba(225,29,72,.25)}
-.btn-done.un{background:var(--bg3);color:var(--muted);border:1px solid var(--border2);box-shadow:none}
-.btn-next{padding:15px 18px;background:linear-gradient(145deg,var(--bg3),var(--bg2));
-  color:var(--text);border:1px solid var(--border2);border-radius:10px;
-  font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;cursor:pointer;transition:all .15s}
-.btn-next:active{transform:scale(0.97)}
-.no-vid{display:flex;align-items:center;justify-content:center;height:100%;
-  color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.btn-done{flex:1;padding:14px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;cursor:pointer;transition:all .15s}
+.btn-done:active{background:var(--red-dark)}
+.btn-done.un{background:var(--bg3);color:var(--muted);border:1px solid var(--border2)}
+.btn-next{padding:14px 18px;background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;cursor:pointer}
+.no-vid{display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
 
 /* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulseGlow{0%,100%{box-shadow:0 0 8px rgba(225,29,72,.3)}50%{box-shadow:0 0 20px rgba(225,29,72,.6)}}
-.screen.active .g-logo{animation:fadeUp .35s ease both}
-.screen.active .g-tagline{animation:fadeUp .35s ease .06s both}
-.screen.active .g-label{animation:fadeUp .35s ease .12s both}
-.screen.active .g-cards{animation:fadeUp .35s ease .18s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.screen.active .g-logo,.screen.active .g-tagline,.screen.active .g-label,.screen.active .g-cards{animation:fadeUp .4s ease both}
+.screen.active .g-tagline{animation-delay:.05s}
+.screen.active .g-label{animation-delay:.1s}
+.screen.active .g-cards{animation-delay:.15s}
 </style>
 </head>
 <body>
 
 <!-- GENDER -->
 <div class="screen active" id="screenGender">
-  <div class="gym-bg"></div>
   <div class="diag"></div>
   <div class="g-hero">
     <div class="g-logo">Treino<em>Pro</em></div>
@@ -301,7 +171,6 @@ body{display:flex;flex-direction:column;height:100dvh;background:#0d0d0d}
 
 <!-- HOME -->
 <div class="screen" id="screenHome">
-  <div class="gym-bg"></div>
   <div class="p-header">
     <div class="diag"></div>
     <div class="h-topbar" style="padding:env(safe-area-inset-top,12px) 16px 12px">
@@ -315,7 +184,6 @@ body{display:flex;flex-direction:column;height:100dvh;background:#0d0d0d}
 
 <!-- PLAN -->
 <div class="screen" id="screenPlan">
-  <div class="gym-bg"></div>
   <div class="p-header">
     <div class="diag"></div>
     <div class="p-topbar">
@@ -352,42 +220,31 @@ body{display:flex;flex-direction:column;height:100dvh;background:#0d0d0d}
 </div>
 
 <script>
-
-// ── EXERCISE EMOJI MAP ──
-const EMOJI = {
-  // Peito
-  'SupinoReto':'🏋️','SupinoInclinado':'📐','CrucifixoComHalteres':'🦋',
-  'CrucifixoInclinado':'🦅','CrucifixoMaquinaReto':'🤜','CrucifixoMaquinaInclinado':'💥',
-  'CrossOver':'⚡','BarraParalela':'🤸',
-  // Ombros
-  'DesenvolvimentoMaquina1':'🙌','DesenvolvimentoMaquina2':'🤲',
-  'ElevacaoLateral':'🦾','ElevacaoFrontal1':'🙋','ElevacaoFrontal2':'🙆','ElevacaoFrontal3':'🏹',
-  'CrucifixoInverso':'🦆','RemadaAlta':'⬆️','Encolhimento':'🤷',
-  // Costas
-  'PullDown':'⬇️','PuxadaAlta':'🧗','RemadaCavaleiro':'🏇','RemadaCurvada1':'🚣',
-  'RemadaCurvada2':'🚣','PuxadaPulley':'🎣','BarraFixa':'🐒','RemadaUnilateral':'💪',
-  'PulleyFrente':'🔽','RemadaBaixa':'🪝',
-  // Tríceps
-  'TricepsCorda':'🪢','TricepsFrances1':'🧠','TricepsFrances2':'🧠','TricepsFrances3':'💀',
-  'TricepsTesta1':'🎯','TricepsTesta2':'🎯','FlexaoBraco':'🤼',
-  // Bíceps
-  'RoscaDireta':'💪','RoscaScottBarra':'🦵','RoscaConcentrada':'🎯',
-  'RoscaScottMaquina':'⚙️','RoscaMartelo1':'🔨','RoscaMartelo2':'🔨','RoscaMartelo3':'🔨',
-  'RoscaNoBanco':'🛋️','RoscaAlternada':'🔄','RoscaMartelo':'🔨',
-  // Pernas
-  'Agachamento1':'🏋️','Agachamento2':'🦵','AfundoComHalteres':'🚶',
-  'CadeiraExtensora':'🦵','CadeiraFlexora':'🦿','LegPress45':'🦶',
-  'LegCurlEmPe':'🦿','Hack':'⚙️','MesaFlexora':'🛏️',
-  'StiffComBarra':'🏗️','StiffComHalteres':'🏗️','PassadasComHalteres':'🚶',
-  'Hiperextensao':'🌉','GemeosNoHack':'🦶',
-  // Glúteos
-  'ElevacaoDeGluteo1':'🍑','ElevacaoDeGluteo2':'🦋','ElevacaoPelvica':'🌉',
-  'Gemeos1':'🦶','Gemeos2':'🦶',
-  // Abdômen
-  'AbdominalSupra1':'🔥','AbdominalSupra2':'🔥','AbdominalInfra':'⬆️',
-  'ElevacaoDePernas':'🦵','PranchaAbdominal':'🧘','PranchaComEscalador':'🧗',
+const YT={
+  'SupinoReto':'1DfiZvuPTM8','SupinoInclinado':'TXdbwO9S7qI','CrucifixoComHalteres':'scS3cToyzao',
+  'CrucifixoInclinado':'HG8NeduHpCQ','CrucifixoMaquinaReto':'3siWXpsisc4','CrucifixoMaquinaInclinado':'3kOFrMCcLYE',
+  'CrossOver':'1ExyKdCjy0c','BarraParalela':'dQGK-f6Sy_8','DesenvolvimentoMaquina1':'bTw4XYXz38I',
+  'DesenvolvimentoMaquina2':'Kwivk2NE3rg','ElevacaoLateral':'xXJj604JShY','ElevacaoFrontal1':'mlE-hGJes4Q',
+  'ElevacaoFrontal2':'XryTQZ11DbM','ElevacaoFrontal3':'bENrTw2HyE8','CrucifixoInverso':'JB3u1iEXpnY',
+  'RemadaAlta':'hCmHh7Hvua0','Encolhimento':'ic-9j6ZA6KM','PullDown':'TCYq0roEOkU','PuxadaAlta':'AwPEGSJ0UgA',
+  'RemadaCavaleiro':'DFVR1p2UMlg','RemadaCurvada1':'wQp-bhmJiRA','RemadaCurvada2':'vTqz6QLsGHY',
+  'PuxadaPulley':'ICgRcCCYQxU','BarraFixa':'u_X-ETNSD_0','RemadaUnilateral':'10Wz8-aZPCg',
+  'PulleyFrente':'jIr4Ka_cLj8','RemadaBaixa':'E_MCMmrX7_s','TricepsCorda':'Y9K4tV1nMHs',
+  'TricepsFrances1':'zmWpS8GKjnw','TricepsFrances2':'5Trl-9DQIBw','TricepsFrances3':'Ul6AsJpyLu4',
+  'TricepsTesta1':'mroHiuDLkpo','TricepsTesta2':'64pDwiPnkQo','FlexaoBraco':'AqI4XWj_9b4',
+  'RoscaDireta':'6HwoWwQEPQc','RoscaScottBarra':'7lpFwUKohvM','RoscaConcentrada':'GDB-OWzr73k',
+  'RoscaScottMaquina':'8-BmTS_OrFA','RoscaMartelo1':'jbTsjAtzvrM','RoscaMartelo2':'Av5bip-VKh8',
+  'RoscaMartelo3':'eEU_SB5Fn9k','RoscaNoBanco':'oJF3X3KU-yo','RoscaAlternada':'v9__lx6M-vo',
+  'RoscaMartelo':'z4Qdi__bfKo','Agachamento1':'XfEmpAXDLfA','Agachamento2':'2ZZAVYqhNQs',
+  'AfundoComHalteres':'aUhdwR6wW2E','CadeiraExtensora':'ij_brtvz1WU','CadeiraFlexora':'Fvrz_PITiLU',
+  'ElevacaoDeGluteo1':'rz0Qy9Y97OI','ElevacaoDeGluteo2':'N8g7IfYvFLs','ElevacaoPelvica':'lRrXggfTghs',
+  'Gemeos1':'FIleUDagjdE','Gemeos2':'U-oPYpIua34','LegPress45':'GxJjMgn9awI','LegCurlEmPe':'3qiyY1zAtxk',
+  'Hack':'NjDF5kVHV9k','MesaFlexora':'CYmXQBD1zFs','StiffComBarra':'fVl48Xbpmz0',
+  'StiffComHalteres':'nHz2LDT9odw','PassadasComHalteres':'fD7fbhJqmdk','Hiperextensao':'08tST3yfbCs',
+  'GemeosNoHack':'DsuwTFoLELM','AbdominalSupra1':'clRm5q57Ias','AbdominalSupra2':'clRm5q57Ias',
+  'AbdominalInfra':'LLttdhRlhVk','ElevacaoDePernas':'excPfE1z4MQ','PranchaAbdominal':'MVq_NYYTPfQ',
+  'PranchaComEscalador':'CvPUyGkcyrA',
 };
-function exEmoji(vid){ return EMOJI[vid] || '🏋️'; }
 
 const PLANS_H={
   ini_ab:{name:'Plano AB',meta:'4x/semana · 4-8 semanas · Iniciante',level:'i',treinos:[
@@ -883,7 +740,6 @@ function openPlan(id){
   document.getElementById('screenHome').classList.remove('active');
   document.getElementById('screenPlan').classList.add('active');
   document.getElementById('elist').scrollTop=0;
-  preCacheTab();
 }
 
 function goHome(){
@@ -897,7 +753,7 @@ function renderTabs(){
     `<div class="tab${i===curTab?' active':''}" onclick="setTab(${i})">${t.label}</div>`).join('');
 }
 
-function setTab(i){curTab=i;renderTabs();renderList();document.getElementById('elist').scrollTop=0;preCacheTab();}
+function setTab(i){curTab=i;renderTabs();renderList();document.getElementById('elist').scrollTop=0;}
 
 function renderList(){
   const plans=gender==='m'?PLANS_H:PLANS_F;
@@ -912,7 +768,7 @@ function renderList(){
     t.exercises.map((ex,i)=>{
       const isDone=!!done[dk(curPlan,curTab,i)];
       return `<div class="ecard${isDone?' done':''}" onclick="openModal(${i})">
-        <div class="e-avatar">${exEmoji(ex.vid)}</div>
+        <div class="e-num${isDone?' dn':''}">${i+1}</div>
         <div class="e-info">
           <div class="e-name">${ex.name}</div>
           <div class="e-sub">${ex.sets} séries · ${ex.reps} reps · ${ex.rest}</div>
@@ -923,148 +779,152 @@ function renderList(){
 }
 
 
-// ─── ExerciseDB RapidAPI ───
-const BASE = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
-const GIF_MAP = {
-  'SupinoReto':               'Barbell_Bench_Press_-_Medium_Grip/0.jpg',
-  'SupinoInclinado':          'Dumbbell_Incline_Bench_Press/0.jpg',
-  'CrucifixoComHalteres':     'Dumbbell_Flyes/0.jpg',
-  'CrucifixoInclinado':       'Dumbbell_Incline_Flyes/0.jpg',
-  'CrucifixoMaquinaReto':     'Pec_Deck_Fly/0.jpg',
-  'CrucifixoMaquinaInclinado':'Cable_Crossover/0.jpg',
-  'CrossOver':                'Cable_Crossover/0.jpg',
-  'BarraParalela':            'Dips_-_Chest_Version/0.jpg',
-  'DesenvolvimentoMaquina1':  'Dumbbell_Shoulder_Press/0.jpg',
-  'DesenvolvimentoMaquina2':  'Machine_Shoulder_Press/0.jpg',
-  'ElevacaoLateral':          'Dumbbell_Lateral_Raise/0.jpg',
-  'ElevacaoFrontal1':         'Dumbbell_Front_Raise/0.jpg',
-  'ElevacaoFrontal2':         'Cable_Front_Raise/0.jpg',
-  'ElevacaoFrontal3':         'Barbell_Front_Raise/0.jpg',
-  'CrucifixoInverso':         'Bent_Over_Dumbbell_Rear_Delt_Row_-_with_head_on_bench/0.jpg',
-  'RemadaAlta':               'Barbell_Upright_Row/0.jpg',
-  'Encolhimento':             'Dumbbell_Shrug/0.jpg',
-  'PullDown':                 'Wide-Grip_Lat_Pulldown/0.jpg',
-  'PuxadaAlta':               'Wide-Grip_Lat_Pulldown/0.jpg',
-  'RemadaCavaleiro':          'T-Bar_Row_with_Handle/0.jpg',
-  'RemadaCurvada1':           'Barbell_Bent_Over_Row/0.jpg',
-  'RemadaCurvada2':           'Barbell_Bent_Over_Row/0.jpg',
-  'PuxadaPulley':             'Close-Grip_Front_Lat_Pulldown/0.jpg',
-  'BarraFixa':                'Wide-Grip_Pullup/0.jpg',
-  'RemadaUnilateral':         'One-Arm_Dumbbell_Row/0.jpg',
-  'PulleyFrente':             'Wide-Grip_Lat_Pulldown/0.jpg',
-  'RemadaBaixa':              'Seated_Cable_Row/0.jpg',
-  'TricepsCorda':             'Pushdown/0.jpg',
-  'TricepsFrances1':          'Lying_Dumbbell_Tricep_Extension/0.jpg',
-  'TricepsFrances2':          'Lying_Dumbbell_Tricep_Extension/0.jpg',
-  'TricepsFrances3':          'EZ-Bar_Skullcrusher/0.jpg',
-  'TricepsTesta1':            'EZ-Bar_Skullcrusher/0.jpg',
-  'TricepsTesta2':            'EZ-Bar_Skullcrusher/0.jpg',
-  'FlexaoBraco':              'Close-Grip_Push-Up/0.jpg',
-  'RoscaDireta':              'Barbell_Curl/0.jpg',
-  'RoscaScottBarra':          'EZ-Bar_Preacher_Curl/0.jpg',
-  'RoscaConcentrada':         'Concentration_Curls/0.jpg',
-  'RoscaScottMaquina':        'EZ-Bar_Preacher_Curl/0.jpg',
-  'RoscaMartelo1':            'Hammer_Curls/0.jpg',
-  'RoscaMartelo2':            'Hammer_Curls/0.jpg',
-  'RoscaMartelo3':            'Hammer_Curls/0.jpg',
-  'RoscaNoBanco':             'Alternate_Incline_Dumbbell_Curl/0.jpg',
-  'RoscaAlternada':           'Alternate_Hammer_Curl/0.jpg',
-  'RoscaMartelo':             'Hammer_Curls/0.jpg',
-  'Agachamento1':             'Barbell_Full_Squat/0.jpg',
-  'Agachamento2':             'Barbell_Full_Squat/0.jpg',
-  'AfundoComHalteres':        'Dumbbell_Lunges/0.jpg',
-  'CadeiraExtensora':         'Leg_Extensions/0.jpg',
-  'CadeiraFlexora':           'Seated_Leg_Curl/0.jpg',
-  'ElevacaoDeGluteo1':        'Barbell_Hip_Thrust/0.jpg',
-  'ElevacaoDeGluteo2':        'Lying_Glute_Stretch/0.jpg',
-  'ElevacaoPelvica':          'Barbell_Hip_Thrust/0.jpg',
-  'Gemeos1':                  'Standing_Calf_Raises/0.jpg',
-  'Gemeos2':                  'Seated_Calf_Raise/0.jpg',
-  'LegPress45':               'Leg_Press/0.jpg',
-  'LegCurlEmPe':              'Seated_Leg_Curl/0.jpg',
-  'Hack':                     'Barbell_Hack_Squat/0.jpg',
-  'MesaFlexora':              'Lying_Leg_Curls/0.jpg',
-  'StiffComBarra':            'Romanian_Deadlift/0.jpg',
-  'StiffComHalteres':         'Romanian_Deadlift_with_Dumbbells/0.jpg',
-  'PassadasComHalteres':      'Dumbbell_Lunges/0.jpg',
-  'Hiperextensao':            'Hyperextensions_Back_Extensions/0.jpg',
-  'GemeosNoHack':             'Standing_Calf_Raises/0.jpg',
-  'AbdominalSupra1':          'Crunch/0.jpg',
-  'AbdominalSupra2':          'Crunch/0.jpg',
-  'AbdominalInfra':           'Flat_Bench_Lying_Leg_Raise/0.jpg',
-  'ElevacaoDePernas':         'Hanging_Leg_Raise/0.jpg',
-  'PranchaAbdominal':         'Pushup/0.jpg',
-  'PranchaComEscalador':      'Mountain_Climber/0.jpg',
+// ExerciseDB GIF search - maps exercise names to search terms
+const GIF_SEARCH = {
+  'SupinoReto': 'barbell bench press',
+  'SupinoInclinado': 'incline dumbbell press',
+  'CrucifixoComHalteres': 'dumbbell fly',
+  'CrucifixoInclinado': 'incline dumbbell fly',
+  'CrucifixoMaquinaReto': 'pec deck fly',
+  'CrucifixoMaquinaInclinado': 'cable chest fly',
+  'CrossOver': 'cable crossover',
+  'BarraParalela': 'chest dip',
+  'DesenvolvimentoMaquina1': 'dumbbell shoulder press',
+  'DesenvolvimentoMaquina2': 'machine shoulder press',
+  'ElevacaoLateral': 'dumbbell lateral raise',
+  'ElevacaoFrontal1': 'dumbbell front raise',
+  'ElevacaoFrontal2': 'cable front raise',
+  'ElevacaoFrontal3': 'barbell front raise',
+  'CrucifixoInverso': 'reverse fly',
+  'RemadaAlta': 'upright row',
+  'Encolhimento': 'dumbbell shrug',
+  'PullDown': 'lat pulldown',
+  'PuxadaAlta': 'wide grip pulldown',
+  'RemadaCavaleiro': 'bent over row',
+  'RemadaCurvada1': 'barbell row',
+  'RemadaCurvada2': 'bent over barbell row',
+  'PuxadaPulley': 'cable row',
+  'BarraFixa': 'pull up',
+  'RemadaUnilateral': 'one arm dumbbell row',
+  'PulleyFrente': 'cable pulldown',
+  'RemadaBaixa': 'seated cable row',
+  'TricepsCorda': 'cable tricep pushdown',
+  'TricepsFrances1': 'tricep extension',
+  'TricepsFrances2': 'dumbbell tricep extension',
+  'TricepsFrances3': 'skull crusher',
+  'TricepsTesta1': 'tricep skull crusher',
+  'TricepsTesta2': 'barbell skull crusher',
+  'FlexaoBraco': 'diamond push up',
+  'RoscaDireta': 'barbell curl',
+  'RoscaScottBarra': 'preacher curl',
+  'RoscaConcentrada': 'concentration curl',
+  'RoscaScottMaquina': 'machine preacher curl',
+  'RoscaMartelo1': 'hammer curl',
+  'RoscaMartelo2': 'dumbbell hammer curl',
+  'RoscaMartelo3': 'cross body hammer curl',
+  'RoscaNoBanco': 'incline dumbbell curl',
+  'RoscaAlternada': 'alternating dumbbell curl',
+  'RoscaMartelo': 'hammer curl',
+  'Agachamento1': 'barbell squat',
+  'Agachamento2': 'squat',
+  'AfundoComHalteres': 'dumbbell lunge',
+  'CadeiraExtensora': 'leg extension',
+  'CadeiraFlexora': 'seated leg curl',
+  'ElevacaoDeGluteo1': 'glute bridge',
+  'ElevacaoDeGluteo2': 'hip abduction',
+  'ElevacaoPelvica': 'barbell hip thrust',
+  'Gemeos1': 'standing calf raise',
+  'Gemeos2': 'seated calf raise',
+  'LegPress45': 'leg press',
+  'LegCurlEmPe': 'standing leg curl',
+  'Hack': 'hack squat',
+  'MesaFlexora': 'lying leg curl',
+  'StiffComBarra': 'romanian deadlift',
+  'StiffComHalteres': 'dumbbell romanian deadlift',
+  'PassadasComHalteres': 'dumbbell walking lunge',
+  'Hiperextensao': 'back extension',
+  'GemeosNoHack': 'hack calf raise',
+  'AbdominalSupra1': 'crunch',
+  'AbdominalSupra2': 'weighted crunch',
+  'AbdominalInfra': 'leg raise',
+  'ElevacaoDePernas': 'hanging leg raise',
+  'PranchaAbdominal': 'plank',
+  'PranchaComEscalador': 'mountain climber',
 };
 
-function getExerciseData(vidKey) {
-  const path = GIF_MAP[vidKey];
-  if (!path) return null;
-  return { gifUrl: BASE + path, muscles: [] };
+async function fetchGif(vidKey) {
+  const query = GIF_SEARCH[vidKey] || '';
+  if (!query) return null;
+  try {
+    const res = await fetch(`https://exercisedb-api.vercel.app/api/v1/exercises/search?q=${encodeURIComponent(query)}&limit=1`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const ex = data?.exercises?.[0] || data?.results?.[0] || data?.[0];
+    return ex?.gifUrl || ex?.imageUrl || null;
+  } catch(e) {
+    return null;
+  }
 }
 
-function preCacheTab() {} // no-op, images load instantly from static URLs
-
-
-function renderGifResult(exName, result) {
-  if (!result || !result.gifUrl) {
-    document.getElementById('vwrap').innerHTML =
-      `<div class="gif-box"><div class="gif-err">
-        <div class="gif-err-icon">🏋️</div>
-        <div class="gif-err-txt">${exName}</div>
-      </div></div>`;
-    return;
-  }
-  document.getElementById('vwrap').innerHTML =
-    `<div class="gif-box">
-      <img src="${result.gifUrl}" alt="${exName}" loading="eager"
-           onerror="this.parentElement.innerHTML='<div class=\'gif-err\'><div class=\'gif-err-icon\'>🏋️</div><div class=\'gif-err-txt\'>${exName}</div></div>'">
-    </div>`;
-}
-
-function openModal(idx) {
-  curIdx = idx;
-  const plans = gender === 'm' ? PLANS_H : PLANS_F;
-  const ex = plans[curPlan].treinos[curTab].exercises[idx];
-  document.getElementById('mtitle').textContent = ex.name;
-  renderGifResult(ex.name, getExerciseData(ex.vid));
-  }
-
-  document.getElementById('mstats').innerHTML =
+function openModal(idx){
+  curIdx=idx;
+  const plans=gender==='m'?PLANS_H:PLANS_F;
+  const ex=plans[curPlan].treinos[curTab].exercises[idx];
+  const ytId=YT[ex.vid]||'';
+  document.getElementById('mtitle').textContent=ex.name;
+  // Show GIF placeholder while loading
+  document.getElementById('vwrap').innerHTML=`
+    <div id="gifBox" style="width:100%;aspect-ratio:1/1;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;max-height:260px">
+      <div style="color:#333;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Carregando GIF...</div>
+    </div>
+    ${ytId?`<div style="position:relative;width:100%;aspect-ratio:16/9"><iframe style="width:100%;height:100%;border:none;display:block" src="https://www.youtube.com/embed/${ytId}?rel=0&playsinline=1" allow="encrypted-media" allowfullscreen></iframe></div>`:''}
+  `;
+  // Fetch GIF async
+  fetchGif(ex.vid).then(gifUrl => {
+    const box = document.getElementById('gifBox');
+    if (box) {
+      if (gifUrl) {
+        box.innerHTML = `<img src="${gifUrl}" style="width:100%;max-height:260px;object-fit:contain" alt="${ex.name}" loading="lazy">`;
+      } else {
+        box.style.display = 'none';
+      }
+    }
+  });
+  document.getElementById('mstats').innerHTML=
     `<div class="stat"><div class="stat-val">${ex.sets}</div><div class="stat-lbl">Séries</div></div>
      <div class="stat"><div class="stat-val">${ex.reps}</div><div class="stat-lbl">Reps</div></div>
      <div class="stat"><div class="stat-val">${ex.rest}</div><div class="stat-lbl">Descanso</div></div>`;
-  const isDone = !!done[dk(curPlan, curTab, idx)];
-  const b = document.getElementById('bdone');
-  b.textContent = isDone ? 'DESMARCAR' : 'MARCAR FEITO';
-  b.className = 'btn-done' + (isDone ? ' un' : '');
+  const isDone=!!done[dk(curPlan,curTab,idx)];
+  const b=document.getElementById('bdone');
+  b.textContent=isDone?'DESMARCAR':'MARCAR FEITO';
+  b.className='btn-done'+(isDone?' un':'');
   document.getElementById('modal').classList.add('open');
 }
 
-function closeModal() {
+function closeModal(){
   document.getElementById('modal').classList.remove('open');
-  document.getElementById('vwrap').innerHTML = '';
+  document.getElementById('vwrap').innerHTML='';
 }
 
-function toggleDone() {
-  const k = dk(curPlan, curTab, curIdx);
-  done[k] = !done[k];
-  if (!done[k]) delete done[k];
-  const isDone = !!done[k];
-  const b = document.getElementById('bdone');
-  b.textContent = isDone ? 'DESMARCAR' : 'MARCAR FEITO';
-  b.className = 'btn-done' + (isDone ? ' un' : '');
+function toggleDone(){
+  const k=dk(curPlan,curTab,curIdx);
+  done[k]=!done[k];
+  if(!done[k])delete done[k];
+  const isDone=!!done[k];
+  const b=document.getElementById('bdone');
+  b.textContent=isDone?'DESMARCAR':'MARCAR FEITO';
+  b.className='btn-done'+(isDone?' un':'');
   renderList();
 }
 
-function nextEx() {
-  const plans = gender === 'm' ? PLANS_H : PLANS_F;
-  const t = plans[curPlan].treinos[curTab];
+function nextEx(){
+  const plans=gender==='m'?PLANS_H:PLANS_F;
+  const t=plans[curPlan].treinos[curTab];
   closeModal();
-  setTimeout(() => openModal((curIdx + 1) % t.exercises.length), 150);
+  setTimeout(()=>openModal((curIdx+1)%t.exercises.length),150);
 }
 
-if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(() => {}); }
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
 </script>
 </body>
 </html>
