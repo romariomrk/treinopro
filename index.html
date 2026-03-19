@@ -3,21 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#e11d48">
+<meta name="theme-color" content="#ff1744">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="TreinoPro">
-<title>TreinoPro</title>
+<title>💪 TreinoPro</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --red:#e11d48;--red2:#fb7185;--red-dark:#9f0f2e;
-  --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bg4:#222;
-  --border:#2a2a2a;--border2:#333;
-  --text:#f5f5f5;--muted:#777;--faint:#333;
+  --red:#ff1744;--red2:#ff5252;--red-dark:#d50000;
+  --orange:#ff6e40;--yellow:#ffd600;--purple:#d500f9;--blue:#00b0ff;
+  --bg:#000;--bg2:#0a0a0a;--bg3:#1a1a1a;--bg4:#2a2a2a;
+  --border:#2a2a2a;--border2:#444;
+  --text:#fff;--muted:#999;--faint:#444;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:var(--bg);font-family:'Barlow',sans-serif;color:var(--text);overflow:hidden}
@@ -25,121 +26,239 @@ body{display:flex;flex-direction:column;height:100dvh}
 .screen{display:none;flex-direction:column;height:100%;overflow:hidden}
 .screen.active{display:flex}
 
-/* ── DIAGONAL ACCENT ── */
-.diag{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),transparent)}
+/* ── GRADIENT ACCENTS ── */
+.diag{position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow));
+  box-shadow:0 0 20px rgba(255,23,68,.6)}
+.diag-bottom{position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--purple),var(--blue),var(--red))}
 
 /* ── GENDER SCREEN ── */
-#screenGender{background:var(--bg);position:relative}
-.g-hero{flex:1;display:flex;flex-direction:column;padding:env(safe-area-inset-top,20px) 20px 0;position:relative;overflow:hidden}
-.g-hero::before{content:'TREINO';position:absolute;right:-10px;top:50%;transform:translateY(-60%) rotate(90deg);font-family:'Bebas Neue',sans-serif;font-size:180px;color:rgba(255,255,255,.02);pointer-events:none;letter-spacing:8px;white-space:nowrap}
-.g-logo{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:3px;line-height:1;color:var(--text);margin-bottom:2px}
-.g-logo em{color:var(--red);font-style:normal}
-.g-tagline{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-bottom:28px}
-.g-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px}
-.g-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;max-height:260px;margin-bottom:16px}
-.g-card{border-radius:12px;border:1px solid var(--border2);background:var(--bg3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .2s;padding:20px 16px;position:relative;overflow:hidden}
-.g-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(225,29,72,.08),transparent);opacity:0;transition:opacity .2s}
-.g-card:active{transform:scale(0.96)}
-.g-card:active::after{opacity:1}
-.g-card-icon{font-size:36px;filter:drop-shadow(0 0 12px rgba(225,29,72,.4))}
-.g-card-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--text)}
-.g-card-desc{font-size:11px;color:var(--muted);text-align:center;line-height:1.4;font-weight:600}
-.g-card-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .2s;transform-origin:left}
+#screenGender{background:linear-gradient(135deg,#000,#1a0d0d,#000);position:relative;overflow:hidden}
+#screenGender::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:radial-gradient(circle at 50% 50%,rgba(255,23,68,.15),transparent 70%);pointer-events:none}
+.g-hero{flex:1;display:flex;flex-direction:column;padding:env(safe-area-inset-top,20px) 20px 0;position:relative;overflow:hidden;z-index:1}
+.g-hero::before{content:'GYM';position:absolute;right:-20px;top:50%;transform:translateY(-55%) rotate(90deg);
+  font-family:'Bebas Neue',sans-serif;font-size:200px;
+  background:linear-gradient(135deg,rgba(255,23,68,.08),rgba(255,110,64,.08));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  pointer-events:none;letter-spacing:12px;white-space:nowrap}
+.g-logo{font-family:'Bebas Neue',sans-serif;font-size:58px;letter-spacing:4px;line-height:1;
+  background:linear-gradient(135deg,#fff,#ffaaaa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:4px;filter:drop-shadow(0 0 20px rgba(255,23,68,.4))}
+.g-logo em{background:linear-gradient(135deg,var(--red),var(--orange));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;font-style:normal;filter:drop-shadow(0 0 30px rgba(255,23,68,.8))}
+.g-tagline{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.25em;text-transform:uppercase;margin-bottom:32px}
+.g-label{font-size:12px;font-weight:700;
+  background:linear-gradient(90deg,var(--red),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px}
+.g-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;max-height:280px;margin-bottom:20px}
+.g-card{border-radius:16px;border:2px solid transparent;
+  background:linear-gradient(135deg,var(--bg3),var(--bg2));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  cursor:pointer;transition:all .3s cubic-bezier(0.4,0,0.2,1);padding:24px 18px;position:relative;overflow:hidden}
+.g-card::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,23,68,.15),rgba(255,110,64,.15));opacity:0;transition:opacity .3s}
+.g-card::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent,rgba(255,23,68,.2));opacity:0;transition:opacity .3s}
+.g-card:active{transform:scale(0.95);border-color:var(--red)}
+.g-card:active::before,.g-card:active::after{opacity:1}
+.g-card-icon{font-size:48px;filter:drop-shadow(0 0 20px rgba(255,23,68,.6));
+  transform:scale(1);transition:transform .3s}
+.g-card:active .g-card-icon{transform:scale(1.1)}
+.g-card-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;
+  background:linear-gradient(135deg,#fff,#ffcccc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.g-card-desc{font-size:12px;color:var(--muted);text-align:center;line-height:1.5;font-weight:600}
+.g-card-line{position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--red),var(--orange));transform:scaleX(0);transition:transform .3s;transform-origin:left;
+  box-shadow:0 0 15px rgba(255,23,68,.8)}
 .g-card:active .g-card-line{transform:scaleX(1)}
-.g-footer{text-align:center;padding:10px 0 env(safe-area-inset-bottom,12px);font-size:11px;color:var(--faint)}
-.g-footer a{color:#333;text-decoration:none;letter-spacing:.05em}
+.g-footer{text-align:center;padding:12px 0 env(safe-area-inset-bottom,14px);font-size:11px;color:var(--faint)}
+.g-footer a{color:#555;text-decoration:none;letter-spacing:.05em;transition:color .3s}
 
 /* ── HOME SCREEN ── */
-#screenHome{background:var(--bg)}
-.h-header{flex-shrink:0;background:var(--bg);border-bottom:1px solid var(--border);position:relative}
+#screenHome{background:linear-gradient(135deg,#000,#0d0a0a)}
+.h-header{flex-shrink:0;background:var(--bg);border-bottom:1px solid var(--border);position:relative;
+  box-shadow:0 4px 20px rgba(255,23,68,.15)}
 .h-header .diag{top:0}
-.h-topbar{display:flex;align-items:center;gap:10px;padding:env(safe-area-inset-top,12px) 16px 12px}
-.h-back{width:34px;height:34px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--muted);flex-shrink:0;font-weight:700}
-.h-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;flex:1;color:var(--text)}
-.h-logo em{color:var(--red);font-style:normal}
-.h-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0}
-.h-badge.m{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.3)}
-.h-badge.f{background:rgba(236,72,153,.15);color:#f472b6;border:1px solid rgba(236,72,153,.3)}
-.h-section{padding:0 16px;flex:1;overflow-y:auto;padding-bottom:20px;-webkit-overflow-scrolling:touch}
+.h-topbar{display:flex;align-items:center;gap:10px;padding:env(safe-area-inset-top,14px) 18px 14px}
+.h-back{width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--bg3),var(--bg4));border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--text);
+  flex-shrink:0;font-weight:700;transition:all .3s;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+.h-back:active{transform:scale(0.92);background:linear-gradient(135deg,var(--red-dark),var(--red))}
+.h-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;flex:1;
+  background:linear-gradient(135deg,#fff,#ffaaaa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.h-logo em{background:linear-gradient(135deg,var(--red),var(--orange));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;font-style:normal}
+.h-badge{font-size:11px;font-weight:700;padding:5px 12px;border-radius:6px;letter-spacing:.1em;
+  text-transform:uppercase;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.h-badge.m{background:linear-gradient(135deg,rgba(0,176,255,.25),rgba(0,176,255,.15));color:#60d5fa;
+  border:1px solid rgba(0,176,255,.4)}
+.h-badge.f{background:linear-gradient(135deg,rgba(236,72,153,.25),rgba(236,72,153,.15));color:#ff80d0;
+  border:1px solid rgba(236,72,153,.4)}
+.h-section{padding:0 18px;flex:1;overflow-y:auto;padding-bottom:20px;-webkit-overflow-scrolling:touch}
 .h-section::-webkit-scrollbar{display:none}
-.h-group-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--muted);margin:20px 0 10px;display:flex;align-items:center;gap:10px}
-.h-group-title::after{content:'';flex:1;height:1px;background:var(--border)}
-.h-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .2s;position:relative;overflow:hidden}
-.h-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);transform:scaleY(0);transition:transform .2s;transform-origin:bottom}
-.h-card:active{background:var(--bg3);transform:scale(0.99)}
+.h-group-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;
+  background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin:24px 0 12px;display:flex;align-items:center;gap:12px;filter:drop-shadow(0 0 10px rgba(255,23,68,.3))}
+.h-group-title::after{content:'';flex:1;height:2px;
+  background:linear-gradient(90deg,var(--red),transparent)}
+.h-card{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);
+  border-radius:12px;padding:16px 18px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;gap:14px;
+  transition:all .3s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.3)}
+.h-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--red),var(--orange));transform:scaleY(0);
+  transition:transform .3s;transform-origin:bottom;box-shadow:0 0 15px rgba(255,23,68,.8)}
+.h-card:active{background:linear-gradient(135deg,var(--bg3),var(--bg4));transform:scale(0.98);
+  border-color:var(--red);box-shadow:0 6px 25px rgba(255,23,68,.4)}
 .h-card:active::before{transform:scaleY(1)}
-.h-card-icon{font-size:24px;flex-shrink:0;width:40px;height:40px;background:var(--bg3);border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border2)}
+.h-card-icon{font-size:28px;flex-shrink:0;width:48px;height:48px;
+  background:linear-gradient(135deg,rgba(255,23,68,.15),rgba(255,110,64,.1));border-radius:10px;
+  display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,23,68,.3);
+  filter:drop-shadow(0 0 15px rgba(255,23,68,.4))}
 .h-card-info{flex:1;min-width:0}
-.h-card-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:var(--text);line-height:1.1}
-.h-card-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4;font-weight:600}
-.h-badge-sm{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;white-space:nowrap}
-.h-badge-sm.i{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
-.h-badge-sm.m-level{background:rgba(168,85,247,.1);color:#c084fc;border:1px solid rgba(168,85,247,.2)}
-.h-badge-sm.a{background:rgba(225,29,72,.1);color:#fb7185;border:1px solid rgba(225,29,72,.2)}
-.h-badge-sm.s{background:rgba(236,72,153,.1);color:#f472b6;border:1px solid rgba(236,72,153,.2)}
+.h-card-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;
+  background:linear-gradient(90deg,#fff,#ffcccc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1.2}
+.h-card-desc{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5;font-weight:600}
+.h-badge-sm{font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;letter-spacing:.08em;
+  text-transform:uppercase;flex-shrink:0;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.h-badge-sm.i{background:linear-gradient(135deg,rgba(34,197,94,.2),rgba(34,197,94,.1));color:#5fff8d;
+  border:1px solid rgba(34,197,94,.3)}
+.h-badge-sm.m-level{background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(168,85,247,.1));color:#d0a0ff;
+  border:1px solid rgba(168,85,247,.3)}
+.h-badge-sm.a{background:linear-gradient(135deg,rgba(255,23,68,.2),rgba(255,23,68,.1));color:#ff8099;
+  border:1px solid rgba(255,23,68,.3)}
+.h-badge-sm.s{background:linear-gradient(135deg,rgba(236,72,153,.2),rgba(236,72,153,.1));color:#ffa0d0;
+  border:1px solid rgba(236,72,153,.3)}
 
 /* ── PLAN SCREEN ── */
-#screenPlan{background:var(--bg)}
-.p-header{background:var(--bg);flex-shrink:0;border-bottom:1px solid var(--border);position:relative}
+#screenPlan{background:linear-gradient(135deg,#000,#0d0a0a)}
+.p-header{background:var(--bg);flex-shrink:0;border-bottom:1px solid var(--border);position:relative;
+  box-shadow:0 4px 20px rgba(255,23,68,.15)}
 .p-header .diag{top:0}
-.p-topbar{display:flex;align-items:center;gap:10px;padding:env(safe-area-inset-top,12px) 16px 10px}
-.p-back{width:34px;height:34px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--muted);flex-shrink:0;font-weight:700}
+.p-topbar{display:flex;align-items:center;gap:10px;padding:env(safe-area-inset-top,14px) 18px 12px}
+.p-back{width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--bg3),var(--bg4));border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--text);
+  flex-shrink:0;font-weight:700;transition:all .3s;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+.p-back:active{transform:scale(0.92);background:linear-gradient(135deg,var(--red-dark),var(--red))}
 .p-title{flex:1;min-width:0}
-.p-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.p-meta{font-size:10px;color:var(--muted);margin-top:1px;font-weight:600;letter-spacing:.05em}
-.p-pill{background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--muted);flex-shrink:0;font-weight:700}
-.p-pill span{color:var(--red)}
+.p-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;
+  background:linear-gradient(90deg,#fff,#ffcccc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-meta{font-size:11px;color:var(--muted);margin-top:2px;font-weight:600;letter-spacing:.05em}
+.p-pill{background:linear-gradient(135deg,rgba(255,23,68,.15),rgba(255,23,68,.08));
+  border:1px solid rgba(255,23,68,.3);border-radius:20px;padding:5px 14px;font-size:13px;
+  color:var(--muted);flex-shrink:0;font-weight:700;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.p-pill span{background:linear-gradient(90deg,var(--red),var(--orange));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent}
 .tabs{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--border)}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex-shrink:0;padding:10px 16px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
-.tab.active{color:var(--text);border-bottom-color:var(--red)}
-.pbar-wrap{padding:0 16px 8px;display:flex;align-items:center;gap:10px}
-.pbar{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
-.pbar-fill{height:100%;background:var(--red);border-radius:2px;transition:width .4s ease}
-.pbar-pct{font-size:11px;color:var(--muted);font-weight:700;min-width:28px;text-align:right}
-.elist{flex:1;overflow-y:auto;padding:10px 16px 16px;-webkit-overflow-scrolling:touch}
+.tab{flex-shrink:0;padding:12px 18px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;
+  color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+.tab.active{color:#fff;border-bottom-color:var(--red);
+  background:linear-gradient(180deg,transparent,rgba(255,23,68,.08));
+  text-shadow:0 0 20px rgba(255,23,68,.6)}
+.pbar-wrap{padding:0 18px 10px;display:flex;align-items:center;gap:12px}
+.pbar{flex:1;height:4px;background:var(--border);border-radius:3px;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.5)}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow));
+  border-radius:3px;transition:width .4s ease;box-shadow:0 0 15px rgba(255,23,68,.6)}
+.pbar-pct{font-size:12px;font-weight:700;min-width:32px;text-align:right;
+  background:linear-gradient(90deg,var(--red),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.elist{flex:1;overflow-y:auto;padding:12px 18px 18px;-webkit-overflow-scrolling:touch}
 .elist::-webkit-scrollbar{display:none}
-.e-label{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:var(--muted);margin-bottom:12px;padding-top:4px}
-.ecard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:8px;transition:all .15s;position:relative;overflow:hidden}
-.ecard:active{background:var(--bg3);transform:scale(0.99)}
-.ecard.done{border-color:var(--red-dark);background:rgba(159,15,46,.08)}
-.ecard.done::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red)}
-.e-num{width:32px;height:32px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);flex-shrink:0;letter-spacing:1px}
-.e-num.dn{background:rgba(225,29,72,.15);border-color:var(--red-dark);color:var(--red2)}
+.e-label{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;
+  background:linear-gradient(90deg,var(--red),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:14px;padding-top:6px;filter:drop-shadow(0 0 10px rgba(255,23,68,.3))}
+.ecard{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);
+  border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;margin-bottom:10px;
+  transition:all .3s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.3)}
+.ecard:active{background:linear-gradient(135deg,var(--bg3),var(--bg4));transform:scale(0.98);
+  box-shadow:0 6px 25px rgba(255,23,68,.3)}
+.ecard.done{border-color:var(--red);background:linear-gradient(135deg,rgba(213,0,0,.12),rgba(255,23,68,.08));
+  box-shadow:0 4px 20px rgba(255,23,68,.4)}
+.ecard.done::after{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--red),var(--orange));box-shadow:0 0 15px rgba(255,23,68,.8)}
+.e-num{width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--bg3),var(--bg4));border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;
+  font-size:18px;color:var(--muted);flex-shrink:0;letter-spacing:1px;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.5)}
+.e-num.dn{background:linear-gradient(135deg,rgba(255,23,68,.25),rgba(255,110,64,.15));
+  border-color:var(--red);color:var(--red2);box-shadow:0 0 20px rgba(255,23,68,.5)}
 .e-info{flex:1;min-width:0}
-.e-name{font-size:14px;font-weight:700;color:var(--text);line-height:1.3}
-.e-sub{font-size:11px;color:var(--muted);margin-top:3px;font-weight:600;letter-spacing:.02em}
-.e-play{width:34px;height:34px;border-radius:8px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
-.e-play svg{width:12px;height:12px;fill:#fff;margin-left:2px}
-.e-done{width:34px;height:34px;border-radius:8px;background:rgba(225,29,72,.15);border:1px solid var(--red-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.e-done svg{width:14px;height:14px;stroke:var(--red2);fill:none;stroke-width:2.5}
+.e-name{font-size:15px;font-weight:700;
+  background:linear-gradient(90deg,#fff,#ffdddd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1.4}
+.e-sub{font-size:12px;color:var(--muted);margin-top:4px;font-weight:600;letter-spacing:.02em}
+.e-play{width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--red),var(--orange));
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;
+  box-shadow:0 4px 15px rgba(255,23,68,.6)}
+.e-play:active{transform:scale(0.9);box-shadow:0 6px 25px rgba(255,23,68,.8)}
+.e-play svg{width:14px;height:14px;fill:#fff;margin-left:2px}
+.e-done{width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(255,23,68,.2),rgba(255,110,64,.15));
+  border:1px solid var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 0 20px rgba(255,23,68,.5)}
+.e-done svg{width:16px;height:16px;stroke:var(--red2);fill:none;stroke-width:3}
 
 /* ── MODAL ── */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;flex-direction:column}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:100;flex-direction:column;
+  backdrop-filter:blur(10px)}
 .modal-bg.open{display:flex}
-.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:env(safe-area-inset-top,16px) 16px 14px;flex-shrink:0;border-bottom:1px solid var(--border)}
-.modal-ttl{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--text);flex:1;padding-right:12px;line-height:1.2}
-.modal-close{width:36px;height:36px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:18px;font-weight:700;flex-shrink:0}
-.vid-wrap{width:100%;aspect-ratio:16/9;background:#000;flex-shrink:0}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;
+  padding:env(safe-area-inset-top,18px) 18px 16px;flex-shrink:0;border-bottom:1px solid var(--border);
+  background:linear-gradient(135deg,var(--bg),var(--bg2));position:relative}
+.modal-hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow))}
+.modal-ttl{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;
+  background:linear-gradient(90deg,#fff,#ffcccc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  flex:1;padding-right:12px;line-height:1.3}
+.modal-close{width:40px;height:40px;border-radius:10px;
+  background:linear-gradient(135deg,var(--bg3),var(--bg4));border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);
+  font-size:20px;font-weight:700;flex-shrink:0;transition:all .3s;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+.modal-close:active{background:linear-gradient(135deg,var(--red-dark),var(--red));transform:scale(0.9)}
+.vid-wrap{width:100%;aspect-ratio:16/9;background:#000;flex-shrink:0;
+  box-shadow:0 8px 30px rgba(0,0,0,.6)}
 .vid-wrap iframe{width:100%;height:100%;border:none;display:block}
-.modal-body{padding:14px 16px;flex:1;overflow-y:auto}
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.stat{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:10px;text-align:center}
-.stat-val{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--red2)}
-.stat-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;font-weight:700}
-.modal-acts{display:flex;gap:8px;padding-bottom:env(safe-area-inset-bottom,8px)}
-.btn-done{flex:1;padding:14px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;cursor:pointer;transition:all .15s}
-.btn-done:active{background:var(--red-dark)}
-.btn-done.un{background:var(--bg3);color:var(--muted);border:1px solid var(--border2)}
-.btn-next{padding:14px 18px;background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;cursor:pointer}
-.no-vid{display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.modal-body{padding:16px 18px;flex:1;overflow-y:auto}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.stat{background:linear-gradient(135deg,rgba(255,23,68,.12),rgba(255,23,68,.06));
+  border:1px solid rgba(255,23,68,.3);border-radius:10px;padding:14px;text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,.3)}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;
+  background:linear-gradient(135deg,var(--red2),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 10px rgba(255,23,68,.4))}
+.stat-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:3px;font-weight:700}
+.modal-acts{display:flex;gap:10px;padding-bottom:env(safe-area-inset-bottom,10px)}
+.btn-done{flex:1;padding:16px;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;
+  border:none;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;
+  cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(255,23,68,.6);font-weight:700}
+.btn-done:active{background:linear-gradient(135deg,var(--red-dark),var(--red));
+  transform:scale(0.96);box-shadow:0 6px 30px rgba(255,23,68,.8)}
+.btn-done.un{background:linear-gradient(135deg,var(--bg3),var(--bg4));color:var(--muted);
+  border:1px solid var(--border2);box-shadow:0 2px 10px rgba(0,0,0,.5)}
+.btn-next{padding:16px 20px;background:linear-gradient(135deg,var(--bg3),var(--bg4));color:var(--text);
+  border:1px solid var(--border2);border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:20px;
+  letter-spacing:1px;cursor:pointer;transition:all .3s;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+.btn-next:active{transform:scale(0.96);border-color:var(--red)}
+.no-vid{display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);
+  font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
 
 /* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.screen.active .g-logo,.screen.active .g-tagline,.screen.active .g-label,.screen.active .g-cards{animation:fadeUp .4s ease both}
-.screen.active .g-tagline{animation-delay:.05s}
-.screen.active .g-label{animation-delay:.1s}
-.screen.active .g-cards{animation-delay:.15s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(255,23,68,.4)}50%{box-shadow:0 0 35px rgba(255,23,68,.8)}}
+.screen.active .g-logo,.screen.active .g-tagline,.screen.active .g-label,.screen.active .g-cards{animation:fadeUp .5s ease both}
+.screen.active .g-tagline{animation-delay:.08s}
+.screen.active .g-label{animation-delay:.15s}
+.screen.active .g-cards{animation-delay:.22s}
+.g-logo em{animation:glow 2s ease-in-out infinite}
 </style>
 </head>
 <body>
@@ -149,8 +268,8 @@ body{display:flex;flex-direction:column;height:100dvh}
   <div class="diag"></div>
   <div class="g-hero">
     <div class="g-logo">Treino<em>Pro</em></div>
-    <div class="g-tagline">Seu treino. Sua evolução.</div>
-    <div class="g-label">Selecione seu perfil</div>
+    <div class="g-tagline">🔥 Seu treino. Sua evolução. 💪</div>
+    <div class="g-label">⚡ Selecione seu perfil</div>
     <div class="g-cards">
       <div class="g-card" onclick="setGender('m')">
         <div class="g-card-icon">💪</div>
@@ -159,7 +278,7 @@ body{display:flex;flex-direction:column;height:100dvh}
         <div class="g-card-line"></div>
       </div>
       <div class="g-card" onclick="setGender('f')">
-        <div class="g-card-icon">🏋️</div>
+        <div class="g-card-icon">🏋️‍♀️</div>
         <div class="g-card-name">Mulheres</div>
         <div class="g-card-desc">Glúteos, definição e hipertrofia</div>
         <div class="g-card-line"></div>
@@ -167,13 +286,14 @@ body{display:flex;flex-direction:column;height:100dvh}
     </div>
   </div>
   <div class="g-footer"><a href="https://github.com/romariomrk" target="_blank">github.com/romariomrk</a></div>
+  <div class="diag-bottom"></div>
 </div>
 
 <!-- HOME -->
 <div class="screen" id="screenHome">
   <div class="p-header">
     <div class="diag"></div>
-    <div class="h-topbar" style="padding:env(safe-area-inset-top,12px) 16px 12px">
+    <div class="h-topbar" style="padding:env(safe-area-inset-top,14px) 18px 14px">
       <div class="h-back" onclick="goGender()">←</div>
       <div class="h-logo">Treino<em>Pro</em></div>
       <div class="h-badge" id="genderBadge"></div>
@@ -249,323 +369,319 @@ const YT={
 const PLANS_H={
   ini_ab:{name:'Plano AB',meta:'4x/semana · 4-8 semanas · Iniciante',level:'i',treinos:[
     {label:'Treino A',sub:'Superior + Core',exercises:[
-      {name:'Supino Reto com Barra',sets:'3',reps:'10-12',rest:'60s',vid:'SupinoReto'},
-      {name:'Elevação Lateral',sets:'3',reps:'12-15',rest:'45s',vid:'ElevacaoLateral'},
-      {name:'Barra Fixa ou Pulley',sets:'3',reps:'10-12',rest:'60s',vid:'BarraFixa'},
-      {name:'Rosca Direta com Barra',sets:'3',reps:'12-15',rest:'45s',vid:'RoscaDireta'},
-      {name:'Tríceps Corda no Pulley',sets:'3',reps:'12-15',rest:'45s',vid:'TricepsCorda'},
-      {name:'Prancha Abdominal',sets:'3',reps:'30-40s',rest:'30s',vid:'PranchaAbdominal'},
+      {name:'💪 Supino Reto com Barra',sets:'3',reps:'10-12',rest:'60s',vid:'SupinoReto'},
+      {name:'🔥 Elevação Lateral',sets:'3',reps:'12-15',rest:'45s',vid:'ElevacaoLateral'},
+      {name:'🦍 Barra Fixa ou Pulley',sets:'3',reps:'10-12',rest:'60s',vid:'BarraFixa'},
+      {name:'💪 Rosca Direta com Barra',sets:'3',reps:'12-15',rest:'45s',vid:'RoscaDireta'},
+      {name:'🔥 Tríceps Corda no Pulley',sets:'3',reps:'12-15',rest:'45s',vid:'TricepsCorda'},
+      {name:'🎯 Prancha Abdominal',sets:'3',reps:'30-40s',rest:'30s',vid:'PranchaAbdominal'},
     ]},
     {label:'Treino B',sub:'Inferior + Core',exercises:[
-      {name:'Agachamento Livre',sets:'3',reps:'10-12',rest:'60s',vid:'Agachamento1'},
-      {name:'Leg Press 45°',sets:'3',reps:'12-15',rest:'60s',vid:'LegPress45'},
-      {name:'Mesa Flexora',sets:'3',reps:'12-15',rest:'45s',vid:'MesaFlexora'},
-      {name:'Elevação de Glúteos',sets:'3',reps:'12-15',rest:'45s',vid:'ElevacaoDeGluteo1'},
-      {name:'Gêmeos Sentado',sets:'3',reps:'15-20',rest:'30s',vid:'Gemeos1'},
-      {name:'Abdominal Supra',sets:'3',reps:'12-15',rest:'30s',vid:'AbdominalSupra1'},
+      {name:'🦵 Agachamento Livre',sets:'3',reps:'10-12',rest:'60s',vid:'Agachamento1'},
+      {name:'⚡ Leg Press 45°',sets:'3',reps:'12-15',rest:'60s',vid:'LegPress45'},
+      {name:'🏋️ Stiff com Barra',sets:'3',reps:'10-12',rest:'60s',vid:'StiffComBarra'},
+      {name:'💥 Cadeira Extensora',sets:'3',reps:'12-15',rest:'45s',vid:'CadeiraExtensora'},
+      {name:'🔥 Cadeira Flexora',sets:'3',reps:'12-15',rest:'45s',vid:'CadeiraFlexora'},
+      {name:'🎯 Abdominal Supra',sets:'3',reps:'15-20',rest:'30s',vid:'AbdominalSupra1'},
     ]},
   ]},
   ini_abc:{name:'Plano ABC',meta:'5-6x/semana · 6-8 semanas · Iniciante',level:'i',treinos:[
-    {label:'Treino A',sub:'Peito · Ombro · Tríceps',exercises:[
-      {name:'Supino Inclinado com Halteres',sets:'3',reps:'10-12',rest:'60s',vid:'SupinoInclinado'},
-      {name:'Crucifixo Máquina ou Halteres',sets:'4',reps:'12-15',rest:'45s',vid:'CrucifixoComHalteres'},
-      {name:'Desenvolvimento Arnold',sets:'3',reps:'10-12',rest:'60s',vid:'DesenvolvimentoMaquina1'},
-      {name:'Elevação Lateral',sets:'4',reps:'12-15',rest:'45s',vid:'ElevacaoLateral'},
-      {name:'Tríceps Francês com Halteres',sets:'4',reps:'12-15',rest:'45s',vid:'TricepsFrances1'},
-      {name:'Abdominal Infra',sets:'3',reps:'12-15',rest:'30s',vid:'AbdominalInfra'},
-    ]},
-    {label:'Treino B',sub:'Costas · Bíceps',exercises:[
-      {name:'Barra Fixa ou Pulley Frente',sets:'3',reps:'10-12',rest:'60s',vid:'BarraFixa'},
-      {name:'Remada Curvada com Barra',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaCurvada1'},
-      {name:'Puxada Alta com Triângulo',sets:'3',reps:'12-15',rest:'45s',vid:'PuxadaPulley'},
-      {name:'Rosca Direta com Barra',sets:'3',reps:'12-15',rest:'45s',vid:'RoscaDireta'},
-      {name:'Rosca Martelo com Halteres',sets:'3',reps:'12-15',rest:'45s',vid:'RoscaMartelo'},
-      {name:'Prancha com Elevação de Perna',sets:'3',reps:'30-40s',rest:'30s',vid:'PranchaComEscalador'},
-    ]},
-    {label:'Treino C',sub:'Pernas · Glúteos',exercises:[
-      {name:'Agachamento Smith',sets:'3',reps:'10-12',rest:'60s',vid:'Agachamento1'},
-      {name:'Cadeira Extensora',sets:'3',reps:'12-15',rest:'45s',vid:'CadeiraExtensora'},
-      {name:'Stiff com Halteres',sets:'3',reps:'12-15',rest:'45s',vid:'StiffComHalteres'},
-      {name:'Cadeira Flexora',sets:'3',reps:'12-15',rest:'45s',vid:'CadeiraFlexora'},
-      {name:'Elevação de Glúteos',sets:'3',reps:'12-15',rest:'45s',vid:'ElevacaoDeGluteo1'},
-      {name:'Gêmeos em Pé',sets:'3',reps:'15-20',rest:'30s',vid:'Gemeos1'},
-    ]},
-  ]},
-  int_abc:{name:'Plano ABC',meta:'5-6x/semana · 8-12 semanas · Intermediário',level:'m-level',treinos:[
-    {label:'Treino A',sub:'Peito · Tríceps · Ombro',exercises:[
-      {name:'Supino Reto com Barra',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoReto'},
-      {name:'Supino Inclinado com Halteres',sets:'3',reps:'10-12',rest:'90s',vid:'SupinoInclinado'},
-      {name:'Crucifixo na Máquina',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoComHalteres'},
-      {name:'Desenvolvimento com Halteres',sets:'4',reps:'8-12',rest:'90s',vid:'DesenvolvimentoMaquina1'},
-      {name:'Elevação Lateral',sets:'3',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
-      {name:'Tríceps Corda no Pulley',sets:'3',reps:'10-12',rest:'60s',vid:'TricepsCorda'},
-      {name:'Tríceps Francês com Barra',sets:'3',reps:'8-10',rest:'60s',vid:'TricepsFrances1'},
-    ]},
-    {label:'Treino B',sub:'Costas · Bíceps',exercises:[
-      {name:'Barra Fixa ou Pulley Alto',sets:'4',reps:'8-12',rest:'90s',vid:'BarraFixa'},
-      {name:'Remada Curvada com Barra',sets:'4',reps:'8-12',rest:'90s',vid:'RemadaCurvada1'},
-      {name:'Pulley Frente',sets:'3',reps:'10-12',rest:'75s',vid:'PulleyFrente'},
-      {name:'Remada Unilateral',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaUnilateral'},
-      {name:'Rosca Direta com Barra',sets:'4',reps:'8-12',rest:'75s',vid:'RoscaDireta'},
-      {name:'Rosca Concentrada',sets:'3',reps:'12-15',rest:'60s',vid:'RoscaConcentrada'},
-      {name:'Rosca Martelo',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaMartelo'},
-    ]},
-    {label:'Treino C',sub:'Pernas · Abdômen',exercises:[
-      {name:'Agachamento Livre',sets:'4',reps:'8-12',rest:'120s',vid:'Agachamento1'},
-      {name:'Leg Press 45°',sets:'4',reps:'10-12',rest:'90s',vid:'LegPress45'},
-      {name:'Cadeira Extensora',sets:'3',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
-      {name:'Mesa Flexora',sets:'3',reps:'10-12',rest:'60s',vid:'MesaFlexora'},
-      {name:'Stiff com Barra',sets:'3',reps:'8-10',rest:'75s',vid:'StiffComBarra'},
-      {name:'Panturrilha em Pé',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
-      {name:'Abdominal Supra',sets:'3',reps:'15-20',rest:'45s',vid:'AbdominalSupra1'},
-      {name:'Prancha Abdominal',sets:'3',reps:'30-60s',rest:'45s',vid:'PranchaAbdominal'},
-    ]},
-  ]},
-  int_abcd1:{name:'ABCD Volume I',meta:'5-6x/semana · 8 semanas · Intermediário',level:'m-level',treinos:[
     {label:'Treino A',sub:'Peito · Tríceps',exercises:[
-      {name:'Supino Inclinado com Halteres',sets:'4',reps:'10-12',rest:'90s',vid:'SupinoInclinado'},
-      {name:'Supino Reto com Barra',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoReto'},
-      {name:'Crucifixo na Máquina',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoComHalteres'},
-      {name:'Barra Paralela',sets:'3',reps:'12-15',rest:'75s',vid:'BarraParalela'},
-      {name:'Tríceps Corda no Pulley',sets:'3',reps:'10-12',rest:'60s',vid:'TricepsCorda'},
-      {name:'Tríceps Francês com Barra',sets:'3',reps:'8-10',rest:'60s',vid:'TricepsFrances1'},
+      {name:'💪 Supino Reto com Barra',sets:'3',reps:'10-12',rest:'90s',vid:'SupinoReto'},
+      {name:'🔥 Supino Inclinado',sets:'3',reps:'10-12',rest:'90s',vid:'SupinoInclinado'},
+      {name:'⚡ Crucifixo com Halteres',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoComHalteres'},
+      {name:'💥 Tríceps Corda',sets:'3',reps:'12-15',rest:'60s',vid:'TricepsCorda'},
+      {name:'🏋️ Tríceps Francês',sets:'3',reps:'12-15',rest:'60s',vid:'TricepsFrances1'},
     ]},
     {label:'Treino B',sub:'Costas · Bíceps',exercises:[
-      {name:'Barra Fixa ou Pulley Alto',sets:'4',reps:'8-12',rest:'90s',vid:'BarraFixa'},
-      {name:'Pulley com Triângulo',sets:'3',reps:'8-12',rest:'75s',vid:'PuxadaPulley'},
-      {name:'Remada Curvada com Barra',sets:'4',reps:'8-12',rest:'90s',vid:'RemadaCurvada1'},
-      {name:'Remada Cavalinho',sets:'3',reps:'10-12',rest:'75s',vid:'RemadaCavaleiro'},
-      {name:'Rosca Direta com Barra',sets:'4',reps:'8-12',rest:'60s',vid:'RoscaDireta'},
-      {name:'Rosca Concentrada',sets:'3',reps:'12-15',rest:'60s',vid:'RoscaConcentrada'},
-      {name:'Rosca Martelo',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaMartelo'},
+      {name:'🦍 Barra Fixa',sets:'3',reps:'8-10',rest:'90s',vid:'BarraFixa'},
+      {name:'💪 Remada Curvada',sets:'3',reps:'10-12',rest:'90s',vid:'RemadaCurvada1'},
+      {name:'🔥 Pulley Frente',sets:'3',reps:'12-15',rest:'60s',vid:'PulleyFrente'},
+      {name:'⚡ Rosca Direta',sets:'3',reps:'12-15',rest:'60s',vid:'RoscaDireta'},
+      {name:'💥 Rosca Martelo',sets:'3',reps:'12-15',rest:'60s',vid:'RoscaMartelo'},
     ]},
-    {label:'Treino C',sub:'Ombro · Abdômen',exercises:[
-      {name:'Elevação Lateral',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
-      {name:'Desenvolvimento com Halteres',sets:'3',reps:'8-12',rest:'75s',vid:'DesenvolvimentoMaquina1'},
-      {name:'Elevação Frontal com Halteres',sets:'3',reps:'10-12',rest:'60s',vid:'ElevacaoFrontal1'},
-      {name:'Crucifixo Inverso',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoInverso'},
-      {name:'Encolhimento com Halteres',sets:'3',reps:'12-15',rest:'60s',vid:'Encolhimento'},
-      {name:'Prancha Abdominal',sets:'3',reps:'30-60s',rest:'60s',vid:'PranchaAbdominal'},
-      {name:'Abdominal Infra',sets:'3',reps:'15-20',rest:'45s',vid:'AbdominalInfra'},
-    ]},
-    {label:'Treino D',sub:'Pernas',exercises:[
-      {name:'Cadeira Extensora',sets:'4',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
-      {name:'Agachamento Livre',sets:'4',reps:'8-12',rest:'120s',vid:'Agachamento1'},
-      {name:'Leg Press 45°',sets:'4',reps:'10-12',rest:'90s',vid:'LegPress45'},
-      {name:'Mesa Flexora',sets:'3',reps:'10-12',rest:'75s',vid:'MesaFlexora'},
-      {name:'Stiff com Barra',sets:'3',reps:'8-10',rest:'90s',vid:'StiffComBarra'},
-      {name:'Panturrilha em Pé',sets:'4',reps:'12-15',rest:'60s',vid:'Gemeos1'},
-      {name:'Panturrilha Sentado',sets:'4',reps:'15-20',rest:'60s',vid:'Gemeos2'},
+    {label:'Treino C',sub:'Pernas · Ombros',exercises:[
+      {name:'🦵 Agachamento Livre',sets:'4',reps:'10-12',rest:'90s',vid:'Agachamento1'},
+      {name:'⚡ Leg Press 45°',sets:'3',reps:'12-15',rest:'90s',vid:'LegPress45'},
+      {name:'🏋️ Cadeira Extensora',sets:'3',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'🔥 Desenvolvimento Máquina',sets:'3',reps:'10-12',rest:'90s',vid:'DesenvolvimentoMaquina1'},
+      {name:'💪 Elevação Lateral',sets:'3',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
+      {name:'🎯 Gêmeos em Pé',sets:'3',reps:'15-20',rest:'45s',vid:'Gemeos1'},
     ]},
   ]},
-  int_abcd2:{name:'ABCD Volume II',meta:'4-6x/semana · 8 semanas · Intermediário',level:'m-level',treinos:[
-    {label:'Treino A',sub:'Peito · Ombro · Tríceps',exercises:[
-      {name:'Supino Inclinado com Halteres',sets:'3',reps:'10-12',rest:'75s',vid:'SupinoInclinado'},
-      {name:'Crucifixo na Máquina',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoComHalteres'},
-      {name:'Paralelas para Peito',sets:'3',reps:'8-10',rest:'75s',vid:'BarraParalela'},
-      {name:'Elevação Lateral',sets:'4',reps:'8-10',rest:'60s',vid:'ElevacaoLateral'},
-      {name:'Desenvolvimento com Halteres',sets:'3',reps:'8-10',rest:'75s',vid:'DesenvolvimentoMaquina1'},
-      {name:'Tríceps Testa com Barra',sets:'3',reps:'10-12',rest:'60s',vid:'TricepsTesta1'},
-      {name:'Tríceps Corda no Pulley',sets:'3',reps:'12-15',rest:'60s',vid:'TricepsCorda'},
+  int_abc:{name:'Plano ABC',meta:'5-6x/semana · 8 semanas · Intermediário',level:'m',treinos:[
+    {label:'Treino A',sub:'Peito · Tríceps',exercises:[
+      {name:'💪 Supino Reto com Barra',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoReto'},
+      {name:'🔥 Supino Inclinado',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoInclinado'},
+      {name:'⚡ Crucifixo Inclinado',sets:'3',reps:'10-15',rest:'60s',vid:'CrucifixoInclinado'},
+      {name:'💥 Cross Over',sets:'3',reps:'12-15',rest:'60s',vid:'CrossOver'},
+      {name:'🏋️ Tríceps Corda',sets:'4',reps:'10-12',rest:'60s',vid:'TricepsCorda'},
+      {name:'🔥 Tríceps Testa',sets:'3',reps:'10-12',rest:'60s',vid:'TricepsTesta1'},
     ]},
-    {label:'Treino B',sub:'Quadríceps · Panturrilhas',exercises:[
-      {name:'Agachamento Livre',sets:'4',reps:'8-10',rest:'90s',vid:'Agachamento1'},
-      {name:'Leg Press 45°',sets:'3',reps:'10-12',rest:'75s',vid:'LegPress45'},
-      {name:'Cadeira Extensora',sets:'3',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
-      {name:'Afundo com Halteres',sets:'3',reps:'10-12',rest:'75s',vid:'AfundoComHalteres'},
-      {name:'Gêmeos em Pé',sets:'4',reps:'15-20',rest:'60s',vid:'Gemeos1'},
-      {name:'Gêmeos Sentado',sets:'3',reps:'12-15',rest:'60s',vid:'Gemeos2'},
+    {label:'Treino B',sub:'Costas · Bíceps · Ombro Posterior',exercises:[
+      {name:'🦍 Barra Fixa',sets:'4',reps:'8-12',rest:'90s',vid:'BarraFixa'},
+      {name:'💪 Remada Curvada',sets:'4',reps:'8-12',rest:'90s',vid:'RemadaCurvada1'},
+      {name:'🔥 Remada Baixa',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaBaixa'},
+      {name:'⚡ Pulley Frente',sets:'3',reps:'12-15',rest:'60s',vid:'PulleyFrente'},
+      {name:'💥 Rosca Direta',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaDireta'},
+      {name:'🏋️ Rosca Scott',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaScottBarra'},
+      {name:'🎯 Crucifixo Inverso',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoInverso'},
     ]},
-    {label:'Treino C',sub:'Costas · Bíceps',exercises:[
-      {name:'Barra Fixa ou Pulley Frente',sets:'4',reps:'8-10',rest:'90s',vid:'BarraFixa'},
-      {name:'Remada Curvada com Barra',sets:'4',reps:'8-10',rest:'90s',vid:'RemadaCurvada1'},
-      {name:'Pulley Fechado',sets:'3',reps:'10-12',rest:'75s',vid:'PuxadaPulley'},
-      {name:'Remada Unilateral',sets:'3',reps:'10-12',rest:'75s',vid:'RemadaUnilateral'},
-      {name:'Rosca Direta com Barra',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaDireta'},
-      {name:'Rosca Martelo',sets:'3',reps:'12-15',rest:'60s',vid:'RoscaMartelo'},
+    {label:'Treino C',sub:'Pernas · Ombros',exercises:[
+      {name:'🦵 Agachamento Livre',sets:'4',reps:'8-12',rest:'90s',vid:'Agachamento1'},
+      {name:'⚡ Leg Press 45°',sets:'4',reps:'10-15',rest:'90s',vid:'LegPress45'},
+      {name:'🏋️ Stiff com Barra',sets:'3',reps:'10-12',rest:'90s',vid:'StiffComBarra'},
+      {name:'💥 Cadeira Extensora',sets:'3',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'🔥 Desenvolvimento Máquina',sets:'4',reps:'8-12',rest:'90s',vid:'DesenvolvimentoMaquina1'},
+      {name:'💪 Elevação Lateral',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
+      {name:'🎯 Elevação Frontal',sets:'3',reps:'12-15',rest:'60s',vid:'ElevacaoFrontal1'},
     ]},
-    {label:'Treino D',sub:'Posterior · Glúteos',exercises:[
-      {name:'Stiff com Barra',sets:'4',reps:'8-10',rest:'90s',vid:'StiffComBarra'},
-      {name:'Mesa Flexora',sets:'3',reps:'10-12',rest:'75s',vid:'MesaFlexora'},
-      {name:'Cadeira Flexora',sets:'3',reps:'12-15',rest:'60s',vid:'CadeiraFlexora'},
-      {name:'Elevação Pélvica',sets:'4',reps:'10-12',rest:'75s',vid:'ElevacaoPelvica'},
-      {name:'Abdução de Quadril na Máquina',sets:'3',reps:'12-15',rest:'60s',vid:'ElevacaoDeGluteo2'},
+  ]},
+  int_abcd1:{name:'ABCD Volume I',meta:'5-6x/semana · 8 semanas · Intermediário',level:'m',treinos:[
+    {label:'Treino A',sub:'Peito · Tríceps',exercises:[
+      {name:'💪 Supino Reto com Barra',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoReto'},
+      {name:'🔥 Supino Inclinado',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoInclinado'},
+      {name:'⚡ Crucifixo Máquina Reto',sets:'3',reps:'10-15',rest:'60s',vid:'CrucifixoMaquinaReto'},
+      {name:'💥 Crucifixo Inclinado',sets:'3',reps:'10-15',rest:'60s',vid:'CrucifixoInclinado'},
+      {name:'🏋️ Tríceps Corda',sets:'4',reps:'10-12',rest:'60s',vid:'TricepsCorda'},
+      {name:'🔥 Tríceps Francês',sets:'3',reps:'10-12',rest:'60s',vid:'TricepsFrances1'},
+      {name:'🎯 Tríceps Testa',sets:'3',reps:'10-12',rest:'60s',vid:'TricepsTesta1'},
+    ]},
+    {label:'Treino B',sub:'Costas · Bíceps',exercises:[
+      {name:'🦍 Barra Fixa',sets:'4',reps:'8-12',rest:'90s',vid:'BarraFixa'},
+      {name:'💪 Remada Curvada',sets:'4',reps:'8-12',rest:'90s',vid:'RemadaCurvada1'},
+      {name:'🔥 Puxada Alta',sets:'3',reps:'10-12',rest:'60s',vid:'PuxadaAlta'},
+      {name:'⚡ Remada Baixa',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaBaixa'},
+      {name:'💥 Rosca Direta',sets:'4',reps:'10-12',rest:'60s',vid:'RoscaDireta'},
+      {name:'🏋️ Rosca Scott',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaScottBarra'},
+      {name:'🎯 Rosca Martelo',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaMartelo'},
+    ]},
+    {label:'Treino C',sub:'Ombros · Trapézio',exercises:[
+      {name:'🔥 Desenvolvimento Máquina',sets:'4',reps:'8-12',rest:'90s',vid:'DesenvolvimentoMaquina1'},
+      {name:'💪 Elevação Lateral',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
+      {name:'⚡ Elevação Frontal',sets:'3',reps:'12-15',rest:'60s',vid:'ElevacaoFrontal1'},
+      {name:'🎯 Crucifixo Inverso',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoInverso'},
+      {name:'💥 Remada Alta',sets:'3',reps:'12-15',rest:'60s',vid:'RemadaAlta'},
+      {name:'🏋️ Encolhimento',sets:'4',reps:'12-15',rest:'60s',vid:'Encolhimento'},
+    ]},
+    {label:'Treino D',sub:'Pernas Completo',exercises:[
+      {name:'🦵 Agachamento Livre',sets:'4',reps:'8-12',rest:'90s',vid:'Agachamento1'},
+      {name:'⚡ Leg Press 45°',sets:'4',reps:'10-15',rest:'90s',vid:'LegPress45'},
+      {name:'🏋️ Cadeira Extensora',sets:'4',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'🔥 Stiff com Barra',sets:'4',reps:'10-12',rest:'90s',vid:'StiffComBarra'},
+      {name:'💥 Mesa Flexora',sets:'3',reps:'12-15',rest:'60s',vid:'MesaFlexora'},
+      {name:'🎯 Gêmeos em Pé',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
+    ]},
+  ]},
+  int_abcd2:{name:'ABCD Volume II',meta:'4-6x/semana · 8 semanas · Intermediário',level:'m',treinos:[
+    {label:'Treino A',sub:'Peito · Bíceps',exercises:[
+      {name:'💪 Supino Reto com Barra',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoReto'},
+      {name:'🔥 Supino Inclinado',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoInclinado'},
+      {name:'⚡ Crucifixo Inclinado',sets:'3',reps:'10-15',rest:'60s',vid:'CrucifixoInclinado'},
+      {name:'💥 Cross Over',sets:'3',reps:'12-15',rest:'60s',vid:'CrossOver'},
+      {name:'🏋️ Rosca Direta',sets:'4',reps:'10-12',rest:'60s',vid:'RoscaDireta'},
+      {name:'🔥 Rosca Martelo',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaMartelo'},
+      {name:'🎯 Rosca Concentrada',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaConcentrada'},
+    ]},
+    {label:'Treino B',sub:'Pernas Anterior',exercises:[
+      {name:'🦵 Agachamento Livre',sets:'4',reps:'8-12',rest:'90s',vid:'Agachamento1'},
+      {name:'⚡ Leg Press 45°',sets:'4',reps:'10-15',rest:'90s',vid:'LegPress45'},
+      {name:'🏋️ Hack Squat',sets:'4',reps:'10-15',rest:'90s',vid:'Hack'},
+      {name:'💥 Cadeira Extensora',sets:'4',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'🔥 Afundo com Halteres',sets:'3',reps:'10-12',rest:'60s',vid:'AfundoComHalteres'},
+      {name:'🎯 Gêmeos em Pé',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
+    ]},
+    {label:'Treino C',sub:'Costas · Ombro Posterior · Trapézio',exercises:[
+      {name:'🦍 Barra Fixa',sets:'4',reps:'8-12',rest:'90s',vid:'BarraFixa'},
+      {name:'💪 Remada Curvada',sets:'4',reps:'8-12',rest:'90s',vid:'RemadaCurvada1'},
+      {name:'🔥 Remada Cavaleiro',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaCavaleiro'},
+      {name:'⚡ Puxada Pulley',sets:'3',reps:'10-12',rest:'60s',vid:'PuxadaPulley'},
+      {name:'🎯 Crucifixo Inverso',sets:'4',reps:'12-15',rest:'60s',vid:'CrucifixoInverso'},
+      {name:'💥 Remada Alta',sets:'3',reps:'12-15',rest:'60s',vid:'RemadaAlta'},
+      {name:'🏋️ Encolhimento',sets:'3',reps:'12-15',rest:'60s',vid:'Encolhimento'},
+    ]},
+    {label:'Treino D',sub:'Posterior · Ombros · Tríceps',exercises:[
+      {name:'🏋️ Stiff com Barra',sets:'4',reps:'10-12',rest:'90s',vid:'StiffComBarra'},
+      {name:'🔥 Mesa Flexora',sets:'4',reps:'12-15',rest:'60s',vid:'MesaFlexora'},
+      {name:'💥 Cadeira Flexora',sets:'3',reps:'12-15',rest:'60s',vid:'CadeiraFlexora'},
+      {name:'💪 Desenvolvimento Máquina',sets:'4',reps:'8-12',rest:'90s',vid:'DesenvolvimentoMaquina1'},
+      {name:'🔥 Elevação Lateral',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
+      {name:'🏋️ Tríceps Corda',sets:'4',reps:'10-12',rest:'60s',vid:'TricepsCorda'},
+      {name:'🎯 Tríceps Francês',sets:'3',reps:'10-12',rest:'60s',vid:'TricepsFrances1'},
     ]},
   ]},
   av_abcd:{name:'ABCD Avançado',meta:'5-6x/semana · 8 semanas · Avançado',level:'a',treinos:[
     {label:'Treino A',sub:'Peito · Tríceps',exercises:[
-      {name:'Supino Inclinado com Halteres',sets:'4',reps:'10-12',rest:'90s',vid:'SupinoInclinado'},
-      {name:'Supino Reto com Barra',sets:'3',reps:'8-10',rest:'90s',vid:'SupinoReto'},
-      {name:'Crucifixo na Máquina',sets:'4',reps:'12-15',rest:'60s',vid:'CrucifixoComHalteres'},
-      {name:'Cross Over Polia Alta',sets:'4',reps:'12-15',rest:'60s',vid:'CrossOver'},
-      {name:'Tríceps Francês com Barra W',sets:'4',reps:'8-10',rest:'90s',vid:'TricepsFrances1'},
-      {name:'Tríceps Testa',sets:'3',reps:'10-12',rest:'60s',vid:'TricepsTesta1'},
-      {name:'Tríceps Corda no Pulley',sets:'3',reps:'12-15',rest:'60s',vid:'TricepsCorda'},
+      {name:'💪 Supino Reto com Barra',sets:'4',reps:'6-10',rest:'120s',vid:'SupinoReto'},
+      {name:'🔥 Supino Inclinado',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoInclinado'},
+      {name:'⚡ Crucifixo Máquina Reto',sets:'4',reps:'10-15',rest:'60s',vid:'CrucifixoMaquinaReto'},
+      {name:'💥 Crucifixo Inclinado',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoInclinado'},
+      {name:'🏋️ Cross Over',sets:'3',reps:'12-15',rest:'60s',vid:'CrossOver'},
+      {name:'🔥 Tríceps Corda',sets:'4',reps:'8-12',rest:'60s',vid:'TricepsCorda'},
+      {name:'💥 Tríceps Francês',sets:'4',reps:'10-12',rest:'60s',vid:'TricepsFrances1'},
+      {name:'🎯 Tríceps Testa',sets:'3',reps:'10-12',rest:'60s',vid:'TricepsTesta1'},
     ]},
     {label:'Treino B',sub:'Costas · Bíceps',exercises:[
-      {name:'Barra Fixa ou Pulley Aberto',sets:'4',reps:'8-10',rest:'90s',vid:'BarraFixa'},
-      {name:'Puxada Alta com Triângulo',sets:'3',reps:'10-12',rest:'60s',vid:'PuxadaPulley'},
-      {name:'Remada Curvada com Barra',sets:'4',reps:'8-10',rest:'90s',vid:'RemadaCurvada1'},
-      {name:'Serrote Unilateral',sets:'4',reps:'10-12',rest:'60s',vid:'RemadaUnilateral'},
-      {name:'Rosca Alternada com Halteres',sets:'4',reps:'8-10',rest:'90s',vid:'RoscaAlternada'},
-      {name:'Rosca Scott Máquina',sets:'3',reps:'8-12',rest:'60s',vid:'RoscaScottMaquina'},
-      {name:'Rosca Martelo',sets:'3',reps:'12-15',rest:'60s',vid:'RoscaMartelo'},
+      {name:'🦍 Barra Fixa',sets:'4',reps:'8-12',rest:'90s',vid:'BarraFixa'},
+      {name:'💪 Remada Curvada',sets:'4',reps:'8-12',rest:'90s',vid:'RemadaCurvada1'},
+      {name:'🔥 Pull Down',sets:'4',reps:'10-12',rest:'60s',vid:'PullDown'},
+      {name:'⚡ Remada Cavaleiro',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaCavaleiro'},
+      {name:'💥 Remada Baixa',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaBaixa'},
+      {name:'🏋️ Rosca Direta',sets:'4',reps:'8-12',rest:'60s',vid:'RoscaDireta'},
+      {name:'🔥 Rosca Scott',sets:'4',reps:'10-12',rest:'60s',vid:'RoscaScottBarra'},
+      {name:'🎯 Rosca Martelo',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaMartelo'},
     ]},
-    {label:'Treino C',sub:'Ombros · Abdômen',exercises:[
-      {name:'Elevação Lateral com Halteres',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
-      {name:'Remada Alta com Barra',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaAlta'},
-      {name:'Desenvolvimento com Halteres',sets:'4',reps:'8-10',rest:'90s',vid:'DesenvolvimentoMaquina1'},
-      {name:'Elevação Frontal na Polia',sets:'3',reps:'12-15',rest:'60s',vid:'ElevacaoFrontal1'},
-      {name:'Encolhimento com Halteres',sets:'4',reps:'12-15',rest:'60s',vid:'Encolhimento'},
-      {name:'Abdominal Supra com Peso',sets:'3',reps:'15-20',rest:'45s',vid:'AbdominalSupra1'},
-      {name:'Prancha Abdominal',sets:'3',reps:'60s',rest:'45s',vid:'PranchaAbdominal'},
+    {label:'Treino C',sub:'Ombros · Trapézio',exercises:[
+      {name:'🔥 Desenvolvimento Máquina',sets:'4',reps:'8-12',rest:'90s',vid:'DesenvolvimentoMaquina1'},
+      {name:'💪 Elevação Lateral',sets:'5',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
+      {name:'⚡ Elevação Frontal',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoFrontal1'},
+      {name:'🎯 Crucifixo Inverso',sets:'4',reps:'12-15',rest:'60s',vid:'CrucifixoInverso'},
+      {name:'💥 Remada Alta',sets:'4',reps:'12-15',rest:'60s',vid:'RemadaAlta'},
+      {name:'🏋️ Encolhimento',sets:'4',reps:'12-15',rest:'60s',vid:'Encolhimento'},
     ]},
-    {label:'Treino D',sub:'Pernas',exercises:[
-      {name:'Cadeira Extensora',sets:'4',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
-      {name:'Agachamento Livre',sets:'4',reps:'8-10',rest:'90s',vid:'Agachamento1'},
-      {name:'Leg Press 45°',sets:'4',reps:'10-12',rest:'90s',vid:'LegPress45'},
-      {name:'Stiff com Barra',sets:'4',reps:'8-10',rest:'90s',vid:'StiffComBarra'},
-      {name:'Mesa Flexora',sets:'3',reps:'12-15',rest:'60s',vid:'MesaFlexora'},
-      {name:'Panturrilha em Pé',sets:'4',reps:'12-15',rest:'45s',vid:'Gemeos1'},
-      {name:'Panturrilha Sentado',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos2'},
+    {label:'Treino D',sub:'Pernas Completo',exercises:[
+      {name:'🦵 Agachamento Livre',sets:'5',reps:'6-10',rest:'120s',vid:'Agachamento1'},
+      {name:'⚡ Leg Press 45°',sets:'4',reps:'10-15',rest:'90s',vid:'LegPress45'},
+      {name:'🏋️ Hack Squat',sets:'4',reps:'10-15',rest:'90s',vid:'Hack'},
+      {name:'💥 Cadeira Extensora',sets:'4',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'🔥 Stiff com Barra',sets:'4',reps:'10-12',rest:'90s',vid:'StiffComBarra'},
+      {name:'💪 Mesa Flexora',sets:'4',reps:'12-15',rest:'60s',vid:'MesaFlexora'},
+      {name:'🎯 Gêmeos em Pé',sets:'5',reps:'15-20',rest:'45s',vid:'Gemeos1'},
     ]},
   ]},
-  av_abcde1:{name:'ABCDE Avançado Vol. I',meta:'5-6x/semana · 8 semanas · Avançado',level:'a',treinos:[
+  av_abcde1:{name:'ABCDE Vol. I',meta:'5-6x/semana · 8 semanas · Avançado',level:'a',treinos:[
     {label:'Treino A',sub:'Peito',exercises:[
-      {name:'Supino Inclinado com Halteres',sets:'4',reps:'10-12',rest:'90s',vid:'SupinoInclinado'},
-      {name:'Supino Reto com Barra',sets:'3',reps:'8-10',rest:'90s',vid:'SupinoReto'},
-      {name:'Crucifixo na Máquina',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoComHalteres'},
-      {name:'Barra Paralela',sets:'4',reps:'12-15',rest:'60s',vid:'BarraParalela'},
+      {name:'💪 Supino Reto com Barra',sets:'5',reps:'6-10',rest:'120s',vid:'SupinoReto'},
+      {name:'🔥 Supino Inclinado',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoInclinado'},
+      {name:'⚡ Crucifixo Máquina Reto',sets:'4',reps:'10-15',rest:'60s',vid:'CrucifixoMaquinaReto'},
+      {name:'💥 Crucifixo Inclinado',sets:'4',reps:'12-15',rest:'60s',vid:'CrucifixoInclinado'},
+      {name:'🏋️ Cross Over Superior',sets:'3',reps:'12-15',rest:'60s',vid:'CrossOver'},
+      {name:'🎯 Cross Over Inferior',sets:'3',reps:'12-15',rest:'60s',vid:'CrossOver'},
     ]},
     {label:'Treino B',sub:'Costas',exercises:[
-      {name:'Barra Fixa Pegada Aberta',sets:'4',reps:'8-10',rest:'90s',vid:'BarraFixa'},
-      {name:'Puxada Alta com Triângulo',sets:'3',reps:'10-12',rest:'60s',vid:'PuxadaPulley'},
-      {name:'Remada Curvada com Barra',sets:'4',reps:'8-10',rest:'90s',vid:'RemadaCurvada1'},
-      {name:'Remada Baixa no Triângulo',sets:'3',reps:'12-15',rest:'60s',vid:'RemadaBaixa'},
-      {name:'Pull Down na Polia Alta',sets:'3',reps:'12-15',rest:'60s',vid:'PullDown'},
+      {name:'🦍 Barra Fixa',sets:'5',reps:'8-12',rest:'90s',vid:'BarraFixa'},
+      {name:'💪 Remada Curvada',sets:'4',reps:'8-12',rest:'90s',vid:'RemadaCurvada1'},
+      {name:'🔥 Pull Down',sets:'4',reps:'10-12',rest:'60s',vid:'PullDown'},
+      {name:'⚡ Remada Cavaleiro',sets:'4',reps:'10-12',rest:'60s',vid:'RemadaCavaleiro'},
+      {name:'💥 Remada Baixa',sets:'4',reps:'10-12',rest:'60s',vid:'RemadaBaixa'},
+      {name:'🏋️ Puxada Pulley',sets:'3',reps:'12-15',rest:'60s',vid:'PuxadaPulley'},
     ]},
-    {label:'Treino C',sub:'Ombros · Abdômen',exercises:[
-      {name:'Elevação Lateral com Halteres',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
-      {name:'Desenvolvimento com Halteres',sets:'4',reps:'8-10',rest:'90s',vid:'DesenvolvimentoMaquina1'},
-      {name:'Remada Alta com Barra',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaAlta'},
-      {name:'Elevação Frontal com Halteres',sets:'3',reps:'12-15',rest:'60s',vid:'ElevacaoFrontal1'},
-      {name:'Crucifixo Inverso',sets:'3',reps:'10-12',rest:'60s',vid:'CrucifixoInverso'},
-      {name:'Encolhimento com Halteres',sets:'4',reps:'12-15',rest:'60s',vid:'Encolhimento'},
+    {label:'Treino C',sub:'Ombros · Trapézio',exercises:[
+      {name:'🔥 Desenvolvimento Máquina',sets:'5',reps:'8-12',rest:'90s',vid:'DesenvolvimentoMaquina1'},
+      {name:'💪 Elevação Lateral',sets:'5',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
+      {name:'⚡ Elevação Frontal',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoFrontal1'},
+      {name:'🎯 Crucifixo Inverso',sets:'4',reps:'12-15',rest:'60s',vid:'CrucifixoInverso'},
+      {name:'💥 Remada Alta',sets:'4',reps:'12-15',rest:'60s',vid:'RemadaAlta'},
+      {name:'🏋️ Encolhimento',sets:'5',reps:'12-15',rest:'60s',vid:'Encolhimento'},
     ]},
-    {label:'Treino D',sub:'Braços · Abdômen',exercises:[
-      {name:'Rosca Direta com Barra',sets:'4',reps:'8-10',rest:'90s',vid:'RoscaDireta'},
-      {name:'Rosca Scott Máquina',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaScottMaquina'},
-      {name:'Rosca Banco 45°',sets:'3',reps:'12-15',rest:'60s',vid:'RoscaNoBanco'},
-      {name:'Tríceps Francês com Barra W',sets:'4',reps:'8-10',rest:'90s',vid:'TricepsFrances1'},
-      {name:'Tríceps Testa na Polia',sets:'3',reps:'12-15',rest:'60s',vid:'TricepsTesta1'},
-      {name:'Tríceps Corda no Pulley',sets:'3',reps:'12-15',rest:'60s',vid:'TricepsCorda'},
-      {name:'Abdominal Supra com Peso',sets:'3',reps:'15-20',rest:'45s',vid:'AbdominalSupra1'},
-      {name:'Prancha Abdominal',sets:'3',reps:'60s',rest:'45s',vid:'PranchaAbdominal'},
+    {label:'Treino D',sub:'Braços',exercises:[
+      {name:'💪 Rosca Direta com Barra',sets:'4',reps:'8-12',rest:'90s',vid:'RoscaDireta'},
+      {name:'🔥 Rosca Scott',sets:'4',reps:'10-12',rest:'60s',vid:'RoscaScottBarra'},
+      {name:'⚡ Rosca Martelo',sets:'4',reps:'10-12',rest:'60s',vid:'RoscaMartelo'},
+      {name:'💥 Rosca Concentrada',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaConcentrada'},
+      {name:'🏋️ Tríceps Corda',sets:'4',reps:'8-12',rest:'90s',vid:'TricepsCorda'},
+      {name:'🔥 Tríceps Francês',sets:'4',reps:'10-12',rest:'60s',vid:'TricepsFrances1'},
+      {name:'💥 Tríceps Testa',sets:'4',reps:'10-12',rest:'60s',vid:'TricepsTesta1'},
+      {name:'🎯 Barra Paralela',sets:'3',reps:'Max',rest:'90s',vid:'BarraParalela'},
     ]},
-    {label:'Treino E',sub:'Pernas',exercises:[
-      {name:'Cadeira Extensora',sets:'4',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
-      {name:'Agachamento Livre',sets:'4',reps:'8-10',rest:'90s',vid:'Agachamento1'},
-      {name:'Leg Press 45°',sets:'3',reps:'10-12',rest:'90s',vid:'LegPress45'},
-      {name:'Stiff com Barra',sets:'4',reps:'8-10',rest:'90s',vid:'StiffComBarra'},
-      {name:'Mesa Flexora',sets:'3',reps:'12-15',rest:'60s',vid:'MesaFlexora'},
-      {name:'Panturrilha em Pé',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
+    {label:'Treino E',sub:'Pernas Completo',exercises:[
+      {name:'🦵 Agachamento Livre',sets:'5',reps:'6-10',rest:'120s',vid:'Agachamento1'},
+      {name:'⚡ Leg Press 45°',sets:'5',reps:'10-15',rest:'90s',vid:'LegPress45'},
+      {name:'🏋️ Hack Squat',sets:'4',reps:'10-15',rest:'90s',vid:'Hack'},
+      {name:'💥 Cadeira Extensora',sets:'4',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'🔥 Stiff com Barra',sets:'4',reps:'10-12',rest:'90s',vid:'StiffComBarra'},
+      {name:'💪 Mesa Flexora',sets:'4',reps:'12-15',rest:'60s',vid:'MesaFlexora'},
+      {name:'🎯 Gêmeos em Pé',sets:'5',reps:'15-20',rest:'45s',vid:'Gemeos1'},
     ]},
   ]},
-  av_abcde2:{name:'ABCDE Avançado Vol. II',meta:'5-6x/semana · 12 semanas · Avançado',level:'a',treinos:[
-    {label:'Treino A',sub:'Peito · Tríceps',exercises:[
-      {name:'Supino Reto com Barra',sets:'4',reps:'8-10',rest:'90s',vid:'SupinoReto'},
-      {name:'Supino Inclinado com Halteres',sets:'4',reps:'10-12',rest:'90s',vid:'SupinoInclinado'},
-      {name:'Crucifixo Inclinado com Halteres',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoInclinado'},
-      {name:'Cross Over na Polia Alta',sets:'3',reps:'12-15',rest:'60s',vid:'CrossOver'},
-      {name:'Tríceps Francês com Barra',sets:'4',reps:'10-12',rest:'75s',vid:'TricepsFrances1'},
-      {name:'Tríceps Corda no Pulley',sets:'3',reps:'12-15',rest:'60s',vid:'TricepsCorda'},
-      {name:'Flexão Diamante',sets:'3',reps:'Falha',rest:'60s',vid:'FlexaoBraco'},
+  av_abcde2:{name:'ABCDE Vol. II',meta:'5-6x/semana · 12 semanas · Avançado',level:'a',treinos:[
+    {label:'Treino A',sub:'Peito · Ombro Anterior',exercises:[
+      {name:'💪 Supino Reto com Barra',sets:'4',reps:'20/15/10/6',rest:'120s',vid:'SupinoReto'},
+      {name:'🔥 Supino Inclinado',sets:'4',reps:'20/15/10/8',rest:'90s',vid:'SupinoInclinado'},
+      {name:'⚡ Crucifixo Máquina Inclinado',sets:'4',reps:'15/12/10/10',rest:'60s',vid:'CrucifixoMaquinaInclinado'},
+      {name:'💥 Crucifixo Reto',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoComHalteres'},
+      {name:'🏋️ Cross Over',sets:'3',reps:'15-20',rest:'60s',vid:'CrossOver'},
+      {name:'🔥 Elevação Frontal',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoFrontal1'},
     ]},
-    {label:'Treino B',sub:'Costas · Bíceps',exercises:[
-      {name:'Barra Fixa Pegada Pronada',sets:'4',reps:'8-10',rest:'90s',vid:'BarraFixa'},
-      {name:'Remada Curvada com Barra',sets:'4',reps:'8-10',rest:'90s',vid:'RemadaCurvada1'},
-      {name:'Puxada Pulley Pegada Supinada',sets:'3',reps:'10-12',rest:'60s',vid:'PuxadaPulley'},
-      {name:'Serrote Unilateral com Halteres',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaUnilateral'},
-      {name:'Rosca Scott na Máquina',sets:'4',reps:'12-15',rest:'60s',vid:'RoscaScottMaquina'},
-      {name:'Rosca Direta com Barra',sets:'4',reps:'10-12',rest:'75s',vid:'RoscaDireta'},
-      {name:'Rosca Martelo com Halteres',sets:'3',reps:'12-15',rest:'60s',vid:'RoscaMartelo'},
+    {label:'Treino B',sub:'Costas · Ombro Posterior',exercises:[
+      {name:'🦍 Barra Fixa',sets:'4',reps:'20/15/12/10',rest:'90s',vid:'BarraFixa'},
+      {name:'💪 Remada Curvada',sets:'4',reps:'20/15/10/8',rest:'90s',vid:'RemadaCurvada1'},
+      {name:'🔥 Pull Down',sets:'4',reps:'15-20',rest:'60s',vid:'PullDown'},
+      {name:'⚡ Remada Baixa',sets:'4',reps:'12-15',rest:'60s',vid:'RemadaBaixa'},
+      {name:'💥 Remada Unilateral',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaUnilateral'},
+      {name:'🎯 Crucifixo Inverso',sets:'4',reps:'12-15',rest:'60s',vid:'CrucifixoInverso'},
     ]},
-    {label:'Treino C',sub:'Quadríceps · Core',exercises:[
-      {name:'Agachamento Livre com Barra',sets:'4',reps:'8-10',rest:'90s',vid:'Agachamento1'},
-      {name:'Leg Press 45°',sets:'4',reps:'10-12',rest:'90s',vid:'LegPress45'},
-      {name:'Cadeira Extensora',sets:'3',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
-      {name:'Afundo com Halteres',sets:'3',reps:'10-12',rest:'75s',vid:'AfundoComHalteres'},
-      {name:'Elevação de Pernas Suspenso',sets:'3',reps:'12-15',rest:'60s',vid:'ElevacaoDePernas'},
-      {name:'Prancha Abdominal',sets:'3',reps:'30-60s',rest:'60s',vid:'PranchaAbdominal'},
+    {label:'Treino C',sub:'Pernas Anterior · Posterior',exercises:[
+      {name:'🦵 Agachamento Livre',sets:'5',reps:'20/15/10/8/6',rest:'120s',vid:'Agachamento1'},
+      {name:'⚡ Leg Press 45°',sets:'4',reps:'20/15/12/10',rest:'90s',vid:'LegPress45'},
+      {name:'🏋️ Hack Squat',sets:'4',reps:'15-20',rest:'90s',vid:'Hack'},
+      {name:'💥 Cadeira Extensora',sets:'3',reps:'15-20',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'🔥 Stiff com Barra',sets:'4',reps:'15/12/10/8',rest:'90s',vid:'StiffComBarra'},
+      {name:'💪 Mesa Flexora',sets:'4',reps:'12-15',rest:'60s',vid:'MesaFlexora'},
+      {name:'🎯 Gêmeos em Pé',sets:'5',reps:'20-25',rest:'45s',vid:'Gemeos1'},
     ]},
     {label:'Treino D',sub:'Ombros · Trapézio',exercises:[
-      {name:'Desenvolvimento com Halteres',sets:'4',reps:'8-10',rest:'90s',vid:'DesenvolvimentoMaquina1'},
-      {name:'Elevação Lateral com Halteres',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
-      {name:'Elevação Frontal com Barra',sets:'3',reps:'10-12',rest:'60s',vid:'ElevacaoFrontal1'},
-      {name:'Crucifixo Inverso no Voador',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoInverso'},
-      {name:'Face Pull com Corda',sets:'3',reps:'12-15',rest:'60s',vid:'RemadaAlta'},
-      {name:'Encolhimento com Halteres',sets:'4',reps:'12-15',rest:'60s',vid:'Encolhimento'},
+      {name:'🔥 Desenvolvimento Máquina',sets:'4',reps:'20/15/10/8',rest:'90s',vid:'DesenvolvimentoMaquina1'},
+      {name:'💪 Elevação Lateral',sets:'5',reps:'15-20',rest:'60s',vid:'ElevacaoLateral'},
+      {name:'⚡ Elevação Frontal',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoFrontal1'},
+      {name:'🎯 Crucifixo Inverso',sets:'4',reps:'12-15',rest:'60s',vid:'CrucifixoInverso'},
+      {name:'💥 Remada Alta',sets:'4',reps:'12-15',rest:'60s',vid:'RemadaAlta'},
+      {name:'🏋️ Encolhimento',sets:'5',reps:'15-20',rest:'60s',vid:'Encolhimento'},
     ]},
-    {label:'Treino E',sub:'Posterior · Panturrilhas',exercises:[
-      {name:'Stiff com Barra',sets:'4',reps:'8-10',rest:'90s',vid:'StiffComBarra'},
-      {name:'Mesa Flexora',sets:'4',reps:'10-12',rest:'75s',vid:'MesaFlexora'},
-      {name:'Leg Curl em Pé',sets:'3',reps:'12-15',rest:'60s',vid:'LegCurlEmPe'},
-      {name:'Elevação Pélvica com Barra',sets:'3',reps:'12-15',rest:'75s',vid:'ElevacaoPelvica'},
-      {name:'Panturrilha em Pé',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
-      {name:'Panturrilha Sentado',sets:'3',reps:'15-20',rest:'45s',vid:'Gemeos2'},
+    {label:'Treino E',sub:'Braços Completo',exercises:[
+      {name:'💪 Rosca Direta',sets:'4',reps:'20/15/12/10',rest:'90s',vid:'RoscaDireta'},
+      {name:'🔥 Rosca Scott',sets:'4',reps:'12-15',rest:'60s',vid:'RoscaScottBarra'},
+      {name:'⚡ Rosca Martelo',sets:'4',reps:'12-15',rest:'60s',vid:'RoscaMartelo'},
+      {name:'💥 Rosca Concentrada',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaConcentrada'},
+      {name:'🏋️ Tríceps Corda',sets:'4',reps:'20/15/12/10',rest:'90s',vid:'TricepsCorda'},
+      {name:'🔥 Tríceps Francês',sets:'4',reps:'12-15',rest:'60s',vid:'TricepsFrances1'},
+      {name:'💥 Tríceps Testa',sets:'4',reps:'12-15',rest:'60s',vid:'TricepsTesta1'},
+      {name:'🎯 Barra Paralela',sets:'3',reps:'Max',rest:'90s',vid:'BarraParalela'},
     ]},
   ]},
-  avancado:{name:'Plano Avançado ABCDE',meta:'5-6x/semana · 12 semanas · Avançado',level:'a',treinos:[
-    {label:'Treino A',sub:'Ombros',exercises:[
-      {name:'Desenvolvimento Máquina 1',sets:'4',reps:'8-12',rest:'90s',vid:'DesenvolvimentoMaquina1'},
-      {name:'Desenvolvimento Máquina 2',sets:'4',reps:'8-12',rest:'90s',vid:'DesenvolvimentoMaquina2'},
-      {name:'Elevação Lateral',sets:'4',reps:'15-20',rest:'60s',vid:'ElevacaoLateral'},
-      {name:'Elevação Frontal 1',sets:'3',reps:'8-12',rest:'60s',vid:'ElevacaoFrontal1'},
-      {name:'Elevação Frontal 2',sets:'3',reps:'15-20',rest:'60s',vid:'ElevacaoFrontal2'},
-      {name:'Elevação Frontal 3',sets:'3',reps:'15-20',rest:'60s',vid:'ElevacaoFrontal3'},
-      {name:'Crucifixo Inverso',sets:'3',reps:'15-20',rest:'60s',vid:'CrucifixoInverso'},
-      {name:'Remada Alta',sets:'3',reps:'15-20',rest:'60s',vid:'RemadaAlta'},
-      {name:'Encolhimento',sets:'3',reps:'15-20',rest:'60s',vid:'Encolhimento'},
+  avancado:{name:'Plano ABCDE 12 Semanas',meta:'5-6x/semana · 12 semanas · Avançado',level:'a',treinos:[
+    {label:'Treino A',sub:'Peito · Tríceps',exercises:[
+      {name:'💪 Supino Reto com Barra',sets:'4',reps:'Pirâmide',rest:'120s',vid:'SupinoReto'},
+      {name:'🔥 Supino Inclinado',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoInclinado'},
+      {name:'⚡ Crucifixo Máquina',sets:'4',reps:'10-15',rest:'60s',vid:'CrucifixoMaquinaReto'},
+      {name:'💥 Cross Over',sets:'3',reps:'12-15',rest:'60s',vid:'CrossOver'},
+      {name:'🏋️ Tríceps Corda',sets:'4',reps:'8-12',rest:'60s',vid:'TricepsCorda'},
+      {name:'🔥 Tríceps Francês',sets:'4',reps:'10-12',rest:'60s',vid:'TricepsFrances1'},
+      {name:'🎯 Tríceps Testa',sets:'3',reps:'10-12',rest:'60s',vid:'TricepsTesta1'},
     ]},
-    {label:'Treino B',sub:'Pernas',exercises:[
-      {name:'Agachamento 1',sets:'4',reps:'8-12',rest:'120s',vid:'Agachamento1'},
-      {name:'Agachamento 2',sets:'4',reps:'15-20',rest:'90s',vid:'Agachamento2'},
-      {name:'Afundo com Halteres',sets:'3',reps:'12-15',rest:'75s',vid:'AfundoComHalteres'},
-      {name:'Cadeira Extensora',sets:'4',reps:'15-20',rest:'60s',vid:'CadeiraExtensora'},
-      {name:'Cadeira Flexora',sets:'3',reps:'10-12',rest:'60s',vid:'CadeiraFlexora'},
-      {name:'Elevação de Glúteo 1',sets:'4',reps:'15-20',rest:'60s',vid:'ElevacaoDeGluteo1'},
-      {name:'Elevação Pélvica',sets:'4',reps:'15-20',rest:'60s',vid:'ElevacaoPelvica'},
-      {name:'Gêmeos 1',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
+    {label:'Treino B',sub:'Costas · Bíceps',exercises:[
+      {name:'🦍 Barra Fixa',sets:'4',reps:'Max',rest:'90s',vid:'BarraFixa'},
+      {name:'💪 Remada Curvada',sets:'4',reps:'8-12',rest:'90s',vid:'RemadaCurvada1'},
+      {name:'🔥 Pull Down',sets:'4',reps:'10-12',rest:'60s',vid:'PullDown'},
+      {name:'⚡ Remada Baixa',sets:'4',reps:'10-12',rest:'60s',vid:'RemadaBaixa'},
+      {name:'🏋️ Rosca Direta',sets:'4',reps:'8-12',rest:'60s',vid:'RoscaDireta'},
+      {name:'💥 Rosca Scott',sets:'4',reps:'10-12',rest:'60s',vid:'RoscaScottBarra'},
+      {name:'🎯 Rosca Martelo',sets:'3',reps:'10-12',rest:'60s',vid:'RoscaMartelo'},
     ]},
-    {label:'Treino C',sub:'Costas · Bíceps',exercises:[
-      {name:'Pull Down',sets:'4',reps:'8-12',rest:'90s',vid:'PullDown'},
-      {name:'Puxada Alta',sets:'4',reps:'8-12',rest:'90s',vid:'PuxadaAlta'},
-      {name:'Remada Cavaleiro',sets:'4',reps:'15-20',rest:'75s',vid:'RemadaCavaleiro'},
-      {name:'Remada Curvada 1',sets:'4',reps:'8-12',rest:'90s',vid:'RemadaCurvada1'},
-      {name:'Barra Fixa',sets:'3',reps:'Falha',rest:'75s',vid:'BarraFixa'},
-      {name:'Remada Unilateral',sets:'3',reps:'10-12',rest:'60s',vid:'RemadaUnilateral'},
-      {name:'Rosca Direta',sets:'4',reps:'8-12',rest:'75s',vid:'RoscaDireta'},
-      {name:'Rosca Scott Máquina',sets:'3',reps:'15-20',rest:'60s',vid:'RoscaScottMaquina'},
-      {name:'Rosca Alternada',sets:'3',reps:'12-15',rest:'60s',vid:'RoscaAlternada'},
+    {label:'Treino C',sub:'Ombros · Trapézio · Abdômen',exercises:[
+      {name:'🔥 Desenvolvimento Máquina',sets:'5',reps:'8-12',rest:'90s',vid:'DesenvolvimentoMaquina1'},
+      {name:'💪 Elevação Lateral',sets:'5',reps:'12-15',rest:'60s',vid:'ElevacaoLateral'},
+      {name:'⚡ Elevação Frontal',sets:'4',reps:'12-15',rest:'60s',vid:'ElevacaoFrontal1'},
+      {name:'🎯 Crucifixo Inverso',sets:'4',reps:'12-15',rest:'60s',vid:'CrucifixoInverso'},
+      {name:'💥 Encolhimento',sets:'5',reps:'12-15',rest:'60s',vid:'Encolhimento'},
+      {name:'🏋️ Abdominal Supra',sets:'4',reps:'Max',rest:'45s',vid:'AbdominalSupra1'},
+      {name:'🔥 Prancha',sets:'3',reps:'Max',rest:'60s',vid:'PranchaAbdominal'},
     ]},
-    {label:'Treino D',sub:'Peito · Tríceps',exercises:[
-      {name:'Supino Reto',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoReto'},
-      {name:'Supino Inclinado',sets:'3',reps:'10-12',rest:'90s',vid:'SupinoInclinado'},
-      {name:'Crucifixo com Halteres',sets:'3',reps:'12-15',rest:'60s',vid:'CrucifixoComHalteres'},
-      {name:'Crucifixo Máquina Reto',sets:'3',reps:'15-20',rest:'60s',vid:'CrucifixoMaquinaReto'},
-      {name:'Cross Over',sets:'3',reps:'15-20',rest:'60s',vid:'CrossOver'},
-      {name:'Barra Paralela',sets:'3',reps:'8-12',rest:'75s',vid:'BarraParalela'},
-      {name:'Tríceps Corda',sets:'3',reps:'10-12',rest:'60s',vid:'TricepsCorda'},
-      {name:'Tríceps Testa 1',sets:'3',reps:'8-12',rest:'60s',vid:'TricepsTesta1'},
+    {label:'Treino D',sub:'Pernas Anterior',exercises:[
+      {name:'🦵 Agachamento Livre',sets:'5',reps:'Pirâmide',rest:'120s',vid:'Agachamento1'},
+      {name:'⚡ Leg Press 45°',sets:'4',reps:'10-15',rest:'90s',vid:'LegPress45'},
+      {name:'🏋️ Hack Squat',sets:'4',reps:'10-15',rest:'90s',vid:'Hack'},
+      {name:'💥 Cadeira Extensora',sets:'4',reps:'12-15',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'🔥 Afundo',sets:'3',reps:'10-12',rest:'60s',vid:'AfundoComHalteres'},
+      {name:'🎯 Gêmeos em Pé',sets:'5',reps:'15-20',rest:'45s',vid:'Gemeos1'},
     ]},
-    {label:'Treino E',sub:'Pernas +',exercises:[
-      {name:'Leg Press 45°',sets:'4',reps:'15-20',rest:'90s',vid:'LegPress45'},
-      {name:'Leg Curl em Pé',sets:'3',reps:'12-15',rest:'75s',vid:'LegCurlEmPe'},
-      {name:'Hack',sets:'4',reps:'15-20',rest:'90s',vid:'Hack'},
-      {name:'Mesa Flexora',sets:'3',reps:'10-12',rest:'75s',vid:'MesaFlexora'},
-      {name:'Stiff com Barra',sets:'3',reps:'8-10',rest:'90s',vid:'StiffComBarra'},
-      {name:'Passadas com Halteres',sets:'3',reps:'12-15',rest:'75s',vid:'PassadasComHalteres'},
-      {name:'Gêmeos no Hack',sets:'4',reps:'15-20',rest:'45s',vid:'GemeosNoHack'},
+    {label:'Treino E',sub:'Pernas Posterior',exercises:[
+      {name:'🏋️ Stiff com Barra',sets:'5',reps:'10-12',rest:'90s',vid:'StiffComBarra'},
+      {name:'🔥 Mesa Flexora',sets:'4',reps:'12-15',rest:'60s',vid:'MesaFlexora'},
+      {name:'💥 Cadeira Flexora',sets:'4',reps:'12-15',rest:'60s',vid:'CadeiraFlexora'},
+      {name:'⚡ Elevação Pélvica',sets:'4',reps:'15-20',rest:'60s',vid:'ElevacaoPelvica'},
+      {name:'💪 Hiperextensão',sets:'3',reps:'15-20',rest:'60s',vid:'Hiperextensao'},
+      {name:'🎯 Gêmeos no Hack',sets:'4',reps:'15-20',rest:'45s',vid:'GemeosNoHack'},
     ]},
   ]},
 };
@@ -573,90 +689,90 @@ const PLANS_H={
 const PLANS_F={
   ini_ab:{name:'Plano AB',meta:'4x/semana · 4-8 semanas · Iniciante',level:'i',treinos:[
     {label:'Treino A',sub:'Pernas · Glúteos',exercises:[
-      {name:'Cadeira Extensora',sets:'3',reps:'8-12',rest:'60s',vid:'CadeiraExtensora'},
-      {name:'Agachamento Hack',sets:'3',reps:'15-20',rest:'90s',vid:'Hack'},
-      {name:'Leg Press 45°',sets:'3',reps:'15-20',rest:'90s',vid:'LegPress45'},
-      {name:'Elevação Pélvica',sets:'3',reps:'15-20',rest:'90s',vid:'ElevacaoPelvica'},
-      {name:'Agachamento Búlgaro',sets:'3',reps:'8-12',rest:'90s',vid:'AfundoComHalteres'},
-      {name:'Cadeira Adutora',sets:'3',reps:'15-20',rest:'60s',vid:'ElevacaoDeGluteo2'},
+      {name:'🦵 Cadeira Extensora',sets:'3',reps:'8-12',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'⚡ Agachamento Hack',sets:'3',reps:'15-20',rest:'90s',vid:'Hack'},
+      {name:'🏋️ Leg Press 45°',sets:'3',reps:'15-20',rest:'90s',vid:'LegPress45'},
+      {name:'🍑 Elevação Pélvica',sets:'3',reps:'15-20',rest:'90s',vid:'ElevacaoPelvica'},
+      {name:'💥 Agachamento Búlgaro',sets:'3',reps:'8-12',rest:'90s',vid:'AfundoComHalteres'},
+      {name:'🔥 Cadeira Adutora',sets:'3',reps:'15-20',rest:'60s',vid:'ElevacaoDeGluteo2'},
     ]},
     {label:'Treino B',sub:'Superior · Bíceps · Tríceps',exercises:[
-      {name:'Supino Reto Máquina',sets:'3',reps:'8-12',rest:'90s',vid:'SupinoReto'},
-      {name:'Desenvolvimento Máquina',sets:'3',reps:'8-12',rest:'90s',vid:'DesenvolvimentoMaquina1'},
-      {name:'Elevação Lateral',sets:'3',reps:'15-20',rest:'90s',vid:'ElevacaoLateral'},
-      {name:'Desenvolvimento Máquina 2',sets:'3',reps:'15-20',rest:'90s',vid:'DesenvolvimentoMaquina2'},
-      {name:'Tríceps Corda',sets:'4',reps:'8-12',rest:'90s',vid:'TricepsCorda'},
-      {name:'Rosca Scott Máquina',sets:'4',reps:'15-20',rest:'90s',vid:'RoscaScottMaquina'},
+      {name:'💪 Supino Reto Máquina',sets:'3',reps:'8-12',rest:'90s',vid:'SupinoReto'},
+      {name:'🔥 Desenvolvimento Máquina',sets:'3',reps:'8-12',rest:'90s',vid:'DesenvolvimentoMaquina1'},
+      {name:'⚡ Elevação Lateral',sets:'3',reps:'15-20',rest:'90s',vid:'ElevacaoLateral'},
+      {name:'💥 Desenvolvimento Máquina 2',sets:'3',reps:'15-20',rest:'90s',vid:'DesenvolvimentoMaquina2'},
+      {name:'🏋️ Tríceps Corda',sets:'4',reps:'8-12',rest:'90s',vid:'TricepsCorda'},
+      {name:'💪 Rosca Scott Máquina',sets:'4',reps:'15-20',rest:'90s',vid:'RoscaScottMaquina'},
     ]},
   ]},
   ini_abc:{name:'Plano ABC',meta:'5-6x/semana · 6-8 semanas · Iniciante',level:'i',treinos:[
     {label:'Treino A',sub:'Costas · Bíceps',exercises:[
-      {name:'Puxada Frente Aberta',sets:'4',reps:'8-12',rest:'90s',vid:'BarraFixa'},
-      {name:'Pull Down',sets:'3',reps:'15-20',rest:'60s',vid:'PullDown'},
-      {name:'Remada Baixa Máquina',sets:'4',reps:'8-12',rest:'90s',vid:'RemadaBaixa'},
-      {name:'Remada Baixa Triângulo',sets:'3',reps:'8-12',rest:'90s',vid:'RemadaCurvada1'},
-      {name:'Rosca Direta Barra W',sets:'3',reps:'15-20',rest:'60s',vid:'RoscaDireta'},
-      {name:'Rosca Martelo Alternada',sets:'3',reps:'15-20',rest:'60s',vid:'RoscaMartelo'},
+      {name:'🦍 Puxada Frente Aberta',sets:'4',reps:'8-12',rest:'90s',vid:'BarraFixa'},
+      {name:'💪 Pull Down',sets:'3',reps:'15-20',rest:'60s',vid:'PullDown'},
+      {name:'🔥 Remada Baixa Máquina',sets:'4',reps:'8-12',rest:'90s',vid:'RemadaBaixa'},
+      {name:'⚡ Remada Baixa Triângulo',sets:'3',reps:'8-12',rest:'90s',vid:'RemadaCurvada1'},
+      {name:'💥 Rosca Direta Barra W',sets:'3',reps:'15-20',rest:'60s',vid:'RoscaDireta'},
+      {name:'🏋️ Rosca Martelo Alternada',sets:'3',reps:'15-20',rest:'60s',vid:'RoscaMartelo'},
     ]},
     {label:'Treino B',sub:'Pernas · Glúteos',exercises:[
-      {name:'Cadeira Extensora',sets:'4',reps:'20/18/15/12',rest:'60s',vid:'CadeiraExtensora'},
-      {name:'Agachamento Hack',sets:'4',reps:'8-12',rest:'90s',vid:'Hack'},
-      {name:'Leg Press 45°',sets:'4',reps:'15-20',rest:'90s',vid:'LegPress45'},
-      {name:'Passada',sets:'4',reps:'Falha',rest:'90s',vid:'AfundoComHalteres'},
-      {name:'Cadeira Adutora',sets:'3',reps:'8-12',rest:'60s',vid:'ElevacaoDeGluteo2'},
-      {name:'Panturrilha em Pé',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
+      {name:'🦵 Cadeira Extensora',sets:'4',reps:'20/18/15/12',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'⚡ Agachamento Hack',sets:'4',reps:'8-12',rest:'90s',vid:'Hack'},
+      {name:'🏋️ Leg Press 45°',sets:'4',reps:'15-20',rest:'90s',vid:'LegPress45'},
+      {name:'💥 Passada',sets:'4',reps:'Falha',rest:'90s',vid:'AfundoComHalteres'},
+      {name:'🔥 Cadeira Adutora',sets:'3',reps:'8-12',rest:'60s',vid:'ElevacaoDeGluteo2'},
+      {name:'🎯 Panturrilha em Pé',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
     ]},
     {label:'Treino C',sub:'Glúteos · Posterior',exercises:[
-      {name:'Banco Abdutor',sets:'4',reps:'20/18/15/12',rest:'60s',vid:'ElevacaoDeGluteo2'},
-      {name:'Elevação Pélvica Máquina',sets:'4',reps:'20/18/15/12',rest:'90s',vid:'ElevacaoPelvica'},
-      {name:'Agachamento Búlgaro',sets:'4',reps:'8-12',rest:'60s',vid:'AfundoComHalteres'},
-      {name:'Agachamento Sumô',sets:'4',reps:'15-20',rest:'90s',vid:'Agachamento2'},
-      {name:'Coice Polia',sets:'3',reps:'15-20',rest:'60s',vid:'ElevacaoDeGluteo1'},
-      {name:'Extensão de Quadril na Polia',sets:'4',reps:'8-12',rest:'60s',vid:'ElevacaoDeGluteo1'},
-      {name:'Prancha Abdominal',sets:'4',reps:'Falha',rest:'60s',vid:'PranchaAbdominal'},
+      {name:'🍑 Banco Abdutor',sets:'4',reps:'20/18/15/12',rest:'60s',vid:'ElevacaoDeGluteo2'},
+      {name:'⚡ Elevação Pélvica Máquina',sets:'4',reps:'20/18/15/12',rest:'90s',vid:'ElevacaoPelvica'},
+      {name:'💥 Agachamento Búlgaro',sets:'4',reps:'8-12',rest:'60s',vid:'AfundoComHalteres'},
+      {name:'🏋️ Agachamento Sumô',sets:'4',reps:'15-20',rest:'90s',vid:'Agachamento2'},
+      {name:'🔥 Coice Polia',sets:'3',reps:'15-20',rest:'60s',vid:'ElevacaoDeGluteo1'},
+      {name:'💪 Extensão de Quadril na Polia',sets:'4',reps:'8-12',rest:'60s',vid:'ElevacaoDeGluteo1'},
+      {name:'🎯 Prancha Abdominal',sets:'4',reps:'Falha',rest:'60s',vid:'PranchaAbdominal'},
     ]},
   ]},
   int_abcd:{name:'Plano ABCDE',meta:'5-6x/semana · 12 semanas · Avançado',level:'s',treinos:[
     {label:'Treino A',sub:'Pernas · Glúteos',exercises:[
-      {name:'Cadeira Extensora',sets:'4',reps:'8-12',rest:'60s',vid:'CadeiraExtensora'},
-      {name:'Agachamento Hack',sets:'4',reps:'8-12',rest:'90s',vid:'Hack'},
-      {name:'Leg Press 45°',sets:'4',reps:'15-20',rest:'90s',vid:'LegPress45'},
-      {name:'Passada',sets:'4',reps:'8-12',rest:'90s',vid:'AfundoComHalteres'},
-      {name:'Cadeira Adutora',sets:'4',reps:'8-12',rest:'60s',vid:'ElevacaoDeGluteo2'},
-      {name:'Panturrilha em Pé',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
+      {name:'🦵 Cadeira Extensora',sets:'4',reps:'8-12',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'⚡ Agachamento Hack',sets:'4',reps:'8-12',rest:'90s',vid:'Hack'},
+      {name:'🏋️ Leg Press 45°',sets:'4',reps:'15-20',rest:'90s',vid:'LegPress45'},
+      {name:'💥 Passada',sets:'4',reps:'8-12',rest:'90s',vid:'AfundoComHalteres'},
+      {name:'🔥 Cadeira Adutora',sets:'4',reps:'8-12',rest:'60s',vid:'ElevacaoDeGluteo2'},
+      {name:'🎯 Panturrilha em Pé',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
     ]},
     {label:'Treino B',sub:'Costas · Bíceps',exercises:[
-      {name:'Puxada Frente Aberta',sets:'4',reps:'15-20',rest:'90s',vid:'BarraFixa'},
-      {name:'Pull Down',sets:'4',reps:'20/18/15/12',rest:'60s',vid:'PullDown'},
-      {name:'Remada Serrote',sets:'4',reps:'20/18/15/12',rest:'60s',vid:'RemadaCavaleiro'},
-      {name:'Remada Baixa Triângulo',sets:'4',reps:'15-20',rest:'90s',vid:'RemadaBaixa'},
-      {name:'Rosca Direta Barra W',sets:'3',reps:'15-20',rest:'60s',vid:'RoscaDireta'},
-      {name:'Rosca Martelo Alternada',sets:'3',reps:'15-20',rest:'60s',vid:'RoscaMartelo'},
+      {name:'🦍 Puxada Frente Aberta',sets:'4',reps:'15-20',rest:'90s',vid:'BarraFixa'},
+      {name:'💪 Pull Down',sets:'4',reps:'20/18/15/12',rest:'60s',vid:'PullDown'},
+      {name:'🔥 Remada Serrote',sets:'4',reps:'20/18/15/12',rest:'60s',vid:'RemadaCavaleiro'},
+      {name:'⚡ Remada Baixa Triângulo',sets:'4',reps:'15-20',rest:'90s',vid:'RemadaBaixa'},
+      {name:'💥 Rosca Direta Barra W',sets:'3',reps:'15-20',rest:'60s',vid:'RoscaDireta'},
+      {name:'🏋️ Rosca Martelo Alternada',sets:'3',reps:'15-20',rest:'60s',vid:'RoscaMartelo'},
     ]},
     {label:'Treino C',sub:'Glúteos · Posterior',exercises:[
-      {name:'Banco Abdutor',sets:'4',reps:'20/18/15/12',rest:'60s',vid:'ElevacaoDeGluteo2'},
-      {name:'Elevação Pélvica Máquina',sets:'4',reps:'20/18/15/12',rest:'90s',vid:'ElevacaoPelvica'},
-      {name:'Agachamento Búlgaro',sets:'4',reps:'8-12',rest:'60s',vid:'AfundoComHalteres'},
-      {name:'Agachamento Sumô',sets:'4',reps:'15-20',rest:'90s',vid:'Agachamento2'},
-      {name:'Coice Polia',sets:'3',reps:'15-20',rest:'60s',vid:'ElevacaoDeGluteo1'},
-      {name:'Extensão de Quadril na Polia',sets:'4',reps:'8-12',rest:'60s',vid:'ElevacaoDeGluteo1'},
-      {name:'Prancha Abdominal',sets:'4',reps:'Falha',rest:'60s',vid:'PranchaAbdominal'},
+      {name:'🍑 Banco Abdutor',sets:'4',reps:'20/18/15/12',rest:'60s',vid:'ElevacaoDeGluteo2'},
+      {name:'⚡ Elevação Pélvica Máquina',sets:'4',reps:'20/18/15/12',rest:'90s',vid:'ElevacaoPelvica'},
+      {name:'💥 Agachamento Búlgaro',sets:'4',reps:'8-12',rest:'60s',vid:'AfundoComHalteres'},
+      {name:'🏋️ Agachamento Sumô',sets:'4',reps:'15-20',rest:'90s',vid:'Agachamento2'},
+      {name:'🔥 Coice Polia',sets:'3',reps:'15-20',rest:'60s',vid:'ElevacaoDeGluteo1'},
+      {name:'💪 Extensão de Quadril na Polia',sets:'4',reps:'8-12',rest:'60s',vid:'ElevacaoDeGluteo1'},
+      {name:'🎯 Prancha Abdominal',sets:'4',reps:'Falha',rest:'60s',vid:'PranchaAbdominal'},
     ]},
     {label:'Treino D',sub:'Superior · Ombro · Tríceps',exercises:[
-      {name:'Supino Reto Máquina',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoReto'},
-      {name:'Desenvolvimento Máquina',sets:'4',reps:'15-20',rest:'60s',vid:'DesenvolvimentoMaquina1'},
-      {name:'Elevação Lateral',sets:'4',reps:'8-12',rest:'60s',vid:'ElevacaoLateral'},
-      {name:'Elevação Frontal na Corda',sets:'4',reps:'15-20',rest:'60s',vid:'ElevacaoFrontal1'},
-      {name:'Tríceps Corda',sets:'4',reps:'8-12',rest:'60s',vid:'TricepsCorda'},
-      {name:'Tríceps Francês na Corda',sets:'3',reps:'15-20',rest:'60s',vid:'TricepsFrances1'},
+      {name:'💪 Supino Reto Máquina',sets:'4',reps:'8-12',rest:'90s',vid:'SupinoReto'},
+      {name:'🔥 Desenvolvimento Máquina',sets:'4',reps:'15-20',rest:'60s',vid:'DesenvolvimentoMaquina1'},
+      {name:'⚡ Elevação Lateral',sets:'4',reps:'8-12',rest:'60s',vid:'ElevacaoLateral'},
+      {name:'💥 Elevação Frontal na Corda',sets:'4',reps:'15-20',rest:'60s',vid:'ElevacaoFrontal1'},
+      {name:'🏋️ Tríceps Corda',sets:'4',reps:'8-12',rest:'60s',vid:'TricepsCorda'},
+      {name:'🎯 Tríceps Francês na Corda',sets:'3',reps:'15-20',rest:'60s',vid:'TricepsFrances1'},
     ]},
     {label:'Treino E',sub:'Pernas · Posterior',exercises:[
-      {name:'Mesa Flexora',sets:'3',reps:'8-12',rest:'60s',vid:'MesaFlexora'},
-      {name:'Cadeira Flexora',sets:'4',reps:'12-15',rest:'60s',vid:'CadeiraFlexora'},
-      {name:'Stiff',sets:'4',reps:'20/18/15/12',rest:'90s',vid:'StiffComBarra'},
-      {name:'Cadeira Extensora',sets:'3',reps:'15-20',rest:'60s',vid:'CadeiraExtensora'},
-      {name:'Agachamento Hack',sets:'4',reps:'20/18/15/12',rest:'90s',vid:'Hack'},
-      {name:'Panturrilha em Pé',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
+      {name:'🏋️ Mesa Flexora',sets:'3',reps:'8-12',rest:'60s',vid:'MesaFlexora'},
+      {name:'🔥 Cadeira Flexora',sets:'4',reps:'12-15',rest:'60s',vid:'CadeiraFlexora'},
+      {name:'💥 Stiff',sets:'4',reps:'20/18/15/12',rest:'90s',vid:'StiffComBarra'},
+      {name:'🦵 Cadeira Extensora',sets:'3',reps:'15-20',rest:'60s',vid:'CadeiraExtensora'},
+      {name:'⚡ Agachamento Hack',sets:'4',reps:'20/18/15/12',rest:'90s',vid:'Hack'},
+      {name:'🎯 Panturrilha em Pé',sets:'4',reps:'15-20',rest:'45s',vid:'Gemeos1'},
     ]},
   ]},
 };
