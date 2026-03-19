@@ -924,139 +924,87 @@ function renderList(){
 
 
 // ─── ExerciseDB RapidAPI ───
-const RAPID_KEY = '093e2994e2mshbd4c02a0f9688d8p11a9a9jsndb40763320e6';
-const RAPID_HOST = 'exercisedb.p.rapidapi.com';
-
-// Maps vid key → ExerciseDB exercise name (used for search)
-const EX_SEARCH = {
-  'SupinoReto':               'barbell bench press',
-  'SupinoInclinado':          'incline dumbbell press',
-  'CrucifixoComHalteres':     'dumbbell fly',
-  'CrucifixoInclinado':       'incline dumbbell fly',
-  'CrucifixoMaquinaReto':     'pec deck fly',
-  'CrucifixoMaquinaInclinado':'cable chest fly',
-  'CrossOver':                'cable crossover',
-  'BarraParalela':            'chest dip',
-  'DesenvolvimentoMaquina1':  'dumbbell shoulder press',
-  'DesenvolvimentoMaquina2':  'machine shoulder press',
-  'ElevacaoLateral':          'dumbbell lateral raise',
-  'ElevacaoFrontal1':         'dumbbell front raise',
-  'ElevacaoFrontal2':         'cable front raise',
-  'ElevacaoFrontal3':         'barbell front raise',
-  'CrucifixoInverso':         'reverse fly',
-  'RemadaAlta':               'barbell upright row',
-  'Encolhimento':             'dumbbell shrug',
-  'PullDown':                 'lat pulldown',
-  'PuxadaAlta':               'wide grip lat pulldown',
-  'RemadaCavaleiro':          't bar row',
-  'RemadaCurvada1':           'barbell bent over row',
-  'RemadaCurvada2':           'barbell bent over row',
-  'PuxadaPulley':             'cable row',
-  'BarraFixa':                'pull up',
-  'RemadaUnilateral':         'dumbbell one arm row',
-  'PulleyFrente':             'cable pulldown',
-  'RemadaBaixa':              'seated cable row',
-  'TricepsCorda':             'cable pushdown',
-  'TricepsFrances1':          'dumbbell tricep extension',
-  'TricepsFrances2':          'dumbbell tricep extension',
-  'TricepsFrances3':          'ez bar skull crusher',
-  'TricepsTesta1':            'barbell skull crusher',
-  'TricepsTesta2':            'barbell skull crusher',
-  'FlexaoBraco':              'diamond push up',
-  'RoscaDireta':              'barbell curl',
-  'RoscaScottBarra':          'ez bar preacher curl',
-  'RoscaConcentrada':         'concentration curl',
-  'RoscaScottMaquina':        'machine preacher curl',
-  'RoscaMartelo1':            'hammer curl',
-  'RoscaMartelo2':            'dumbbell hammer curl',
-  'RoscaMartelo3':            'cross body hammer curl',
-  'RoscaNoBanco':             'incline dumbbell curl',
-  'RoscaAlternada':           'alternating dumbbell curl',
-  'RoscaMartelo':             'hammer curl',
-  'Agachamento1':             'barbell squat',
-  'Agachamento2':             'squat',
-  'AfundoComHalteres':        'dumbbell lunge',
-  'CadeiraExtensora':         'leg extension',
-  'CadeiraFlexora':           'seated leg curl',
-  'ElevacaoDeGluteo1':        'glute bridge',
-  'ElevacaoDeGluteo2':        'hip abduction',
-  'ElevacaoPelvica':          'barbell hip thrust',
-  'Gemeos1':                  'standing calf raise',
-  'Gemeos2':                  'seated calf raise',
-  'LegPress45':               'leg press',
-  'LegCurlEmPe':              'standing leg curl',
-  'Hack':                     'hack squat',
-  'MesaFlexora':              'lying leg curl',
-  'StiffComBarra':            'romanian deadlift',
-  'StiffComHalteres':         'dumbbell romanian deadlift',
-  'PassadasComHalteres':      'dumbbell walking lunge',
-  'Hiperextensao':            'back extension',
-  'GemeosNoHack':             'calf raise',
-  'AbdominalSupra1':          'crunch',
-  'AbdominalSupra2':          'weighted crunch',
-  'AbdominalInfra':           'leg raise',
-  'ElevacaoDePernas':         'hanging leg raise',
-  'PranchaAbdominal':         'plank',
-  'PranchaComEscalador':      'mountain climber',
+const BASE = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+const GIF_MAP = {
+  'SupinoReto':               'Barbell_Bench_Press_-_Medium_Grip/0.jpg',
+  'SupinoInclinado':          'Dumbbell_Incline_Bench_Press/0.jpg',
+  'CrucifixoComHalteres':     'Dumbbell_Flyes/0.jpg',
+  'CrucifixoInclinado':       'Dumbbell_Incline_Flyes/0.jpg',
+  'CrucifixoMaquinaReto':     'Pec_Deck_Fly/0.jpg',
+  'CrucifixoMaquinaInclinado':'Cable_Crossover/0.jpg',
+  'CrossOver':                'Cable_Crossover/0.jpg',
+  'BarraParalela':            'Dips_-_Chest_Version/0.jpg',
+  'DesenvolvimentoMaquina1':  'Dumbbell_Shoulder_Press/0.jpg',
+  'DesenvolvimentoMaquina2':  'Machine_Shoulder_Press/0.jpg',
+  'ElevacaoLateral':          'Dumbbell_Lateral_Raise/0.jpg',
+  'ElevacaoFrontal1':         'Dumbbell_Front_Raise/0.jpg',
+  'ElevacaoFrontal2':         'Cable_Front_Raise/0.jpg',
+  'ElevacaoFrontal3':         'Barbell_Front_Raise/0.jpg',
+  'CrucifixoInverso':         'Bent_Over_Dumbbell_Rear_Delt_Row_-_with_head_on_bench/0.jpg',
+  'RemadaAlta':               'Barbell_Upright_Row/0.jpg',
+  'Encolhimento':             'Dumbbell_Shrug/0.jpg',
+  'PullDown':                 'Wide-Grip_Lat_Pulldown/0.jpg',
+  'PuxadaAlta':               'Wide-Grip_Lat_Pulldown/0.jpg',
+  'RemadaCavaleiro':          'T-Bar_Row_with_Handle/0.jpg',
+  'RemadaCurvada1':           'Barbell_Bent_Over_Row/0.jpg',
+  'RemadaCurvada2':           'Barbell_Bent_Over_Row/0.jpg',
+  'PuxadaPulley':             'Close-Grip_Front_Lat_Pulldown/0.jpg',
+  'BarraFixa':                'Wide-Grip_Pullup/0.jpg',
+  'RemadaUnilateral':         'One-Arm_Dumbbell_Row/0.jpg',
+  'PulleyFrente':             'Wide-Grip_Lat_Pulldown/0.jpg',
+  'RemadaBaixa':              'Seated_Cable_Row/0.jpg',
+  'TricepsCorda':             'Pushdown/0.jpg',
+  'TricepsFrances1':          'Lying_Dumbbell_Tricep_Extension/0.jpg',
+  'TricepsFrances2':          'Lying_Dumbbell_Tricep_Extension/0.jpg',
+  'TricepsFrances3':          'EZ-Bar_Skullcrusher/0.jpg',
+  'TricepsTesta1':            'EZ-Bar_Skullcrusher/0.jpg',
+  'TricepsTesta2':            'EZ-Bar_Skullcrusher/0.jpg',
+  'FlexaoBraco':              'Close-Grip_Push-Up/0.jpg',
+  'RoscaDireta':              'Barbell_Curl/0.jpg',
+  'RoscaScottBarra':          'EZ-Bar_Preacher_Curl/0.jpg',
+  'RoscaConcentrada':         'Concentration_Curls/0.jpg',
+  'RoscaScottMaquina':        'EZ-Bar_Preacher_Curl/0.jpg',
+  'RoscaMartelo1':            'Hammer_Curls/0.jpg',
+  'RoscaMartelo2':            'Hammer_Curls/0.jpg',
+  'RoscaMartelo3':            'Hammer_Curls/0.jpg',
+  'RoscaNoBanco':             'Alternate_Incline_Dumbbell_Curl/0.jpg',
+  'RoscaAlternada':           'Alternate_Hammer_Curl/0.jpg',
+  'RoscaMartelo':             'Hammer_Curls/0.jpg',
+  'Agachamento1':             'Barbell_Full_Squat/0.jpg',
+  'Agachamento2':             'Barbell_Full_Squat/0.jpg',
+  'AfundoComHalteres':        'Dumbbell_Lunges/0.jpg',
+  'CadeiraExtensora':         'Leg_Extensions/0.jpg',
+  'CadeiraFlexora':           'Seated_Leg_Curl/0.jpg',
+  'ElevacaoDeGluteo1':        'Barbell_Hip_Thrust/0.jpg',
+  'ElevacaoDeGluteo2':        'Lying_Glute_Stretch/0.jpg',
+  'ElevacaoPelvica':          'Barbell_Hip_Thrust/0.jpg',
+  'Gemeos1':                  'Standing_Calf_Raises/0.jpg',
+  'Gemeos2':                  'Seated_Calf_Raise/0.jpg',
+  'LegPress45':               'Leg_Press/0.jpg',
+  'LegCurlEmPe':              'Seated_Leg_Curl/0.jpg',
+  'Hack':                     'Barbell_Hack_Squat/0.jpg',
+  'MesaFlexora':              'Lying_Leg_Curls/0.jpg',
+  'StiffComBarra':            'Romanian_Deadlift/0.jpg',
+  'StiffComHalteres':         'Romanian_Deadlift_with_Dumbbells/0.jpg',
+  'PassadasComHalteres':      'Dumbbell_Lunges/0.jpg',
+  'Hiperextensao':            'Hyperextensions_Back_Extensions/0.jpg',
+  'GemeosNoHack':             'Standing_Calf_Raises/0.jpg',
+  'AbdominalSupra1':          'Crunch/0.jpg',
+  'AbdominalSupra2':          'Crunch/0.jpg',
+  'AbdominalInfra':           'Flat_Bench_Lying_Leg_Raise/0.jpg',
+  'ElevacaoDePernas':         'Hanging_Leg_Raise/0.jpg',
+  'PranchaAbdominal':         'Pushup/0.jpg',
+  'PranchaComEscalador':      'Mountain_Climber/0.jpg',
 };
 
-// Cache: vidKey → { gifUrl, muscles }
-const GIF_CACHE = {};
-const GIF_BASE = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
-
-async function fetchExercise(vidKey) {
-  if (GIF_CACHE[vidKey] !== undefined) return GIF_CACHE[vidKey];
-  const query = EX_SEARCH[vidKey];
-  if (!query) { GIF_CACHE[vidKey] = null; return null; }
-  try {
-    const url = `https://exercisedb.p.rapidapi.com/exercises/name/${encodeURIComponent(query)}?limit=5&offset=0`;
-    const res = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-key': RAPID_KEY,
-        'x-rapidapi-host': RAPID_HOST
-      }
-    });
-    if (!res.ok) { GIF_CACHE[vidKey] = null; return null; }
-    const data = await res.json();
-    const list = Array.isArray(data) ? data : [];
-    if (!list.length) { GIF_CACHE[vidKey] = null; return null; }
-    const ex = list[0];
-    // Build GIF URL from exercise id
-    const id = String(ex.id || '').padStart(4, '0');
-    const gifUrl = id ? `${GIF_BASE}${id}/0.gif` : null;
-    const result = {
-      gifUrl,
-      muscles: [
-        ...(ex.target ? [ex.target] : []),
-        ...(ex.secondaryMuscles || []).slice(0, 2)
-      ]
-    };
-    GIF_CACHE[vidKey] = result;
-    return result;
-  } catch(e) {
-    GIF_CACHE[vidKey] = null;
-    return null;
-  }
+function getExerciseData(vidKey) {
+  const path = GIF_MAP[vidKey];
+  if (!path) return null;
+  return { gifUrl: BASE + path, muscles: [] };
 }
 
-function preCacheTab() {
-  const plans = gender === 'm' ? PLANS_H : PLANS_F;
-  const exercises = plans[curPlan].treinos[curTab].exercises;
-  exercises.forEach((ex, i) => {
-    if (GIF_CACHE[ex.vid] === undefined) {
-      setTimeout(() => fetchExercise(ex.vid), i * 200);
-    }
-  });
-}
+function preCacheTab() {} // no-op, images load instantly from static URLs
 
-function renderGifLoading() {
-  document.getElementById('vwrap').innerHTML =
-    `<div class="gif-box"><div class="gif-spinner-wrap">
-      <div class="gif-spinner"></div>
-      <div class="gif-spinner-txt">Carregando GIF...</div>
-    </div></div>`;
-}
 
 function renderGifResult(exName, result) {
   if (!result || !result.gifUrl) {
@@ -1067,13 +1015,10 @@ function renderGifResult(exName, result) {
       </div></div>`;
     return;
   }
-  const tags = result.muscles.map(m =>
-    `<span class="gif-muscle-tag">${m}</span>`).join('');
   document.getElementById('vwrap').innerHTML =
     `<div class="gif-box">
       <img src="${result.gifUrl}" alt="${exName}" loading="eager"
-           onerror="this.parentElement.innerHTML='<div class=\\'gif-err\\'><div class=\\'gif-err-icon\\'>🏋️</div><div class=\\'gif-err-txt\\'>${exName}</div></div>'">
-      <div class="gif-muscles">${tags}</div>
+           onerror="this.parentElement.innerHTML='<div class=\'gif-err\'><div class=\'gif-err-icon\'>🏋️</div><div class=\'gif-err-txt\'>${exName}</div></div>'">
     </div>`;
 }
 
@@ -1082,15 +1027,7 @@ function openModal(idx) {
   const plans = gender === 'm' ? PLANS_H : PLANS_F;
   const ex = plans[curPlan].treinos[curTab].exercises[idx];
   document.getElementById('mtitle').textContent = ex.name;
-
-  const cached = GIF_CACHE[ex.vid];
-  if (cached !== undefined) {
-    renderGifResult(ex.name, cached);
-  } else {
-    renderGifLoading();
-    fetchExercise(ex.vid).then(result => {
-      if (curIdx === idx) renderGifResult(ex.name, result);
-    });
+  renderGifResult(ex.name, getExerciseData(ex.vid));
   }
 
   document.getElementById('mstats').innerHTML =
